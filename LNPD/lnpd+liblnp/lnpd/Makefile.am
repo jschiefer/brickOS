@@ -1,6 +1,6 @@
 # Makefile - keep the upper hand.
 
-bin_PROGRAMS = lnpd
+sbin_PROGRAMS = lnpd
 
 lnpd_SOURCES = daemon.c daemon.h \
                lnp.c lnp.h \
