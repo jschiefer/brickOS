@@ -1,6 +1,6 @@
 ==============================================================================
  File: prep-lnpd-release.txt
- $Header: /home/jan/tmp/brickos/notes/prep-lnpd-release.txt,v 1.1 2005/01/16 23:08:27 stephmo Exp $
+ $Header: /home/jan/tmp/brickos/notes/prep-lnpd-release.txt,v 1.2 2005/01/17 21:42:31 stephmo Exp $
 
  These NOTES files remind us how to do less frequent
  tasks within the LNPD tree of the brickos project at sourceforge.
@@ -28,7 +28,7 @@ Note: Preparing a release of lnpd
 
     - formal versions we use are:
 	    0.2.6		      - a formal release 
-	    0.2.6.07          - a testing release (note extra digits at end)
+	    0.9.0          - a testing release (note extra digits at end)
 
 [ ] commit the change
 
@@ -41,9 +41,9 @@ Note: Preparing a release of lnpd
 
     - formal tags we use are:
 		rls-0-2-6       - a formal release
-	    tst-0-2-6-07 	- a testing release
+	    tst-0-9-0 	- a testing release
 
-	$ cvs tag -R tst-0-2-6-07
+	$ cvs tag -R tst-0-9-0
 
 
 -----------------------------------------------------
@@ -52,7 +52,7 @@ Note: Preparing a release of lnpd
 
 [ ] create a new tree by exporting the labeled files from CVS
 
-    $ cvs export -r tst-0-2-6-07 -d lnpd-0.2.6.07 LNPD
+    $ cvs export -r tst-0-9-0 -d lnpd-0.9.0.exp LNPD
 
 	This means have cvs extract files recusively from the
 	label (-r label) and place them into named directory 
@@ -62,14 +62,22 @@ Note: Preparing a release of lnpd
 
 [ ] make the distribution file (on Linux system, preferred)
 
-	$ cd lnpd-0.2.6.07    # enter root of new tree
+	$ cd lnpd-0.9.0.exp      # enter root of new tree
 	$ ./configure			 # make the Makefiles in the new tree
 	$ make dist				 # make the new tarball
 	$ mv *gz ..	             # move the tarball out of this tree
 
 [ ] unpack and build the new package
 
+	$ cd ..
+	$ tar --gzip -xvf lnpd-0.9.0.tar.gz
+	$ cd lnpd-0.9.0
+	$ ./configure
+	$ make all
+
 [ ] test the make install target
+
+	$ sudo make install
 
 [ ] test the daemon / test program functionality
 
@@ -82,7 +90,7 @@ Note: Preparing a release of lnpd
 [ ] commit the changes
 
 [ ] freshen the label
-	$ cvs tag -F -R tst-0-2-6-07
+	$ cvs tag -F -R tst-0-9-0
 
    
   RESTART from "Check the code at the label"
