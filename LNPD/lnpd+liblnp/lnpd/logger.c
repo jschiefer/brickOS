@@ -62,7 +62,7 @@ void log_set_level(int level,int enabled)
 	if (level < LNPD_LOG_MAX) log_enabled[level] = enabled;
 }
 
-void log(int level, char* format,...)
+void logmsg(int level, char* format,...)
 {
 	struct timeval now,diff;
 	unsigned long runtime;

@@ -21,13 +21,12 @@ enum loglevel
 	LNPD_LOG_MAX
 };
 
-extern void log(int level, char* format,...);
+extern void logmsg(int level, char* format,...);
 extern void log_init(char *filename,char* progname);
 extern void log_set_level(int level,int enabled);
 
 #define error_exit(message) \
-	{ log(LNPD_LOG_FATAL,"%s.  %s(),%s,line %d",strerror(errno),message,__FILE__,__LINE__); \
+	{ logmsg(LNPD_LOG_FATAL,"%s.  %s(),%s,line %d",strerror(errno),message,__FILE__,__LINE__); \
 	exit(1); }
 
 #endif
-	

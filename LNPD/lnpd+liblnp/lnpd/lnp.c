@@ -76,13 +76,13 @@ void lnp_integrity_byte(unsigned char b)
     	// valid headers are 0xf0 .. 0xf7
 		if((b & (unsigned char) 0xf8) == (unsigned char) 0xf0)
       	{
-      		log(LNPD_LOG_INTEGRITY,"Header %2x",(unsigned)b);
+      		logmsg(LNPD_LOG_INTEGRITY,"Header %2x",(unsigned)b);
       		lnp_integrity_state++;
       	}
       	break;
 
    	case LNPwaitLength:
-       	log(LNPD_LOG_INTEGRITY,"Length %u",(unsigned)b);
+       	logmsg(LNPD_LOG_INTEGRITY,"Length %u",(unsigned)b);
 	   	endOfData=b+2;
       	lnp_integrity_state++;
       	break;
@@ -95,10 +95,10 @@ void lnp_integrity_byte(unsigned char b)
     case LNPwaitCRC:
       	if(b == (unsigned char)lnp_checksum(buffer,endOfData))
       	{
-      		log(LNPD_LOG_INTEGRITY,"Packet received");
+      		logmsg(LNPD_LOG_INTEGRITY,"Packet received");
 	        deliver_packet(buffer,bytesRead);
 	    }
-	    else log(LNPD_LOG_INTEGRITY,"Bad checksum");
+	    else logmsg(LNPD_LOG_INTEGRITY,"Bad checksum");
 	    lnp_integrity_reset();
 	}
 }
@@ -106,7 +106,7 @@ void lnp_integrity_byte(unsigned char b)
 // reset the integrity layer on error or timeout.
 void lnp_integrity_reset(void)
 {
-    log(LNPD_LOG_INTEGRITY,"Integrity reset");
+    logmsg(LNPD_LOG_INTEGRITY,"Integrity reset");
     lnp_integrity_state=LNPwaitHeader;
 }
 

@@ -42,7 +42,7 @@ static int make_lockfile(const char *device)
     // should work with glibc2.0 and 2.1
     if (nchars < 0 || nchars >= FILENAME_MAX)
     {
-    	log(LNPD_LOG_INFO,"tty name too long");
+    	logmsg(LNPD_LOG_INFO,"tty name too long");
     	return -1;
     }
 	
@@ -51,7 +51,7 @@ static int make_lockfile(const char *device)
 	{
 	    if (errno != EEXIST )
 		{
-			log(LNPD_LOG_INFO,"cannot create lockfile: %s", strerror(errno));
+			logmsg(LNPD_LOG_INFO,"cannot create lockfile: %s", strerror(errno));
  			return -1;
 		}
 		
@@ -63,7 +63,7 @@ static int make_lockfile(const char *device)
 				if ( errno == ENOENT ) continue; // lock file disappeared
 				else
 				{
-					log(LNPD_LOG_INFO,"cannot open lockfile %s",lockname);
+					logmsg(LNPD_LOG_INFO,"cannot open lockfile %s",lockname);
 					return -1;
 				}
 			}
@@ -72,7 +72,7 @@ static int make_lockfile(const char *device)
 			
 			if (result != 1)
 			{
-				log(LNPD_LOG_INFO,"cannot read pid from lockfile %s",lockname);
+				logmsg(LNPD_LOG_INFO,"cannot read pid from lockfile %s",lockname);
 				return -1;
 			}
 			
@@ -81,17 +81,17 @@ static int make_lockfile(const char *device)
 	    	if ( (result < 0 && errno == ESRCH) || ( lockpid == (int)getpid() ) )
 		    {
 				// process is gone, try to remove stale lock
-				log( LNPD_LOG_INFO, "trying to unlink stale lockfile");
+				logmsg( LNPD_LOG_INFO, "trying to unlink stale lockfile");
 				if ( unlink(lockname) < 0 &&
 			         errno != EINTR && errno != ENOENT )
 				{
-			    	log( LNPD_LOG_INFO, "cannot unlink stale lockfile: %s",strerror(errno));
+			    	logmsg( LNPD_LOG_INFO, "cannot unlink stale lockfile: %s",strerror(errno));
 			    	return -1;
 				}
 				continue;
 		    }
 		
-		    log(LNPD_LOG_INFO, "device is locked by pid %d ",lockpid);
+		    logmsg(LNPD_LOG_INFO, "device is locked by pid %d ",lockpid);
 			return -1;
 		}
 	}
@@ -102,13 +102,13 @@ static int make_lockfile(const char *device)
     sprintf( filepid, "%10d\n", (int) getpid() );
     if ( write(lockfd, filepid, strlen(filepid)) != strlen(filepid) )
 	{
-		log(LNPD_LOG_INFO,"cannot write to lockfile %s",strerror(errno));
+		logmsg(LNPD_LOG_INFO,"cannot write to lockfile %s",strerror(errno));
     	close(lockfd);
  		return -1;
 	}
 
     close(lockfd);
-	log(LNPD_LOG_INFO, "created lock file %s",lockname);
+	logmsg(LNPD_LOG_INFO, "created lock file %s",lockname);
 	return 0;
 }
 
@@ -126,7 +126,7 @@ int tty_init(int highspeed,int nolock,const char *device)
     // try to create lockfile
     if ( !nolock && make_lockfile(device))
    	{
-   		log(LNPD_LOG_FATAL,"cannot create lockfile");
+   		logmsg(LNPD_LOG_FATAL,"cannot create lockfile");
    		exit(1);
 	}    	
 
@@ -137,7 +137,7 @@ int tty_init(int highspeed,int nolock,const char *device)
 	// check if it´s a tty
 	if (!isatty(fd))
 	{
-    	log(LNPD_LOG_FATAL, "%s is not a tty", device);
+    	logmsg(LNPD_LOG_FATAL, "%s is not a tty", device);
     	exit(1);
 	}
 	
@@ -165,13 +165,13 @@ int tty_init(int highspeed,int nolock,const char *device)
     		ttyinfo.flags |= ASYNC_LOW_LATENCY;
     		break;
 	   	default:
-  			log(LNPD_LOG_INFO,"don´t know how to configure tty, trying low_latency");
+  			logmsg(LNPD_LOG_INFO,"don´t know how to configure tty, trying low_latency");
     		ttyinfo.flags |= ASYNC_LOW_LATENCY;
     }
 	
 	if (ioctl(fd,TIOCSSERIAL,&ttyinfo))
 	{
-		log(LNPD_LOG_INFO,"failed to configure tty: %s",strerror(errno));
+		logmsg(LNPD_LOG_INFO,"failed to configure tty: %s",strerror(errno));
 	}
 	
 	// we must close and reopen the tty

@@ -1,8 +1,11 @@
-2005-01-17	stephen
+2005-01-22	Michael Obenland
+	* Replaced log() with logmsg() fixing remaining compiler warnings
+
+2005-01-17	Stephen M Moraco
 	* Corrected lnpdll, lnpdllx to expect BrickOS .lx files
 	* Fixed Program slot number in lnpdll, lnpdllx (off by one)
 
-2005-01-16	stephen
+2005-01-16	Stephen M Moraco
 	* Renamed dll to lnpdll, dllx to lnpdllx to reflect that they use LNPd
 	* Hmmm patch #904945 didn't work, applied changes as shown at LUGNET
 	  http://news.lugnet.com/news/raw.cgi?lugnet.robotics.rcx.legos,3066
@@ -14,6 +17,6 @@
 	* converted LNPD to autoconf use which adds install targets
 	  and generates makefiles which work on multiple platforms
 
-2005-01-02	stephen
+2005-01-02	Stephen M Moraco
 	* committed first version (v0.1) of Martin Cornelius work to BrickOS CVS
 

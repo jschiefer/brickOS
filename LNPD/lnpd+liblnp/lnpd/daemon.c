@@ -142,7 +142,7 @@ int get_packet(unsigned char * buffer)
 	{
 		if (current_client->rcv_state == LNPD_READ_WAIT_TRANCSEIVER)
 		{
-			log(LNPD_LOG_CLIENT,"transmitting packet from client %u",current_client->identity);
+			logmsg(LNPD_LOG_CLIENT,"transmitting packet from client %u",current_client->identity);
 			// copy packet to transceiver
 			memcpy(buffer,current_client->rcv_buffer,current_client->packet_length);
 			current_client->rcv_state = LNPD_READ_WAIT_RESULT;
@@ -178,7 +178,7 @@ extern void deliver_packet(unsigned char *packet, int length)
 	// deliver packet to all clients
 	for ( cinfo = client_info_list; cinfo; cinfo = cinfo->next )
 	{
- 		log(LNPD_LOG_CLIENT,"delivered to %u, state %d",cinfo->identity,cinfo->tx_state);
+ 		logmsg(LNPD_LOG_CLIENT,"delivered to %u, state %d",cinfo->identity,cinfo->tx_state);
  		
 		// if client tx machine is not IDLE, packet is not sent
 		// hopefully this will never happen
@@ -221,7 +221,7 @@ static void check_new_clients(fd_set *fileset)
 		{
 			// accept will return errors in case of network problems
 			// so we don´t exit here but log the error
-			log(LNPD_LOG_INFO,"accept() error: %s",strerror(errno));
+			logmsg(LNPD_LOG_INFO,"accept() error: %s",strerror(errno));
 			return;
 		}
 		
@@ -239,7 +239,7 @@ static void check_new_clients(fd_set *fileset)
  		append_to_list(client_info);
  		
  		// we cannot look up the hostname, might take far too long 8-(
- 		log(LNPD_LOG_CLIENT,"connection %u from host %s, port %hu",
+ 		logmsg(LNPD_LOG_CLIENT,"connection %u from host %s, port %hu",
  			client_info->identity,
  			inet_ntoa(client_address.sin_addr),
  			ntohs(client_address.sin_port));
@@ -250,7 +250,7 @@ static void check_new_clients(fd_set *fileset)
 
 static void delete_client(lnpd_client_info_t* cinfo)
 {
- 	log(LNPD_LOG_CLIENT,"client %u closed",cinfo->identity),
+ 	logmsg(LNPD_LOG_CLIENT,"client %u closed",cinfo->identity),
  	
  	--num_clients;
  	
@@ -295,7 +295,7 @@ static int process_rcv( lnpd_client_info_t* cinfo,fd_set *readset,fd_set *writes
 				// socket closed or error
 				return -1;
 			
-			log(LNPD_LOG_CLIENT,"READ_IDLE read %2X from client %u",*cinfo->next_to_rcv,cinfo->identity);
+			logmsg(LNPD_LOG_CLIENT,"READ_IDLE read %2X from client %u",*cinfo->next_to_rcv,cinfo->identity);
 			
 			// is it an ACK we´re waiting for ?
 			if ( *cinfo->next_to_rcv == LNPD_ACK_OK && cinfo->tx_state == LNPD_WRITE_WAIT_ACK )
@@ -322,7 +322,7 @@ static int process_rcv( lnpd_client_info_t* cinfo,fd_set *readset,fd_set *writes
 				// socket closed or error
 				return -1;
 			
-			log(LNPD_LOG_CLIENT,"READ_GOT_HEADER read length %u from client %u",(unsigned)*cinfo->next_to_rcv,cinfo->identity);
+			logmsg(LNPD_LOG_CLIENT,"READ_GOT_HEADER read length %u from client %u",(unsigned)*cinfo->next_to_rcv,cinfo->identity);
 			
 			cinfo->packet_length = *cinfo->next_to_rcv + 3;
 			cinfo->next_to_rcv++;
@@ -340,7 +340,7 @@ static int process_rcv( lnpd_client_info_t* cinfo,fd_set *readset,fd_set *writes
 				return -1;
 			else
 			{
-				log(LNPD_LOG_CLIENT,"READ_Receiving read %d bytes client %u",result,cinfo->identity);
+				logmsg(LNPD_LOG_CLIENT,"READ_Receiving read %d bytes client %u",result,cinfo->identity);
 				if (result == bytes_left)
 					// complete packet received,
 					cinfo->rcv_state = LNPD_READ_WAIT_TRANCSEIVER;
@@ -399,7 +399,7 @@ static int process_tx( lnpd_client_info_t* cinfo,fd_set *readset,fd_set *writese
 				// socket closed or error;
 				return -1;
 				
-			log(LNPD_LOG_CLIENT,"wrote %d bytes to client %u",result,cinfo->identity),
+			logmsg(LNPD_LOG_CLIENT,"wrote %d bytes to client %u",result,cinfo->identity),
 
 			cinfo->next_to_tx += result;
 			if (cinfo->next_to_tx >= cinfo->tx_end)

@@ -210,7 +210,7 @@ void daemonise(void)
 // the signal handler
 void signal_handler(int signo)
 {
-	log(LNPD_LOG_FATAL,"caught signal %s, exiting",strsignal(signo));
+	logmsg(LNPD_LOG_FATAL,"caught signal %s, exiting",strsignal(signo));
 	exit(0);
 }
 
@@ -309,17 +309,17 @@ int main(int argc, char* argv[])
 	{
 		if ( !go_realtime())
 		{
-			log(LNPD_LOG_INFO,"running in Realtime Mode");
+			logmsg(LNPD_LOG_INFO,"running in Realtime Mode");
 		}
 		else
 		{
-			log(LNPD_LOG_FATAL,"cannot go realtime: %s",strerror(errno));
+			logmsg(LNPD_LOG_FATAL,"cannot go realtime: %s",strerror(errno));
 			exit(1);
 		}
 	}
 	else
 	{
-		log(LNPD_LOG_INFO,"running in Timesharing Mode");
+		logmsg(LNPD_LOG_INFO,"running in Timesharing Mode");
 	}
 	
 	// initialize daemon

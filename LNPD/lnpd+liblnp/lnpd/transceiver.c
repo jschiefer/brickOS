@@ -131,7 +131,7 @@ static int send_keepalive(int urgent)
 	if (result <0) error_exit("write");
 	if (result)
 	{
-		log(LNPD_LOG_LOGICAL,urgent ? "Urgent keepalive sent" : "Keepalive sent");
+		logmsg(LNPD_LOG_LOGICAL,urgent ? "Urgent keepalive sent" : "Keepalive sent");
 		set_time(&keep_alive_time,KEEP_ALIVE_TIMEOUT);
 		set_time(&tx_allowed_time,lnp_wait_keepalive);
 		return 1;
@@ -168,7 +168,7 @@ static int rcx_read(void)
 		total_read += bytes_read;
 		if ( ! bytes_read) break;
 		if ( bytes_read < 0 ) error_exit("read");
-        // log(LNPD_LOG_DEBUG,"read %d from tty",bytes_read);
+        // logmsg(LNPD_LOG_DEBUG,"read %d from tty",bytes_read);
 		
 		// check for frame errors
         if ( ioctl(rcxfd,TIOCGICOUNT,&new_error_info)) error_exit("ioctl");
@@ -184,7 +184,7 @@ static int rcx_read(void)
 	        	rx_flush();
 	        }
        		else rx_error();
-         	log(LNPD_LOG_LOGICAL,"Frame Error");
+         	logmsg(LNPD_LOG_LOGICAL,"Frame Error");
         	break;
         }
 
@@ -194,7 +194,7 @@ static int rcx_read(void)
 			{
 				if (*rcvd != *tx_verify)
 				{
-					log(LNPD_LOG_LOGICAL,"Transmit Collision");
+					logmsg(LNPD_LOG_LOGICAL,"Transmit Collision");
 					tx_error();
 					rx_flush();
 					goto done;
@@ -204,7 +204,7 @@ static int rcx_read(void)
 					active = 0;
 					set_time(&tx_allowed_time,lnp_wait_txok);
 					confirm_packet(TX_SUCCESS);
-					log(LNPD_LOG_LOGICAL,"Transmitted Packet Len %d",tx_end-tx_buffer);
+					logmsg(LNPD_LOG_LOGICAL,"Transmitted Packet Len %d",tx_end-tx_buffer);
 				}
 			}
 			else
@@ -236,7 +236,7 @@ static int rcx_write(void)
 				tx_verify = tx_buffer;
 				active = 1;
 				set_time(&inter_byte_time,lnp_byte_timeout);
-				log(LNPD_LOG_LOGICAL,"Transmit packet of length %d started",length);
+				logmsg(LNPD_LOG_LOGICAL,"Transmit packet of length %d started",length);
 			}
 			else if ( check_expired (&keep_alive_time) )
 			{
@@ -277,7 +277,7 @@ static void init_tower(int highspeed)
 
     if ( read(rcxfd,&read_back,1) != 1 )
     {
-    	log(LNPD_LOG_FATAL,"no response from tower");
+    	logmsg(LNPD_LOG_FATAL,"no response from tower");
     	exit(1);
     }
 }
@@ -286,7 +286,7 @@ static void check_interbyte_timeout(void)
 {
 	if (check_expired(&inter_byte_time))
 	{
-		log(LNPD_LOG_LOGICAL,"Inter-Byte Timeout");
+		logmsg(LNPD_LOG_LOGICAL,"Inter-Byte Timeout");
 		if (active) tx_error();
 		else rx_error();
 	}
