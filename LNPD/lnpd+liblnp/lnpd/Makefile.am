@@ -2,18 +2,14 @@
 
 bin_PROGRAMS = lnpd
 
-lnpd_SOURCES = daemon.c \
-               lnp.c \
-               logger.c \
+lnpd_SOURCES = daemon.c daemon.h \
+               lnp.c lnp.h \
+               logger.c logger.h \
                main.c \
-               rcxtty.c \
+               rcxtty.c rcxtty.h \
                tcp.c \
-               transceiver.c
-
-noinst_HEADERS = daemon.h \
-                 lnp.h \
-                 logger.h \
-                 rcxtty.h \
-                 transceiver.h
+               transceiver.c transceiver.h
 
 man_MANS = lnpd.8
+
+EXTRA_DIST = lnpd.8

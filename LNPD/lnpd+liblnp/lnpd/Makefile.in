@@ -90,13 +90,12 @@ VERSION = @VERSION@
 
 bin_PROGRAMS = lnpd
 
-lnpd_SOURCES = daemon.c                lnp.c                logger.c                main.c                rcxtty.c                tcp.c                transceiver.c
-
-
-noinst_HEADERS = daemon.h                  lnp.h                  logger.h                  rcxtty.h                  transceiver.h
+lnpd_SOURCES = daemon.c daemon.h                lnp.c lnp.h                logger.c logger.h                main.c                rcxtty.c rcxtty.h                tcp.c                transceiver.c transceiver.h
 
 
 man_MANS = lnpd.8
+
+EXTRA_DIST = lnpd.8
 mkinstalldirs = $(SHELL) $(top_srcdir)/inst-pieces/mkinstalldirs
 CONFIG_HEADER = ../../config.h
 CONFIG_CLEAN_FILES = 
@@ -122,8 +121,6 @@ man8dir = $(mandir)/man8
 MANS = $(man_MANS)
 
 NROFF = nroff
-HEADERS =  $(noinst_HEADERS)
-
 DIST_COMMON =  Makefile.am Makefile.in
 
 
@@ -353,7 +350,7 @@ install-am: all-am
 install: install-am
 uninstall-am: uninstall-binPROGRAMS uninstall-man
 uninstall: uninstall-am
-all-am: Makefile $(PROGRAMS) $(MANS) $(HEADERS)
+all-am: Makefile $(PROGRAMS) $(MANS)
 all-redirect: all-am
 install-strip:
 	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
