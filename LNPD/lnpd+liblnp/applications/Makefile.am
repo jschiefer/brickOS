@@ -3,7 +3,7 @@
 bin_PROGRAMS = lnpdll lnptest
 
 lnpdll_SOURCES = loader.c \
-              lx.c
+              lx.c lx.h
 
 lnptest_SOURCES = lnptest.c
 
