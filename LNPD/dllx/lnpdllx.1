@@ -1,0 +1,66 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH lnpdllx 1 "January 23, 2005"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+lnpdllx \- BrickOS RCX downloader communicating through the LNP Daemon
+.SH SYNOPSIS
+.B lnpdllx
+.RI [ -r {rcxnbr} ] 
+.RI [ -p {programslot} ]
+.RI [ -s {srcport} ]
+.RI [ -v ]
+{filename.lx}
+
+.\"
+.SH DESCRIPTION
+.B lnpdllx
+is an experimental version of lnpdll(1) an lnpd-aware limited version of 
+BrickOS dll(1) which is used to download programs to the RCX running BrickOS.  
+.B lnpdllx
+is different from dll(1) in that it communicates to the IR Tower using the 
+LNP Daemon instead of interacting directly to the tty serial port.
+
+.\"
+.SH OPTIONS
+A summary of options understood by 
+.B lnpdllx
+.
+.TP
+.B \-r {rcxnbr}
+download to the RCX {rcxnbr}
+.TP
+.B \-p {slotnbr}
+place the downloaded program in {slotnbr} ([1-8] for BrickOS)
+.TP
+.B \-s {srcport}
+the port from which you are sending the data
+.TP
+.B \-v
+enable verbose messages
+.TP
+.B \-h
+Show similar help text at command-line.
+
+.SH SEE ALSO
+lnpd(8), lnpdll(1), lnptest(1)
+.sp
+You'll find additional documentation in /usr/share/doc/lnpd (on Debian GNU/Linux systems) 
+
+.SH AUTHOR
+lnpdllx was written by Martin Cornelius <Martin.Cornelius@t-online.de> 
+This man page was written by Stephen Moraco <stephen@debian.org>
+
