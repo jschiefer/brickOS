@@ -9,7 +9,7 @@ OBJS=$(addsuffix .o,$(PARTS))
 
 CC = gcc
 LIBS=
-CINC = -I.
+CINC = 
 
 CFLAGS=-g -Wall $(CINC) -D_GNU_SOURCE
 MAKEDEPEND = gcc -M $(CINC)
