@@ -10,11 +10,16 @@
 <H1 CLASS="TITLE"><A NAME="AEN2" ></A>Instructions for building DJGPP H8300 cross compiler</H1>
 
 <H3 CLASS="AUTHOR"><A NAME="AEN4">Ed Manlove</A></H3>
-<SPAN CLASS="RELEASEINFO">    Version Pre-Release Ver. 2, 21 October, 2002<BR></SPAN>
-<P CLASS="COPYRIGHT">Copyright &copy; 2002 Ed Manlove.</P
+<SPAN CLASS="RELEASEINFO">    Version Release Ver. 1, 8 January, 2003<BR></SPAN>
+<P CLASS="COPYRIGHT">Copyright &copy; 2002,2003 Ed Manlove.</P
 ><DIV CLASS="REVHISTORY"><TABLE WIDTH="100%" BORDER="0">
 
 <TR><TH ALIGN="LEFT" VALIGN="TOP" COLSPAN="3"><B>Revision History</B></TH></TR>
+<TR><TD ALIGN="LEFT">Revision Release Ver. 1</TD><TD ALIGN="LEFT">8 January 2003</TD><TD ALIGN="LEFT">Revised by: ecm</TD></TR>
+	<TR><TD ALIGN="LEFT" COLSPAN="3"><UL>
+	<LI>Upgraded instructions for GCC Version 3.2.</LI>
+	<LI>Modified build script for binutl-2.121.</LI>
+	<LI>Modified required packages and install instructions.</LI></UL></TD></TR>
 <TR><TD ALIGN="LEFT">Revision Pre-Release Ver. 2</TD><TD ALIGN="LEFT">21
 October 2002</TD><TD ALIGN="LEFT">Revised by: ecm</TD></TR>
 	<TR><TD ALIGN="LEFT" COLSPAN="3"><UL>
@@ -29,9 +34,10 @@ October 2002</TD><TD ALIGN="LEFT">Revised by: ecm</TD></TR>
 <HR></DIV>
 
 <P><FONT COLOR="#FF0000">The following are instructions I am using for building the Hitachi H8300
-cross compiler for the DJGPP environment.  This instructions are not
-complete and need to be reformatted. Please read through the entire
-message before proceeding.</FONT></P>
+cross compiler for the DJGPP environment. Due to difficulty compiling gcc
+Version 2.95.2 and the eventual goal of upgrading brickOS to gcc 3.2, I am
+using version 3.2 in these instructions. Please read through the entire
+message before proceeding. -- Ed Manlove</FONT></P>
 
 <P>Many thanks to ...
 <TABLE BORDER="0" BGCOLOR="#FFFFFF" WIDTH="90%">
@@ -80,7 +86,11 @@ v2\djdev203.zip
 v2\faq230b.zip
 v2\djcrx203.zip
 v2gnu\bnu2121b.zip
-v2gnu\gcc31b.zip
+v2gnu\bnu2121a.zip
+v2gnu\bnu2121s.zip
+v2gnu\gcc32b.zip
+v2gnu\gcc32s.zip
+v2gnu\gpp32b.zip
 v2gnu\bsh204b.zip
 v2gnu\mak3791b.zip
 v2gnu\txi42b.zip
@@ -94,28 +104,33 @@ v2gnu\grep24b.zip
 v2gnu\txt20b.zip
 v2gnu\dif28b.zip
 v2gnu\gtxt040b.zip
-v2gnu\gpp31b.zip
-v2gnu\bnu2121s.zip
-v2gnu\gcc2952s.zip
-v2gnu\gcc2952s2.zip
+v2gnu\find41b.zip
+v2gnu\gwk311b.zip
+v2gnu\lgp2952b.zip
+v2gnu\acnf250b.zip
+v2gnu\m4-14b.zip
+v2gnu\perl561b.zip
 </PRE></TD></TR></TABLE>
 <P></LI>
 
 <LI><P>At the DOS prompt type the following
 
 <TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\> mkdir djgpp
+<TR><TD><PRE CLASS="DOSPROMPT"><FONT COLOR="FFFFFF">
+C:\> mkdir DJGPP
 C:\> cd djgpp
-C:\DJGPP> cp C:\temp\unzip32.exe C:\DJGPP\
+C:\DJGPP> copy C:\temp\unzip32.exe
 C:\DJGPP> unzip32 c:\temp\djdev203.zip
 C:\DJGPP> unzip32 c:\temp\faq230b.zip
+C:\DJGPP> unzip32 c:\temp\djcrx203.zip
 C:\DJGPP> unzip32 c:\temp\bnu2121b.zip
-C:\DJGPP> unzip32 c:\temp\gcc31b.zip
+C:\DJGPP> unzip32 c:\temp\bnu2121a.zip
+C:\DJGPP> unzip32 c:\temp\bnu2121s.zip
+C:\DJGPP> unzip32 -o c:\temp\gcc32b.zip
+C:\DJGPP> unzip32 -o c:\temp\gcc32s.zip
 C:\DJGPP> unzip32 c:\temp\bsh204b.zip
 C:\DJGPP> unzip32 c:\temp\mak3791b.zip
 C:\DJGPP> unzip32 c:\temp\txi42b.zip
-C:\DJGPP> unzip32 c:\temp\djcrx203.zip
 C:\DJGPP> unzip32 c:\temp\fil316b.zip
 C:\DJGPP> unzip32 c:\temp\shl2011b.zip
 C:\DJGPP> unzip32 c:\temp\tar112ab.zip
@@ -126,22 +141,24 @@ C:\DJGPP> unzip32 c:\temp\grep24b.zip
 C:\DJGPP> unzip32 c:\temp\txt20b.zip
 C:\DJGPP> unzip32 c:\temp\dif28b.zip
 C:\DJGPP> unzip32 c:\temp\gtxt040b.zip
-C:\DJGPP> unzip32 c:\temp\gpp31b.zip
-C:\DJGPP> unzip32 c:\temp\bnu2121s.zip
-C:\DJGPP> unzip32 c:\temp\gcc2952s.zip
-C:\DJGPP> unzip32 c:\temp\gcc2952s2.zip
+C:\DJGPP> unzip32 c:\temp\find41b.zip
+C:\DJGPP> unzip32 -o c:\temp\gwk311b.zip
+C:\DJGPP> unzip32 -o c:\temp\lgp2952b.zip
+C:\DJGPP> unzip32 c:\temp acnf250b.zip
+C:\DJGPP> unzip32 c:\temp m4-14b.zip
+C:\DJGPP> unzip32 c:\temp perl561b.zip
 </FONT></PRE></TD></TR></TABLE>
 <P></LI>
 
-<LI><P>DJGPP port of GCC 3.1 has a know bug in it.  To correct for this problem
-create file c:\DJGPP\gnu\gcc-3.1\djtypes.patch which contains the following
+<LI><P>DJGPP port of GCC 3.2 has a know bug in it.  To correct for this problem
+create file C:\DJGPP\brickos\gccpatch.diff which contains the following
 lines. NOTE: This patch is included at the end of the file
-C:\DJGPP\gnu\gcc-3.1\readme.DJGPP.
+C:\DJGPP\gnu\gcc-3.2\readme.DJGPP.
 
 <TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
 <TR><TD><PRE CLASS="PROGRAMLISTING">
---- include/sys/djtypes.h~1 Tue Dec 14 06:56:16 1999
-+++ include/sys/djtypes.h Mon Feb  4 16:20:40 2002
+--- ../../../include/sys/djtypes.h~1 Tue Dec 14 06:56:16 1999
++++ ../../../include/sys/djtypes.h Mon Feb  4 16:20:40 2002
 @@ -12,7 +12,12 @@
  #define __DJ_ssize_t typedef int ssize_t;
  #define __DJ_time_t typedef unsigned int time_t;
@@ -157,16 +174,9 @@ C:\DJGPP\gnu\gcc-3.1\readme.DJGPP.
 __GNUC__ >= 3 )
  /* wchar_t is now a keyword in C++ */
 </PRE></TD></TR></TABLE>
-</P></LI>
+</P>
 
-<LI><P>To apply the patch type the following at the DOS prompt
-
-<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\>cd DJGPP
-C:\DJGPP> patch -p0 -i c:\DJGPP\gnu\gcc-3.1\djtypes.patch
-</FONT></PRE></TD></TR></TABLE>
-<P></LI>
+<P>This patch will be applied by the binutils configure script below.<P></LI>
 
 <P></P></DIV>
 
@@ -192,7 +202,7 @@ set DJGPP=c:\djgpp\djgpp.env
 <LI><P>Next, set up the DJGPP environment variables.  At the DOS prompt
 type
 <TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+<TR><TD><PRE CLASS="DOSPROMPT"><FONT COLOR="FFFFFF">
 C:\>cd DJGPP
 C:\DJGPP> DJGPP
 </FONT></PRE></TD></TR></TABLE>
@@ -294,214 +304,9 @@ Build Binutils</H2>
 <P></P>
 
 <UL>
-<LI><P>To configure the binutils for the hitachi H8300 type the
-following at the dos prompt
-
-<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\DJGPP> cd gnu\binutl-2.121\build.djg
-C:\DJGPP\gnu\binutl-2.121\build.djg> sh djconfig.sh --target=h8300-hitachi-hms
-</FONT></PRE></TD></TR></TABLE>
-</P></LI>
-
-<LI><P>Once configure is complete and before binutils is built we must
-correct for a bug in the installation Makfile,
-C:\DJGPP\gnu\binutl-2.121\Makefile.in. First, create a patch
-file,C:\DJGPP\gnu\binutl-2.121\bnumake.diff, containing the following lines.
-
-<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING">
---- Makefile.in	Tue Oct  1 20:40:30 2002
-+++ Makefile.in	Tue Oct  1 20:40:08 2002
-@@ -63,7 +63,8 @@
- # cygwin host.
- INSTALL_PROGRAM_ARGS =
- 
--INSTALL = $(SHELL) $$s/install-sh -c
-+#INSTALL = $(SHELL) $$s/install-sh -c
-+INSTALL = C:/DJGPP/bin/ginstall -c
- INSTALL_PROGRAM = $(INSTALL) $(INSTALL_PROGRAM_ARGS)
- INSTALL_SCRIPT = $(INSTALL)
- INSTALL_DATA = $(INSTALL) -m 644
-</PRE></TD></TR></TABLE>
-</P>
-
-<P>To apply the patch, type
-
-<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\> cd C:\DJGPP\gnu\binutl-2.121
-C:\DJGPP\gnu\binutl-2.121\build.djg> patch -p0 -i C:\DJGPP\gnu\binutl-2.121\bnumake.diff
-</FONT></PRE></TD></TR></TABLE>
-</P></LI>
-
-<LI><P>Finally, to build and install the binutils for the hitachi H8300, type
-
-<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\DJGPP\gnu\binutl-2.121\build.djg> make
-C:\DJGPP\gnu\binutl-2.121\build.djg> make
-C:\DJGPP\gnu\binutl-2.121\build.djg> make install
-</FONT></PRE></TD></TR></TABLE>
-</P>
-
-<P>For reasons unkown at this point one must restart <I>make</I> to properly
-make the makefile created by the configure step.  Otherwise the following
-error might appear.
-
-
-<TABLE BORDER="0" BGCOLOR="#FF0000" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING">
-...
-ranlib .libs/libbfd.a
-creating libbfd.la
-(cd .libs && rm -f libbfd.la && ln -s ../libbfd.la libbfd.la)
-c:/djgpp/bin/ln: cannot create symbolic link `libbfd.la' to `../libbfd.la': Impr
-oper link (EXDEV)
-make.exe[3]: *** [libbfd.la] Error 1
-make.exe[3]: Leaving directory `c:/djgpp/gnu/binutl-2.121/build.djg/bfd'
-make.exe[2]: *** [all-recursive] Error 1
-make.exe[2]: Leaving directory `c:/djgpp/gnu/binutl-2.121/build.djg/bfd'
-make.exe[1]: *** [all-recursive-am] Error 2
-make.exe[1]: Leaving directory `c:/djgpp/gnu/binutl-2.121/build.djg/bfd'
-make.exe: *** [all-bfd] Error 2
-
-C:\DJGPP\gnu\binutl-2.121\build.djg>
-</PRE></TD></TR></TABLE>
-</P></LI>
-
-<P></P></DIV>
-
-<DIV CLASS="SECT4"><H2 CLASS="SECT4"><A NAME="AEN110"></A>4. Configure and
-Build GCC</H2>
-
-<UL>
-<LI><P>Before gcc is configured and built a couple of patches specific for the RCX must
-be applied.  First create the folowing two patch files.</P>
-
-<P>C:\DJGPP\gnu\gcc-2.952\build.djg\gcc-2.95.2-rcx-1.diff:
-<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING">
---- gcc\config\h8300\h8300.c	Thu Apr  8 01:17:52 1999
-+++ gcc\config\h8300\h8300.c	Wed Aug 16 16:57:10 2000
-@@ -43,6 +43,7 @@
- char *index ();
-
- static int h8300_interrupt_function_p PROTO ((tree));
-+static int h8300_rcx_interrupt_function_p PROTO ((tree));
- static int h8300_monitor_function_p PROTO ((tree));
- static int h8300_os_task_function_p PROTO ((tree));
-
-@@ -53,6 +54,16 @@
-    (either via #pragma or an attribute specification).  */
- int interrupt_handler;
-
-+/* True if the current function is an RCX firmware interrupt handler
-+   (via an attribute specification).
-+
-+   Handlers return with a normal subroutine return instruction.
-+   r6 is never saved as ROM does this already.
-+   Registers are only saved if used.
-+   Function calls force saving of r0..r3.
-+   */
-+int rcx_interrupt;
-+
- /* True if the current function is an OS Task
-    (via an attribute specification).  */
- int os_task;
-@@ -126,6 +137,8 @@
- #define WORD_REG_USED(regno)					\
-   (regno < 7 &&							\
-    (interrupt_handler						\
-+    || (rcx_interrupt && ((function_call_count>0 && regno<4) || \
-+                          (regs_ever_live[regno] && regno!=6))) \
-     || pragma_saveall						\
-     || (regno == FRAME_POINTER_REGNUM && regs_ever_live[regno])	\
-     || (regs_ever_live[regno] && !call_used_regs[regno])))
-@@ -237,6 +250,9 @@
-   if (h8300_interrupt_function_p (current_function_decl))
-     interrupt_handler = 1;
-
-+  if (h8300_rcx_interrupt_function_p(current_function_decl))
-+    rcx_interrupt = 1;
-+
-   /* If the current function has the OS_Task attribute set, then
-      we have a naked prologue.  */
-   if (h8300_os_task_function_p (current_function_decl))
-@@ -497,6 +513,7 @@
-
- out:
-   interrupt_handler = 0;
-+  rcx_interrupt = 0;
-   os_task = 0;
-   monitor = 0;
-   pragma_saveall = 0;
-@@ -2838,6 +2855,22 @@
-   return a != NULL_TREE;
- }
-
-+/* Return nonzero if FUNC is an RCX interrupt function as specified
-+   by the "rcx_interrupt" attribute.  */
-+
-+static int
-+h8300_rcx_interrupt_function_p (func)
-+     tree func;
-+{
-+  tree a;
-+
-+  if (TREE_CODE (func) != FUNCTION_DECL)
-+    return 0;
-+
-+  a = lookup_attribute ("rcx_interrupt", DECL_MACHINE_ATTRIBUTES (func));
-+  return a != NULL_TREE;
-+}
-+
- /* Return nonzero if FUNC is an OS_Task function as specified
-    by the "OS_Task" attribute.  */
-
-@@ -2947,6 +2980,7 @@
-     return 0;
-
-   if (is_attribute_p ("interrupt_handler", attr)
-+      || is_attribute_p ("rcx_interrupt", attr)
-       || is_attribute_p ("OS_Task", attr)
-       || is_attribute_p ("monitor", attr)
-       || is_attribute_p ("function_vector", attr))
-</PRE></TD></TR></TABLE>
-</P>
-
-<P>C:\DJGPP\gnu\gcc-2.952\build.djg\gcc-2.95.2-rcx-2.diff:
-<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING">
---- gcc\config\h8300\h8300.h	Mon Mar 22 01:08:28 1999
-+++ gcc\config\h8300\h8300.h	Wed Aug 16 16:58:04 2000
-@@ -36,7 +36,7 @@
- /* Names to predefine in the preprocessor for this target machine.  */
-
- #define CPP_PREDEFINES \
--"-D__LONG_MAX__=2147483647L -D__LONG_LONG_MAX__=2147483647L"
-+"-D__LONG_MAX__=2147483647L -D__LONG_LONG_MAX__=2147483647L -DCONF_RCX_COMPILER"
-
- #define CPP_SPEC \
-   "%{!mh:%{!ms:-D__H8300__}} %{mh:-D__H8300H__} %{ms:-D__H8300S__} \
-</PRE></TD></TR></TABLE>
-</P>
-
-<LI><P>To apply the patches, type
-
-<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\DJGPP> cd gnu\gcc-2.952
-C:\DJGPP\gnu\gcc-2.952> patch -u -i build.djg/gcc-2.95.2-rcx-1.diff
-C:\DJGPP\gnu\gcc-2.952> patch -u -i build.djp/gcc-2.95.2-rcx-2.diff
-</FONT></PRE></TD></TR></TABLE>
-</P>
-
-
-<LI><P>To configure gcc I use the following script.  This script,
-C:\DJGPP\gnu\gcc-2.952\build.djg\h8cfggcc.sh, is the djconfig.sh script from
-bintutils-2.121 with a few minor modifications.  I had difficulty using the
-djconfig.sh script for gcc-2.952.
+<LI><P>To configure binutils I use the following script.  This script,
+C:\DJGPP\gnu\binutl-2.121\build.djg\h8cfgbnu.sh, is the djconfig.sh script from
+bintutils-2.121 with a few minor modifications.
 
 <TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
 <TR><TD><PRE CLASS="PROGRAMLISTING">
@@ -534,8 +339,7 @@ djconfig.sh script for gcc-2.952.
 # Boston, MA 02111-1307, USA.  */
 #=====================================================================
 #
-# Call this script like the main configure script with one exception.  If
-you
+# Call this script like the main configure script with one exception.  If you
 # want to pass parameters to configure, you have to pass as the first
 # argument the srcdir, even when it is `.' !!!!!
 #
@@ -567,12 +371,14 @@ export CONFIG_SHELL=/dev/env/DJDIR/bin/sh.exe
 # (UNIX/DOS) format and is unusable with Bash ports before v2.03.
 utod $srcdir/ltmain.sh
 
+# set log file
+LOGFILE=/dev/env/DJDIR/brickos/h8cfgbnu.log
+
 # Give the configure script some hints:
-#export AS=as
+export AS=as
 export LD=ld
 export NM=nm
 export CC=gcc
-export CXX=gpp
 export CFLAGS="-O2 -g"
 export RANLIB=ranlib
 export DEFAULT_YACC="bison -y"
@@ -599,72 +405,211 @@ if test ! -f ${srcdir}/install-sh ; then
   fi
 fi
 
+# patch include\sys\djtypes.h
+echo "Applying patch to include\sys\djtypes.h ..."
+patch -p0 -i /dev/env/DJDIR/brickos/gccpatch.diff 2>&1 | tee --append $LOGFILE
+
 # Now run the configure script while disabling some things like the NLS
 # support, which is nearly impossible to be supported in the current way,
 # since it relies on file names which will never work on DOS.
 echo "Running the configure script..."
-$srcdir/configure --srcdir="$srcdir" --prefix='${DJDIR}' \
-  --disable-bfd-assembler \
+$srcdir/configure --srcdir="$srcdir" --prefix='${DJDIR}' --disable-bfd-assembler \
   --disable-shared --disable-nls --verbose --enable-build-warnings=\
--Wimplicit,-Wcomment,-Wformat,-Wparentheses,-Wpointer-arith \
---enable-target-optspace --with-newlib --enable-languages=c,c++ $*
+-Wimplicit,-Wcomment,-Wformat,-Wparentheses,-Wpointer-arith $* 2>&1 | tee --append $LOGFILE
 
 if test -f ${srcdir}/install- ; then
   mv ${srcdir}/install- ${srcdir}/install-.sh
 fi
-# -- EOF  h8cfggcc.sh ------------------------------------------------
+
+# patch gnu\binutl-2.121\Makefile.in
+echo "Applying patch to gnu\binutl-2.121\Makefile.in ..."
+patch -p0 -i /dev/env/DJDIR/brickos/bnumake.diff 2>&1 | tee --append $LOGFILE
+
+# build binutils-2.121
+echo "Building binutils-2.121 ..."
+make 2>&1 | tee --append $LOGFILE
+
+# install binutils-2.121
+echo "Installing binutils-2.121 ..."
+make install 2>&1 | tee --append $LOGFILE
 </PRE></TD></TR></TABLE>
 </P></LI>
 
-<LI><P>To configure gcc type at the dos prompt
+<LI><P>As seen in the configure script a patch must be made to the
+installation Makefile, gnu\binutil-2.121\Makefile.in. Create the file
+C:\DJGPP\brickos\bnumake.patch which contains the following lines.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+--- ..\Makefile.in	Tue Oct  1 20:40:30 2002
++++ ..\Makefile.in	Tue Oct  1 20:40:08 2002
+@@ -63,7 +63,8 @@
+ # cygwin host.
+ INSTALL_PROGRAM_ARGS =
+ 
+-INSTALL = $(SHELL) $$s/install-sh -c
++#INSTALL = $(SHELL) $$s/install-sh -c
++INSTALL = C:/DJGPP/bin/ginstall -c
+ INSTALL_PROGRAM = $(INSTALL) $(INSTALL_PROGRAM_ARGS)
+ INSTALL_SCRIPT = $(INSTALL)
+ INSTALL_DATA = $(INSTALL) -m 644
+</PRE></TD></TR></TABLE>
+</P></LI>
+
+<LI><P>Finally, to configure, build and install the binutils for the hitachi H8300, type
 
 <TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\DJGPP\gnu\gcc-2.952\build.djg> sh h8cfggcc.sh --target=h8300-hitachi-hms
+<TR><TD><PRE CLASS="DOSPROMPT"><FONT COLOR="FFFFFF">
+C:\DJGPP> cd gnu\binutl-2.121\build.djg
+C:\DJGPP\gnu\binutl-2.121\build.djg> sh h8cfgbnu.sh --target=h8300-hitachi-hms
 </FONT></PRE></TD></TR></TABLE>
 </P></LI>
 
-<LI><P>Then to build the script, type
+<P></P></DIV>
+
+<DIV CLASS="SECT4"><H2 CLASS="SECT4"><A NAME="AEN110"></A>4. Configure and
+Build GCC 3.2</H2>
+
+<UL>
+<LI><P>First a bug in the DJGPP gcc configure scripts needs to be fixed.
+Create the file C:\DJGPP\brickos\cfggcc.diff which contains the following lines.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+--- ..\gcc-3.2\gcc\config.gcc	Thu Aug 15 17:40:12 2002
++++ ..\gcc-3.2\gcc\config.gcc	Tue Dec 17 20:47:32 2002
+@@ -1342,7 +1342,7 @@
+ 	gas=yes
+ 	exeext=.exe
+ 	float_format=none
+-	case $host in *pc-msdosdjgpp*)
++	case $target in *pc-msdosdjgpp*)
+ 		target_alias=djgpp
+ 		;;
+ 	esac
+</PRE></TD></TR></TABLE>
+</P>
+
+<P>This patch will be applied by the gcc configure script below.<P></LI>
+
+
+<LI><P>To configure gcc 3.2 I use the following script.  This script,
+C:\DJGPP\gnu\build.gcc\h8cfggcc.sh, is the djconfig.sh script from
+gcc-2.95.2 with a few minor modifications.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+#! /bin/sh
+# Location of source directory
+export srcdir=`cd ../gcc-3.2; pwd | sed -e 's,[a-z][:],,g'`
+
+# give now the configure script some hints
+topdir=`(cd $srcdir/..; pwd | sed -e 's,[a-z][:],,g';)`
+AS=`test -f $DJDIR/bin/as.exe && echo $DJDIR/bin/as.exe`
+export AS=${AS-as}
+export CC=gcc
+export CFLAGS="-O2 -g -save-temps"
+export CXX=gpp
+export LD=ld
+export DEFAULT_LEX=flex
+export LEX=flex
+export RANLIB=ranlib
+export ac_cv_path_install="ginstall -c"
+export CONFIG_SHELL=bash
+dft_target=i586-pc-msdosdjgpp
+#
+# just in case
+export PATH_SEPARATOR=:
+#
+
+# set log file
+DATE="`date +%b%d`_`date +%Y`_`date +%H%M%S`"
+LOGFILE="/dev/env/DJDIR/brickos/gcc_${DATE}.log"
+
+# patch gnu\gcc-3.2\gcc\config\h8300\h8300.c, gnu\gcc-3.2\gcc\config\h8300\h8300.h
+#echo "Applying RCX patches to h8300.c, h8300.h ..."
+#patch -p0 -u -i /dev/env/DJDIR/brickos/gcc-3.2-rcx-1.diff 2>&1 | tee --append $LOGFILE
+#patch -p0 -u -i /dev/env/DJDIR/brickos/gcc-3.2-rcx-2.diff 2>&1 | tee --append $LOGFILE
+
+# patch gnu\gcc-3.2\gcc\config.gcc
+echo "Applying patch to gnu\gcc-3.2\gcc\config.gcc ..."
+patch -p0 -u -i /dev/env/DJDIR/brickos/cfggcc.diff 2>&1 | tee --append $LOGFILE
+
+# configure gcc for h8300
+$srcdir/configure --srcdir=$srcdir --disable-shared --verbose \
+		  --with-gxx-include-dir="${DJDIR}/lang/cxx" \
+		  --enable-languages=c,c++ \
+		  --with-gnu-ld	--target=h8300-hitachi-hms \
+		  --prefix="${DJDIR}" 2>&1 | tee --append $LOGFILE
+
+# build gcc-3.2
+echo "Building gcc-3.2 ..."
+make 2>&1 | tee --append $LOGFILE
+</PRE></TD></TR></TABLE>
+</P>
+<P><FONT COLOR="#FF0000">NOTE: The gcc-3.2-rcx patches are commented out.
+I have upgraded the previous gcc-2.95.2-rcx patches but have come across
+some errors when building the gcc cross compiler.  As these patches are not
+nessecary (they provide "optimized" intterrupt support) I am avoiding this
+issue at this time.</FONT></P></LI>
+
+
+<LI><P>To configure and build the gcc cross compiler type at the dos prompt
 
 <TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
-<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
-C:\DJGPP\gnu\gcc-2.952\build.djg> make
+<TR><TD><PRE CLASS="DOSPROMPT"><FONT COLOR="FFFFFF">
+C:\DJGPP\gnu\build.gcc> sh h8cfggcc.sh
 </FONT></PRE></TD></TR></TABLE>
-</P></LI>
+</P>
 
-
-<P>At this point I get the following error which I am trying to resolve.</P>
+<P>During the build the following error occurs.
 
 <TABLE BORDER="0" BGCOLOR="#FF0000" WIDTH="90%">
 <TR><TD><PRE CLASS="ERRORREPORT">
 ...
-make.exe[4]: Entering directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
-c:/djgpp/gnu/gcc-2.952/build.djg/gcc/xgcc -Bc:/djgpp/gnu/gcc-2.952/build.djg/gcc
-/ -Bc:/djgpp/h8300-hitachi-hms/bin/ -Ic:/djgpp/h8300-hitachi-hms/include -O2  -D
-CROSS_COMPILE -DIN_GCC     -O2 -g -I./include  -DDF=SF -DDI=SI -g1  -DIN_LIBGCC2
- -D__GCC_FLOAT_NOT_NEEDED -Dinhibit_libc   -g -O2 -I. -I../../gcc -I../../gcc/co
-nfig -I../../gcc/../include \
-  -c ../../gcc/cp/tinfo.cc
-In file included from ../../gcc/cp/tinfo.cc:32:
-include/new:28: `operator new' takes type `size_t' as first parameter
-include/new:29: `operator new' takes type `size_t' as first parameter
-include/new:32: `operator new' takes type `size_t' as first parameter
-include/new:33: `operator new' takes type `size_t' as first parameter
-include/new:38: `operator new' takes type `size_t' as first parameter
-include/new:39: `operator new' takes type `size_t' as first parameter
-make.exe[4]: *** [tinfo.o] Error 1
-make.exe[4]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
-make.exe[3]: *** [libgcc2.a] Error 1
-make.exe[3]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
-make.exe[2]: *** [stmp-multilib-sub] Error 2
-make.exe[2]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
-make.exe[1]: *** [stmp-multilib] Error 1
-make.exe[1]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
+(cd intl && c:/djgpp/bin/make.exe all)
+make.exe[2]: Entering directory `c:/djgpp/gnu/build.gcc/gcc/intl'
+\gcc -c -DIN_GCC -DLOCALEDIR=\"c:/djgpp/share/locale\" -DLOCALE_ALIAS_PATH=\"c:/
+djgpp/share/locale\" -DLIBDIR=\"c:/djgpp/lib\" -DHAVE_CONFIG_H -I.. -I. -I/djgpp
+/gnu/gcc-3.2/gcc/intl -I/djgpp/gnu/gcc-3.2/gcc -I/djgpp/gnu/gcc-3.2/gcc/config -
+I/djgpp/gnu/gcc-3.2/gcc/../include  -O2 -g -save-temps -W -Wall -Wwrite-strings
+-Wstrict-prototypes -Wmissing-prototypes -Wtraditional -pedantic -Wno-long-long
+ /djgpp/gnu/gcc-3.2/gcc/intl/intl-compat.c -o intl-compat.o
+make.exe[2]: *** [intl-compat.o] Error -1
+make.exe[2]: Leaving directory `c:/djgpp/gnu/build.gcc/gcc/intl'
+make.exe[1]: *** [intl.all] Error 1
+make.exe[1]: Leaving directory `c:/djgpp/gnu/build.gcc/gcc'
 make.exe: *** [all-gcc] Error 2
 
-C:\DJGPP\gnu\gcc-2.952\build.djg>
+C:\DJGPP\gnu\build.gcc>
 </PRE></TD></TR></TABLE>
+</P>
 
+<P>To resolve this, type the following at the DOS prompt
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="DOSPROMPT"><FONT COLOR="FFFFFF">
+C:\DJGPP\gnu\gcc-2.952\build.djg> cd gcc\intl
+C:\DJGPP\gnu\gcc-2.952\build.djg\gcc\intl> make
+</FONT></PRE></TD></TR></TABLE>
+</P>
+
+<P>To finish of the build and install gcc at the DOS prompt, type
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="DOSPROMPT"><FONT COLOR="FFFFFF">
+C:\DJGPP\gnu\gcc-2.952\build.djg\gcc\intl> cd ..\..
+C:\DJGPP\gnu\gcc-2.952\build.djg> make
+C:\DJGPP\gnu\gcc-2.952\build.djg> make install
+</FONT></PRE></TD></TR></TABLE>
+</P></LI>
+
+<P></P></DIV>
+
+<DIV CLASS="SECT5"><H1 CLASS="SECT5"><A NAME="AEN40"></A>Congratulations!</H1>
+
+<P> You can now start using your succefully built cross compiler and build
+brickOS under DJGPP/MS-DOS!</P>
 
 <P></P></DIV>
 
