@@ -1,17 +1,36 @@
 #  Example makefile to install website via ssh to sourceforge
-#  Adjust the SF_LOGIN value before use
+#  Adjust the LOGIN_NAME value before use
 #
 #  post to web sequence:
 #    {edit the files}
 #    {cvs commit the changes}
-#    make release   #  to post the content
+#    make rls   #  to post the content
 #
-SF_LOGIN=stephmo
+LOGIN_NAME=stephmo
+FLAGFIL=.lastInstall
 
 all:
+	@echo "useful targets are: rls"
 
-rls:
-	scp -r `/bin/ls | egrep -v "Makefile|CVS|Root|Repository|Entries"` \
-		$(SF_LOGIN)@brickos.sourceforge.net:/home/groups/b/br/brickos/htdocs
+ensureFlagExists:
+	@if test ! -f $(FLAGFIL); then \
+		(set -x;touch -t 0001010001 $(FLAGFIL)); \
+	fi
 
-.PHONEY: rls
+rls: ensureFlagExists
+	@(export CURDIR=`pwd`; FLAG=$$CURDIR/$(FLAGFIL); \
+	for DIR in `find . -type d | egrep -v CVS`; do \
+	   cd $$DIR; \
+	   echo "Installing files found in $$DIR:"; \
+	   for FIL in `find . -type f -maxdepth 1`; do \
+	   	if [[ $$FIL -nt $$FLAG ]]; then \
+	   		scp $$FIL $(LOGIN_NAME)@brickos.sourceforge.net:/home/groups/b/br/brickos/htdocs/$$DIR; \
+	   	fi; \
+	   done; \
+	   cd -; \
+	done)
+	@sleep 2
+	@touch $(FLAGFIL)
+	@echo "Install is Done"
+
+.PHONEY: rls all
