@@ -32,7 +32,7 @@ static int done,sender_1_done,sender_2_done,sender_3_done;
 
 wakeup_t prgmKeyCheck(wakeup_t data)
 {
-    return dkey == KEY_PRGM;
+    return (dkey == KEY_PRGM);
 }
 
 wakeup_t countchanged(wakeup_t data)
@@ -158,6 +158,8 @@ int main(int argc, char *argv[])
     wait_event(childTest,0);
     lnp_addressing_set_handler(MY_PORT,LNP_DUMMY_ADDRESSING);
     cputs("done");
+	sleep(2);	// show done for 2 sec then clear display...
+    lcd_clear();
     return 0;
 }
 

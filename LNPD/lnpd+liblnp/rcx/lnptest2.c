@@ -38,5 +38,7 @@ int main ( int argc, char **argv )
 	    msleep ( 200 );
     }
     cputs ( "done" );
+	sleep(2);	// show done for 2 sec then clear display...
+    lcd_clear();
     return 0;
 }
