@@ -57,7 +57,7 @@ int lx_write(const lx_t *lx,const unsigned char *filename) {
 
   // write ID
   //
-  ASSURED_WRITE(fd,"brickOS",6);
+  ASSURED_WRITE(fd,"brickOS",8);
   // write header data in MSB
   //
   for(i=0; i<HEADER_FIELDS; i++) {
