@@ -49,7 +49,7 @@ INSTALLATION:
   LD_LIBRARY_PATH to the directory where liblnp.so.1 lives.
   
 RUNNING LNPD:
-  Actually, you don´t have to be root to run lnpd, except for one reason: If
+  Actually, you don't have to be root to run lnpd, except for one reason: If
   your serial chip (uart) is a 16550A with builtin FIFO, this FIFO should be
   disabled to get optimal LNP performance. To do this, you have 2 options:
   - Before starting lnpd for the first time, run
