@@ -1,8 +1,8 @@
 # Makefile - keep the upper hand.
 
 #adjust to your setup
-LIBLNPDIR=$(HOME)/development/legOS/host/liblnp
-LIBLNPINC=$(HOME)/development/legOS/host/liblnp
+LIBLNPDIR=../lnpd+liblnp/liblnp
+LIBLNPINC=../lnpd+liblnp/liblnp
 
 TARGET1=dllx
 SRCS1=loader2.c lx.c
