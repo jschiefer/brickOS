@@ -8,7 +8,10 @@
 #
 SF_LOGIN=stephmo
 
-release:
-	scp -r `/bin/ls | egrep -v "Makefile|CVS"` \
+all:
+
+rls:
+	scp -r `/bin/ls | egrep -v "Makefile|CVS|Root|Repository|Entries"` \
 		$(SF_LOGIN)@brickos.sourceforge.net:/home/groups/b/br/brickos/htdocs
 
+.PHONEY: rls
