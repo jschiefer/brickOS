@@ -4,9 +4,14 @@
 # dllx - one such application which allows for program downloads to RCX via lnp
 #
 
+pkgdocdir = $(datadir)/doc/@PACKAGE@
+pkgexmpldir= $(datadir)/doc/@PACKAGE@/examples
+
 SUBDIRS = lnpd+liblnp dllx
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README VERSION inst-pieces TODO
+EXTRA_DIST = AUTHORS TODO COPYING \
+             ChangeLog INSTALL NEWS \
+             README VERSION inst-pieces
 
 distclean-generic:
 	rm -f stamp-h.in *~ stamp-h

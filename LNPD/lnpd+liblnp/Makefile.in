@@ -10,9 +10,7 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-#
-# lnpd & liblnp
-# a Linux Interface to BrickOS
+# LNP - a Linux Interface to BrickOS
 #
 
 
@@ -91,9 +89,7 @@ RC = @RC@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
-SUBDIRS = liblnp lnpd applications
-
-EXTRA_DIST = rcx/lnptest.c rcx/lnptest2.c
+SUBDIRS = liblnp lnpd applications rcx
 mkinstalldirs = $(SHELL) $(top_srcdir)/inst-pieces/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
@@ -213,7 +209,6 @@ distdir: $(DISTFILES)
 	distdir=`cd $(distdir) && pwd`; \
 	cd $(top_srcdir) \
 	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu lnpd+liblnp/Makefile
-	$(mkinstalldirs) $(distdir)/rcx
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \

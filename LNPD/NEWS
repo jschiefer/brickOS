@@ -1,3 +1,16 @@
-lnpd 1.0.0
+lnpd 0.9.0
 ----------
 2005-01-16	First compatible version now in BrickOS CVS Archive
+            and ready for initial testing.  After all mode are 
+	        shown to be working then we will bump this to 1.0.0!
+
+			All help is appreciated in testing an reporting what
+			works and what doesn't.  Also we need to know what
+			is missing or is extra in this lnpd package.
+
+			With your help providing feedback (both positive and 
+			negative) we will get to 1.0.0 quickly!
+
+			Enjoy - Your BrickOS team.
+
+Stephen M Moraco (stephen@debian.org) - Mon, 17 Jan 2005 14:30:23 -0700

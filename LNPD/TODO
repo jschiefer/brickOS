@@ -1,11 +1,11 @@
 TODO list for lnpd 
 ------------------
 
- - add install for rcx/lnptest.c
  - choose the working version of lnpdll(x) and kill the other!
  - add manpage for lnpdll (or lnpdllx) whichever is real
  - kill off the lnpdllx name
  - ensure lnpdll uses similar options for stuff that would be in dll(1)
  - add USB tower support to daemon 
+ - distribute lnptest and lnptest2 sources with example make file as example
 
-Stephen M Moraco (stephen@users.sourceforge.net) - Sun, 16 Jan 2005 17:23:58 -0700
+Stephen M Moraco (stephen@debian.org) - Mon, 17 Jan 2005 14:26:49 -0700

@@ -20988,7 +20988,7 @@ fi
 done
 
 
-                                                            ac_config_files="$ac_config_files Makefile lnpd+liblnp/Makefile lnpd+liblnp/liblnp/Makefile lnpd+liblnp/lnpd/Makefile lnpd+liblnp/applications/Makefile dllx/Makefile"
+                                                                      ac_config_files="$ac_config_files Makefile lnpd+liblnp/Makefile lnpd+liblnp/liblnp/Makefile lnpd+liblnp/lnpd/Makefile lnpd+liblnp/applications/Makefile lnpd+liblnp/rcx/Makefile dllx/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -21530,6 +21530,7 @@ do
   "lnpd+liblnp/liblnp/Makefile" ) CONFIG_FILES="$CONFIG_FILES lnpd+liblnp/liblnp/Makefile" ;;
   "lnpd+liblnp/lnpd/Makefile" ) CONFIG_FILES="$CONFIG_FILES lnpd+liblnp/lnpd/Makefile" ;;
   "lnpd+liblnp/applications/Makefile" ) CONFIG_FILES="$CONFIG_FILES lnpd+liblnp/applications/Makefile" ;;
+  "lnpd+liblnp/rcx/Makefile" ) CONFIG_FILES="$CONFIG_FILES lnpd+liblnp/rcx/Makefile" ;;
   "dllx/Makefile" ) CONFIG_FILES="$CONFIG_FILES dllx/Makefile" ;;
   "default-1" ) CONFIG_COMMANDS="$CONFIG_COMMANDS default-1" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;

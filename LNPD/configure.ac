@@ -58,6 +58,7 @@ AC_CONFIG_FILES([Makefile
                  lnpd+liblnp/liblnp/Makefile
                  lnpd+liblnp/lnpd/Makefile
                  lnpd+liblnp/applications/Makefile
+                 lnpd+liblnp/rcx/Makefile
                  dllx/Makefile])
 AC_OUTPUT
 

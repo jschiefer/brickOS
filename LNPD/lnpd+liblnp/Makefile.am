@@ -1,8 +1,5 @@
-#
-# lnpd & liblnp
-# a Linux Interface to BrickOS
+# LNP - a Linux Interface to BrickOS
 #
 
-SUBDIRS = liblnp lnpd applications
+SUBDIRS = liblnp lnpd applications rcx
 
-EXTRA_DIST = rcx/lnptest.c rcx/lnptest2.c

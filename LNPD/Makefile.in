@@ -92,9 +92,13 @@ RC = @RC@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
+pkgdocdir = $(datadir)/doc/@PACKAGE@
+pkgexmpldir = $(datadir)/doc/@PACKAGE@/examples
+
 SUBDIRS = lnpd+liblnp dllx
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README VERSION inst-pieces TODO
+EXTRA_DIST = AUTHORS TODO COPYING              ChangeLog INSTALL NEWS              README VERSION inst-pieces
+
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/inst-pieces/mkinstalldirs
 CONFIG_HEADER = config.h
