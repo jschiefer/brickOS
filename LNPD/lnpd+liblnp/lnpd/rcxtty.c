@@ -126,7 +126,7 @@ int tty_init(int highspeed,int nolock,const char *device)
     // try to create lockfile
     if ( !nolock && make_lockfile(device))
    	{
-   		log(LNPD_LOG_FATAL,"can´t create lockfile");
+   		log(LNPD_LOG_FATAL,"cannot create lockfile");
    		exit(1);
 	}    	
 

@@ -50,7 +50,7 @@ void log_init(char *filename,char *progname)
 			logfd = open(filename,O_CREAT | O_APPEND | O_WRONLY, 0644);
 			if (logfd < 0)
 			{
-				fprintf(stderr,"can´t open logfile %s: %s\n",filename,strerror(errno));
+				fprintf(stderr,"cannot open logfile %s: %s\n",filename,strerror(errno));
 				exit(1);
 			}
 		}
@@ -85,7 +85,7 @@ void log(int level, char* format,...)
 		sprintf(message+strlen(message),"\n");
 		if ( write(logfd,message,strlen(message)) != strlen(message) )
 		{
-			fprintf(stderr,"can´t write to logfile %s\n",strerror(errno));
+			fprintf(stderr,"cannot write to logfile %s\n",strerror(errno));
 			exit(1);
 		}
 	}

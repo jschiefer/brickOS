@@ -190,12 +190,18 @@ void daemonise(void)
 {
 	pid_t pid;
 	
-	if ( (pid = fork())< 0)
+	if ((pid = fork())< 0)
 	{
 		perror("fork");
 		exit(1);
 	}
-	else if (pid !=0 ) exit (0);
+	else
+	{
+		if (pid !=0)
+		{
+			exit (0);
+		}
+	}
 	
 	setsid();
 	umask(0);
@@ -256,11 +262,16 @@ int main(int argc, char* argv[])
 	option_values.lflag[LNPD_LOG_INFO] = 1;
 	
 	// parse command line options
-    if (argp_parse (&opt_parser, argc, argv, 0, 0, &option_values)) error_exit("argp_parse");
+    if (argp_parse (&opt_parser, argc, argv, 0, 0, &option_values))
+	{
+		error_exit("argp_parse");
+	}
 
     // check for optimal extra_wait
-    if ( option_values.extra_wait < 0 )
+    if ( option_values.extra_wait < 0 ) 
+	{
     	option_values.extra_wait = option_values.highspeed ? EXTRA_WAIT_FAST : EXTRA_WAIT_SLOW;
+	}
 
     // go into background
     if (!option_values.nodaemon) daemonise();
@@ -281,7 +292,10 @@ int main(int argc, char* argv[])
 	if ( option_values.dologging )
 	{
 		log_init(option_values.logfile,myname);
-		for (i=0;i< LNPD_LOG_MAX;++i) log_set_level(i,option_values.lflag[i]);
+		for (i=0;i< LNPD_LOG_MAX;++i) 
+		{
+			log_set_level(i,option_values.lflag[i]);
+		}
 	}
 	
 	// initialise tty
@@ -294,15 +308,19 @@ int main(int argc, char* argv[])
 	if (option_values.realtime)
 	{
 		if ( !go_realtime())
+		{
 			log(LNPD_LOG_INFO,"running in Realtime Mode");
+		}
 		else
 		{
-			log(LNPD_LOG_FATAL,"can´t go realtime: %s",strerror(errno));
+			log(LNPD_LOG_FATAL,"cannot go realtime: %s",strerror(errno));
 			exit(1);
 		}
 	}
 	else
+	{
 		log(LNPD_LOG_INFO,"running in Timesharing Mode");
+	}
 	
 	// initialize daemon
 	daemon_init(option_values.port,option_values.maxclients);
