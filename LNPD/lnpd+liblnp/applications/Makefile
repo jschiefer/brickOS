@@ -10,7 +10,7 @@ OBJS2=$(SRCS2:.c=.o)
 
 LIBS= -llnp
 
-CINC = -I. -I../liblnp
+CINC = -I../liblnp
 CFLAGS=-O2 -Wall $(CINC)
 LDFLAGS = -L../liblnp
 
