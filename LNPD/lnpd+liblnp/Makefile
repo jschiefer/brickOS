@@ -1,6 +1,6 @@
 #
 # lnpd & liblnp
-# a LinuX Interface to legOS
+# a Linux Interface to BrickOS
 #
 
 SUBDIRS = lnpd liblnp applications
