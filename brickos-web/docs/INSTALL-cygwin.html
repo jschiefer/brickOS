@@ -1,0 +1,688 @@
+<HTML
+><HEAD
+><TITLE
+>brickOS 0.2.6.08 -
+    Instructions for installing on Win9x/NT/2000/XP</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.77"></HEAD
+><BODY 
+BGCOLOR="white"
+CLASS="ARTICLE"
+><DIV
+CLASS="ARTICLE"
+><DIV
+CLASS="TITLEPAGE"
+><H1
+CLASS="TITLE"
+><A
+NAME="AEN2"
+></A
+>brickOS 0.2.6.08 -
+    Instructions for installing on Win9x/NT/2000/XP</H1
+><H3
+CLASS="AUTHOR"
+><A
+NAME="AEN4"
+>Paolo Masetti</A
+></H3
+><SPAN
+CLASS="RELEASEINFO"
+>    Version 1.2, 19 September, 2002
+      <BR></SPAN
+><P
+CLASS="COPYRIGHT"
+>Copyright &copy; 2001 Paolo Masetti.</P
+><DIV
+CLASS="REVHISTORY"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+COLSPAN="3"
+><B
+>Revision History</B
+></TH
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+>Revision 1.2</TD
+><TD
+ALIGN="LEFT"
+>19 Sep 2002</TD
+><TD
+ALIGN="LEFT"
+>Revised by: smm</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+COLSPAN="3"
+>Update for brickOS 0.2.7.08, formerly legOS</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+>Revision 1.1</TD
+><TD
+ALIGN="LEFT"
+>19 Apr 2002</TD
+><TD
+ALIGN="LEFT"
+>Revised by: smm</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+COLSPAN="3"
+>Update for legOS 0.2.6</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+>Revision 1.0</TD
+><TD
+ALIGN="LEFT"
+>13 May 2001</TD
+><TD
+ALIGN="LEFT"
+>Revised by: pm</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+COLSPAN="3"
+>Initial Release after legOS 0.2.5</TD
+></TR
+></TABLE
+></DIV
+><HR></DIV
+><P
+>    		 This document is an adaptation of the original version written by
+    		 <A
+HREF="mailto:peter.vanderbeken@pandora.be"
+TARGET="_top"
+>    		   <I
+CLASS="CITETITLE"
+>Peter Van der Beken</I
+>
+    		 </A
+>.
+    		 Many thanks to
+    		 <A
+HREF="mailto:luge@users.sourceforge.net"
+TARGET="_top"
+>    		   <I
+CLASS="CITETITLE"
+>Luis Villa</I
+>
+    		 </A
+>
+    		 for his HOW-TO for Linux and his effort in documenting brickOS.
+	     </P
+><P
+>    		 If you have problems related to these instruction, you can write to
+    		 <A
+HREF="mailto:paolom@users.sourceforge.net"
+TARGET="_top"
+>    		   <I
+CLASS="CITETITLE"
+>Paolo Masetti</I
+>
+    		 </A
+>.
+	     </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+WIDTH="100%"
+BORDER="0"
+><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+><IMG
+SRC="../images/caution.gif"
+HSPACE="5"
+ALT="Caution"></TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+><P
+>    		 These instruction work for me (I'm using NT Win2k Pro SP1). I can't be sure
+    		 they'll do for you but I'm quite sure. They should get brickOS working on your own
+    		 PC, but they should be used at your own risk as with any other program
+    		 installation, you may crash your computer, lose files, and generally make a mess
+    		 of things. So, neither he nor I am responsible for what happens. :-)
+	     </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>    		 These instructions give you a fully functional brickOS 0.2.6.08 (probably a newer
+    		 version too). You will be able to recompile the entire kernel image, the tools
+    		 (dll, firmdl3 &#38; so on). You will have to download a lot of MB. If you do not
+    		 like that, please use
+    		 <A
+HREF="http://legos.sourceforge.net/files/windows/djgpp/winlegos.exe"
+TARGET="_top"
+>    		 <I
+CLASS="CITETITLE"
+>WinlegOS</I
+>
+    		 </A
+>
+    		 that is a good porting of the minimal requirement
+    		 to compile and upload .lx files with Windows.
+	     </P
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN40"
+></A
+>Step by step instructions:</H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN42"
+></A
+>1. Install Cygwin</H2
+><P
+></P
+><UL
+><LI
+><P
+>    		 Install Cygwin 1.3.x or newer version (1.3.10 as of this writing) from Cygwin Site:
+			 <A
+HREF="http://www.cygwin.com/"
+TARGET="_top"
+>			 <I
+CLASS="CITETITLE"
+>http://www.cygwin.com/</I
+>
+			 </A
+>.
+    	     </P
+></LI
+><LI
+><P
+>    		 You can install it on-line running the setup program directly from this url:
+			 <A
+HREF="http://www.cygwin.com/setup.exe"
+TARGET="_top"
+>			 <I
+CLASS="CITETITLE"
+>Install Cygwin now</I
+>
+			 </A
+>. Save the file in a temporary  directory and run it.
+    	     </P
+></LI
+><LI
+><P
+>    		 You can download all the files for a later install, or install directly from
+			 Internet. Choice the best for you:
+		 <DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/Cygwin1.jpg"></P
+></DIV
+>
+
+    	     </P
+></LI
+><LI
+><P
+>			 Install in the directory that you prefer. Do not worry about it, this version
+			   of cygwin will mount directories as *nix later. I use these choices:
+		 <DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/Cygwin2.jpg"></P
+></DIV
+>
+
+    	     </P
+></LI
+><LI
+><P
+>			 Last setup I've tried let you choose which modules you need to download and
+			   setup. Here is a minimal list (but probably some modules could be removed too)
+			     that was tested and works:
+				<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>ash
+autoconf
+automake
+bash
+binutils
+cpio
+cygwin
+diff
+file
+fileutils
+findutils
+flex
+gcc
+grep
+less
+login
+make
+mingw
+patch
+sed
+shellutils
+tar
+textutils
+time
+w32api
+				</PRE
+></TD
+></TR
+></TABLE
+>
+    	     </P
+><DIV
+CLASS="MEDIAOBJECT"
+><P
+><IMG
+SRC="../images/Cygwin3.jpg"></P
+></DIV
+></LI
+></UL
+><P
+>  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN76"
+></A
+>2. Build the Hitachi-H8 cross-compiler</H2
+><P
+></P
+><UL
+><LI
+><P
+>		       Open a cygwin bash shell window (you can open it using
+			   <SPAN
+CLASS="GUIMENU"
+>Start</SPAN
+>-&gt;<SPAN
+CLASS="GUISUBMENU"
+>Programs</SPAN
+>-&gt;<SPAN
+CLASS="GUISUBMENU"
+>Cygnus
+			     Solution</SPAN
+>-&gt;<SPAN
+CLASS="GUIMENUITEM"
+>Cygwin Bash Shell</SPAN
+>)
+	         </P
+></LI
+><LI
+><P
+>		     Make a new directory:
+			 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ mkdir /build
+			 </PRE
+></TD
+></TR
+></TABLE
+>
+		     where you will download the
+		     next files: <TT
+CLASS="FILENAME"
+>c:\cygwin\build</TT
+>
+	         </P
+></LI
+><LI
+><P
+>		     Download gcc 2.95.2 sources using this link -&#62;
+			 <A
+HREF="ftp://ftp.gnu.org/pub/gnu/gcc/gcc-2.95.2.tar.gz"
+TARGET="_top"
+>			 <I
+CLASS="CITETITLE"
+>gcc-2.95.2.tar.gz</I
+>
+			 </A
+> and save in
+			   <TT
+CLASS="FILENAME"
+>c:\cygwin\build</TT
+>
+	         </P
+></LI
+><LI
+><P
+>		     Download binutils 2.10.1 sources using this link -&#62;
+			 <A
+HREF="ftp://ftp.gnu.org/pub/gnu/binutils/binutils-2.10.1.tar.gz"
+TARGET="_top"
+>			 <I
+CLASS="CITETITLE"
+>binutils-2.10.1.tar.gz</I
+>
+			 </A
+> and save in
+			   <TT
+CLASS="FILENAME"
+>c:\cygwin\build</TT
+>
+	         </P
+></LI
+><LI
+><P
+>		     Download the building scripts from
+			 <A
+HREF="download/legos-buildgcc.zip"
+TARGET="_top"
+>			 <I
+CLASS="CITETITLE"
+>here (legos-buildgcc.zip)</I
+>
+			 </A
+> and put it in the same directory as above.  Unzip them to
+			   produce a shell script (buildgcc.sh) and two diff files.
+	         </P
+></LI
+><LI
+><P
+>		     Build the cross compiler:
+			 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cd /build
+$ ./buildgcc.sh
+			 </PRE
+></TD
+></TR
+></TABLE
+>
+	         </P
+></LI
+><LI
+><P
+>			 Ignore the warnings in compile process. It should work.
+	         </P
+></LI
+></UL
+><P
+>  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN110"
+></A
+>3. Install the brickOS files</H2
+><P
+></P
+><UL
+><LI
+><P
+>		       Get legos-0.2.6.08.tar.gz from the "Latest Test Releases" section of our project web:
+			   <A
+HREF="http://sourceforge.net/projects/brickos"
+TARGET="_top"
+>			   <I
+CLASS="CITETITLE"
+>http://sourceforge.net/projects/brickos</I
+>
+			   </A
+>. Drag a copy to <TT
+CLASS="FILENAME"
+>C:\cygwin</TT
+>.
+	         </P
+></LI
+><LI
+><P
+>		       Type:
+			 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cd /
+$ tar xvfz legos-0.2.6.08.tar.gz
+			 </PRE
+></TD
+></TR
+></TABLE
+>
+	         </P
+></LI
+><LI
+><P
+>		       Lots of files will stream by as they install into their 
+			   directories. This will create a legos-0.2.6.08 directory.
+	         </P
+></LI
+></UL
+><P
+>  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN124"
+></A
+>4. TRY IT!!!</H2
+><P
+></P
+><UL
+><LI
+><P
+>		       Type:
+			 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ cd /legos-0.2.6.08
+$ make realclean
+$ make depend
+$ make
+$ cd util
+$ make strip
+			 </PRE
+></TD
+></TR
+></TABLE
+>
+			 </P
+><P
+>Now, Power on RCX.</P
+><P
+>Put IR tower on COM1</P
+><P
+>			 <TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>$ ./firmdl3 ../boot/legos.srec
+$ ./dll ../demo/helloworld.lx
+			 </PRE
+></TD
+></TR
+></TABLE
+>
+			 Press RUN on RCX and enjoy!
+	         </P
+></LI
+></UL
+><P
+>			If you have the IR tower connected to a different com port you can change the default
+			with the instruction: "export RCXTTY=COMx".  NOTE: if you have a USB tower this
+			is "export RCXTTY=USB"
+	       </P
+><P
+>  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN136"
+></A
+>Final Notes</H2
+><P
+>          If it doesn't work, consult
+    	  <A
+HREF="http://www.lugnet.com/robotics/rcx/legos/"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>lugnet.robotics.rcx.legos</I
+>
+    	  </A
+> on
+    	  <A
+HREF="http://www.lugnet.com"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>lugnet.com</I
+>
+    	  </A
+>.
+	  </P
+><P
+>    	  Every command indicated is executed from the Cygwin environment. In the examples,
+    	  the "$" is the prompt cygwin gives to you.
+	  </P
+><P
+>    	  You can use Notetab Light to edit files instead of WordPad or VI.
+    	  It's available from:
+    	  <A
+HREF="http://www.notetab.com/"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>http://www.notetab.com</I
+>
+    	  </A
+>. It preserves the unix line-endings, and it can
+    	  change between unix and dos line-endings.
+	  </P
+><P
+>  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN148"
+></A
+></H2
+><P
+>    	  Latest update:
+    	  <A
+HREF="mailto:stephen@debian.org"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>Stephen Moraco</I
+>
+    	  </A
+> 19/09/2002.
+	  </P
+><P
+>    	  Update/generate/post as web content
+    	  <A
+HREF="mailto:stephen@debian.org"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>Stephen Moraco</I
+>
+    	  </A
+> 01/05/2002.
+	  </P
+><P
+>    	  Initial Release:
+    	  <A
+HREF="mailto:paolom@users.sourceforge.net"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>Paolo Masetti</I
+>
+    	  </A
+> 13/05/2001.
+	  </P
+><P
+>    	  SGML Source for document created for Paolo by
+    	  <A
+HREF="mailto:stephen@debian.org"
+TARGET="_top"
+>    	  <I
+CLASS="CITETITLE"
+>Stephen Moraco</I
+>
+    	  </A
+> 19/07/2001.
+	  </P
+><P
+>  </P
+></DIV
+></DIV
+></DIV
+></BODY
+></HTML
+>
