@@ -15,3 +15,4 @@ extern void init_transceiver(int highspeed, unsigned extra_wait, int rcx_fd);
 extern void run_transceiver(void);
 
 #endif
+

@@ -337,6 +337,4 @@ void run_transceiver(void)
 		serv_clients(&readset,&writeset);
 	}
 }
-		
-		
-	
+
