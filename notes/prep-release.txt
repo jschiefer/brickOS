@@ -1,6 +1,6 @@
 ==============================================================================
  File: prep-release.txt
- $Header: /home/jan/tmp/brickos/notes/prep-release.txt,v 1.2 2002/09/01 22:25:26 stephmo Exp $
+ $Header: /home/jan/tmp/brickos/notes/prep-release.txt,v 1.3 2004/02/17 03:11:44 stephmo Exp $
 
  These NOTES files remind us how to do less frequent
  tasks withing the brickos project at sourceforge.
@@ -9,6 +9,15 @@
 
 Note: Preparing a release of brickos
 -----------------------------------------------------
+
+[ ] BIG!!! Ensure that none of your files are pinned to a specific
+    version. This will cause the wrong files to be released!
+
+    to check:  cvs stat -R | egrep "Sticky Tag" | sort | uniq -c
+     if more than one numbered line exists you have pinned versions!
+
+    clear a pinned file with:  cvs upd -A {filename}
+    (this will remove the pin and update your tree to latest version)
 
 [ ] ensure that all latest committed changes are recorded
     in the ChangeLog file.  Have developers update it if
