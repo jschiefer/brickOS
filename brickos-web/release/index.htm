@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0037)http://legos.sourceforge.net/rlswork/ -->
+<HTML><HEAD><TITLE>Release Effort brickos-1.0.0</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META http-equiv=Content-Language content=en-us>
+<META content="Microsoft FrontPage 4.0" name=GENERATOR>
+<META content=FrontPage.Editor.Document name=ProgId><!-- LINK rel="stylesheet" href="../legOS.css" type="text/css"--></HEAD>
+<BODY bottomMargin=0 bgColor=#ffffff leftMargin=0 topMargin=0 rightMargin=0 
+MARGINWIDTH="0" MARGINHEIGHT="0">
+<CENTER>
+<H1>Assembling our next <font color="#800000">brickOS</font> Release</H1><B>NEWS</B>:
+roll page to <font color="#800000">brickOS</font> name
+<P><FONT color=#800000>Last update: 11 May 2002 13:19 MST</FONT></CENTER>
+<HR>
+
+<CENTER>[<A 
+href="http://legos.sourceforge.net/rlswork/index.html#desires">Desires</A>] [<A 
+href="http://legos.sourceforge.net/rlswork/index.html#constraints">Constraints</A>] 
+[<A href="http://legos.sourceforge.net/rlswork/index.html#issues">Issues</A>] 
+[<A 
+href="http://legos.sourceforge.net/rlswork/index.html#numbering">Numbering</A>] 
+[<A 
+href="http://legos.sourceforge.net/rlswork/index.html#docs">Documentation</A>] 
+[<A 
+href="http://legos.sourceforge.net/rlswork/index.html#packaging">Packaging</A>] 
+[<A 
+href="http://legos.sourceforge.net/rlswork/index.html#volunteers">Volunteers</A>] 
+[<A 
+href="http://legos.sourceforge.net/rlswork/index.html#changelog">ChangeLog</A>] 
+</CENTER>
+<HR>
+
+<BLOCKQUOTE>We are working on this release because we enjoy using <font color="#800000"><b>brickOS</b></font> and 
+  wish to help it to continue to be improved. We want to have fun putting 
+  together this release. We are working on the next level of *fun* for all
+  brickOS 
+  users. To this end we are stating the following <FONT 
+  color=#800000>Desires</FONT> so we know what we are signing up for. We are 
+  stating the <FONT color=#800000>Constraints</FONT> so we know what we are not 
+  doing and we state the <FONT color=#800000>Issues</FONT> so we can make a 
+  first determination for each of them so we are enabled to work towards 
+  delivering a successful release.<A name=desires>
+  <H3><FONT color=#800000>NEWS</FONT></H3></A>We've released legOS-0.2.6 - a tiny 
+  interim release which served to formalize the CVS content which contained a 
+  number of bug fixes against 0.2.5.
+  <P>We are working on our next major release: brickos-1.0.0
+  <P><BR><A name=desires>
+  <FONT color=#800000>Desires</FONT></A>
+  <p>There are some things that we 
+  immediately, as users of 0.2.5, wished we had. Let's address these wishes. 
+  Likewise, we have the benefit of University-level study and experimentation 
+  against the legOS interrupt handling/servicing. We should seriously evaluate 
+  and then apply (if it meets our goals/constraints) the interrupt servicing 
+  mechanism patches. We need to freshen our existing documentation. We also have 
+  been working on internal comment styles so that we can use Doxygen to generate 
+  the brickOS API reference automatically, let's release this. And last but not 
+  least this will be our first release under our new name.
+  <P>With all of this we have to remember that this is an embedded system, so we 
+  have serious physical constraints. Any memory we absorb for use by the OS we 
+  remove from program download space, we have to be deliberate in our growth of
+  brickOS. 
+  <H4>Functional Desires</H4>In more specific terms here is our first cut as 
+  what we think this next release is:
+  <UL>
+    <LI>We need to move to our new name brickOS 
+    <LI>Support for the simplified messaging RCX to RCX that was in the earlier 
+    releases of legOS 
+    <LI>Support for the Universal Remote. It's an invaluable construction test 
+    aid 
+    <LI>Faster interrupt servicing with less interrupt loss 
+    <LI>Support for some of our favorite 3rd party sensors/mux's, etc. 
+    <LI>C++ support for any new equip. we support in C (let's not leave our C++ 
+    users behind) and vice versa. 
+    <LI>Richer programming examples (working examples from projects we've built 
+    from the LEGO Mindstorms(™) books, multi-tasking examples in C and some in 
+    C++, etc.) 
+    <LI>C only legOS library (API) reference (extracted from source code using 
+    Doxygen) 
+    <LI>C/C++ legOS library (API) reference (extracted from source code using 
+    Doxygen) 
+    <LI>Revised distribution shape appropriate to our two forms of users: (1) 
+    those who want to hack/enhance the kernel, and (2) those who simply want to 
+    program the RCX. (read this as we should have 'make distrib' target's and 
+    'make install' targets. For a number of reasons one of which is that we are 
+    closer to normal Linux projects) </LI></UL>
+  <H4>Sources of material under consideration</H4>We have 10 patches that I have 
+  found, We need more examples, we have new content in CVS not yet released, we 
+  have bugs reported at sourceforge site - some at lugnet site, and there is 
+  probably more desirable content we have not yet identified.
+  <P>Here's the list of patches I know of and the current status:
+  <OL>
+    <LI>403527 - LNP checksum optimizations - (dibbe) Bernardo Dal Seno 
+    <UL>
+      <LI>this patch DID NOT apply cleanly to the released 0.2.5 
+      <LI>affects 2 files 
+      <LI><I>looking into the problem, Sending email to author.</I> 
+      <LI><FONT color=violet><B>ACCEPTED into release 0.2.7</B></FONT> </LI></UL>
+    <LI>403728 - LNP optimizations versus CVS - (bodnar42) Ryan Cumming 
+    <UL>
+      <LI>patch applied OK 
+      <LI>affects 1 file 
+      <LI><I>Question: How do 403527/403728 relate to each other?</I> 
+      <LI><FONT color=violet><B>ACCEPTED into release 0.2.7</B></FONT> </LI></UL>
+    <LI>404053 - Remote control patch for legOS 0.2.4 - 0.2.5 - (roscohead) Ross 
+    Crawford 
+    <UL>
+      <LI>patch applied OK 
+      <LI>affects 6 files 
+      <LI><FONT color=violet><B>ACCEPTED into release 0.2.7</B></FONT> </LI></UL>
+    <LI>475185 - Remote Control and Standard Message Patch for legOS 0.2.5 - 
+    (mikezang) Zhengrong Zang 
+    <UL>
+      <LI>patch applied OK 
+      <LI>affects 13 files 
+      <LI><FONT color=violet><B>ACCEPTED into release 0.2.7</B></FONT> </LI></UL>
+    <LI>552135 - RCX Remote control support and misc. fixes (thess) Ted Hess
+    <UL>
+      <LI>patch applied OK 
+      <LI>affects 3 files, has readme 
+      <LI><I>What other 3rd party sensor/control devices do we want to 
+      consider?</I> 
+      <LI><FONT color=violet><B>ACCEPTED into release 0.2.7</B></FONT> </LI></UL>
+    <LI>515185 - Active multiplexer driver for 0.2.5 (mfalco) Mark Falco 
+    <UL>
+      <LI>patch applied OK 
+      <LI>affects 3 files, has readme 
+      <LI><I>What other 3rd party sensor/control devices do we want to 
+      consider?</I> 
+      <LI><FONT color=violet><B>ACCEPTED into release 0.2.7</B></FONT> </LI></UL>
+    <LI>544524 - Switch multiplexer driver (mfalco) Mark Falco 
+    <UL>
+      <LI>patch applied ???? 
+      <LI>affects ... 
+      <LI><FONT color=violet><B>ACCEPTANCE into release 0.2.7 pending review of 
+      patch</B></FONT> </LI></UL>
+    <LI>544526 - dual ir proximity detector driver (mfalco) Mark Falco 
+    <UL>
+      <LI>patch applied ???? 
+      <LI>affects ... 
+      <LI><FONT color=violet><B>ACCEPTANCE into release 0.2.7 pending review of 
+      patch</B></FONT> </LI></UL>
+    <LI>Priority Interrupt Patch: 3 Students in Computer Science at University 
+    of Aalborg 
+    <UL>
+      <LI>Patch fails to apply, (RCS) .diff file is not recognized by patch 
+      utility 
+      <LI>Affects 23 files 
+      <LI><I>This appears to be deltas against an older release 0.2.3 (per their 
+      docs).</I> 
+      <LI>Found at <A href="http://www.cs.auc.dk/~larsch/dat4/">Dat4 Project 
+      Site</A> 
+      <LI><FONT color=#ee82ee><B>We need to apply lessons learned but not 
+      specifically in this form...</B></FONT> </LI></UL>
+    <LI>The TCP Patch... (not sourceforge user) Olaf Christ 
+    <UL>
+      <LI>IS NOT distributed as patch but as collection of files with 
+      installation instructions 
+      <LI>this is an alternative form (to LNP) which may be lesser used and it 
+      consumes significant memory 
+      <LI>Question: should we structure this as a kernel build time 
+      configuration parameter? 
+      <LI>[See more info in "Issues" section below] 
+      <LI><B><I>Determined to not meet our criteria, this not entering 
+      release</I></B> </LI></UL></LI></OL>We need more examples and sample code. I'm 
+  thinking we each have favorites we would like to see added. Let's all email 
+  our suggestions. This can be suggestions for example's you feel we need and it 
+  can be examples you feel you can contribute. Where we have duplicate offers of 
+  contribution the people offering the duplicates will decide who's should be 
+  submitted.
+  <P>I'm thinking that existing CVS content should be made ready for release and 
+  then it along with any patches we select should be merged together to produce 
+  the latest new code in CVS. I will probably do this merge outside of CVS using 
+  commercial tools available to me but then will version the results in CVS so 
+  we can work to test and repair issues found in CVS from this point forward. 
+  Lastly, we'll release only from CVS.
+  <P>What else should we add? [See the related item under the heading 
+  "Issues"]<A name=constraints>
+  <H3><FONT color=#800000>Constraints</FONT></H3></A>Prior to 0.2.6 we've been 
+  without a release for about a year and a half. IMHO I think we need to keep 
+  this focused so we can get this release out quickly and then work on the next. 
+  So here's a proposal to keep us moving: 
+  <UL>
+    <LI>This release should build and run with our existing gcc/g++ (egcs) and 
+    binutils. Let's take on a newer compiler next release. Maybe the next 
+    release is tiny in content (bugfixes?) so that we can concentrate on testing 
+    against the next version of the compiler and adjusting legOS to work with 
+    it. 
+    <LI>Let's use as much of what's already written (offered as patches) so that 
+    we suffer as little waiting on new development as possible. 
+    <LI>We should roll to the new name for all legOS <B>site content</B> but 
+    we'll probably defer the <B>site change</B> (sourceforge project change), if 
+    we need to do this, until after this release 
+    <LI>(I can't stress this enough ;-) We have serious physical constraints. 
+    Any memory we absorb for use by the OS we remove from program download 
+    space. Let's be careful in what we choose to do. 
+    <LI>Let's keep our code base clean. Watch how we add code, keep the style in 
+    which you are writing as similar as you can to what's already there. Clean 
+    up around the area, continue to move toward our Doxygen comments where ever 
+    we still need to (whenever what you commenting needs to show up in the API 
+    reference), etc. </LI></UL><A name=issues>
+  <H3><FONT color=#800000>OPEN Issues</FONT></H3></A>I'm sure there are more 
+  (please tell me and I'll add them) but here's what I see so far:
+  <UL>
+    <LI>We need to choose a <B>new name</B>. I'm thinking: 
+    <UL>
+      <LI>one more round of name gathering (period TBD, two weeks?) 
+      <LI>a simple email vote for each persons top three 
+      <LI>then sum of the votes tells the winner. 
+      <LI>--&gt; Any counter proposals? </LI></UL>
+    <LI>So far I've only identified what I know to need attention or which 
+    exists. There's other great work out there, we need to identify it to each 
+    other in order to consider it for inclusion.&nbsp; I'm thinking:
+    <UL>
+      <LI>We have a period of open submissions (Period TBD, week or month?) 
+      <LI>Then we decide? </LI></UL>
+    <LI>The <B>priority interrupt patch</B> will take some effort to apply to 
+    0.2.5 
+    <UL>
+      <LI>This needs to be studied in some depth 
+      <LI>Is this a couple of us or how should we handle it? 
+      <LI>At the very least we need to read the document they wrote (9 pages or 
+      so) which describes the benefits and kernel size differences and then 
+      build a version and try it and then we can decide more fairly? </LI></UL>
+    <LI>We need to quickly identify first sources of contribution so that it can 
+    all be <B>merged into CVS</B> (carefully) so most of our release preparation 
+    will happed directly in CVS 
+    <UL>
+      <LI>This is one of our most looming early concerns. </LI></UL>
+    <LI>We've had a request to try to solve the build-a-kernel to create unique 
+    ID for LNP issue. Let's get this in this release. 
+    <LI>Where do we look for news? How do we communicate with each other? Should 
+    our developer communication be on lugnet legOS news group? -- we've a number 
+    of communications concerns:
+    <UL>
+      <LI>IMHO I think we should use all the sourceforge services we have 
+      available when we have a need for them. When it comes to public questions 
+      / feedback / announcements then we should post to the lugnet legOS group. 
+      <LI>To date, we have four posting mechanisms: (1) Bugs, (2) Support 
+      Requests, (3) Patches and (4) Feature Requests. We also have a email list 
+      archive/repeater. We can and should communicate to all of us developers 
+      simply by <BR>sending email to 'brickos-devel@lists.sourceforge.net'. 
+    </LI></UL>
+    <LI>{more ???} </LI></UL><A name=issuesResolved>
+  <H3><FONT color=#800000>RESOLVED Issues</FONT></H3></A>The following issues 
+  have been resolved for one reason or another as indicated by each issue.
+  <UL>
+    <LI>The <B>TCP patch</B> will take some time to restructure as build-time 
+    option 
+    <UL>
+      <LI>I've already received an important vote that this be left out as it is 
+      not central to legOS in order to drive the RCX and communicate with it. It 
+      is a fun effort and some important work in terms of tiny code implementing 
+      a TCP stack but may not be right for us 
+      <LI><B>RESOLUTION: This patch will not be included in a brickOS release.</B> 
+      </LI></UL></LI></UL><A name=numbering>
+  <H3>Test Version Numbering</H3></A>Our current numbering scheme was started 
+  when legOS was started. We have a problem, now, in that we would like create 
+  minor releases but the field is already in use as our current releases are all 
+  minor (our major number is zero). So, to keep this simple we'll number by 
+  adding another minor digit to the right with a thought to maybe we reset the 
+  numbering (go to 1.0.0?) when we move to our new name.
+  <P>We are building semi-public test releases of what will eventually be called 
+  0.2.6 followed by 0.2.7. To this end we will number these early versions as 
+  offshoots of the prior release 0.2.5 or 0.2.6 as appropriate by using 0.2.5.x 
+  numbering (or 0.2.6.x numbering) where the 'x' will be incremented with each 
+  test release. <I>I thought about using .alphaX or .testingX but i then thought 
+  we should keep this as simple as possible.</I>
+  <P>Our goal in addressing this is to ensure that all of our public releases 
+  increase in number so various installers will know that each release replaces 
+  the earlier release. Installers that react to this today are: Debian GNU/Linux 
+  package manager (.deb's) and the Red Hat package manager (.rpm's).<A name=docs>
+  <H3>Documentation</H3></A>Our current HOWTO (sgml) needs to remain the 
+  cornerstone of our documentation. It, however, does need to be freshened. We 
+  also have a newer HOWTO-cygwin (sgml) which needs to be updated. Likewise, we 
+  want to add the generated API documentation.
+  <P>Not all of this is in our current source tree (CVS) it needs to be added. 
+  Make rules need to be added to generate the HTML docs from the source as well 
+  as to generate a doc-only distribution tarball. This would allow our users to 
+  install legOS and optionally install the supporting documentation.<A 
+  name=packaging>
+  <H3>Packaging Desires</H3></A>Certainly our final release will be packaged in 
+  at least the forms we've used to date. That is a source tarball. Red Hat RPMs 
+  and a Debian GNU/Linux package. I have no experience with the windows version 
+  but if we created a package/tarball for it we will do that for this release as 
+  well.
+  <P>We should also package in a couple of these forms for each testing release 
+  so that will will be able to install and test a rapidly as we can.
+  <H3></H3><A name=volunteers>
+  <H3>Volunteers</H3></A>To date I've received offers to help from the following 
+  people:
+  <UL>
+    <LI>Stephen Moraco (myself :) - release coordinator, project member/admin 
+    (stephmo) 
+    <LI>Mark Falco - project member (mfalco) 
+    <LI>Joseph Woolley - project member (jawoolley) 
+    <LI>Ed Manlove - project member to be (emanlove) 
+    <LI>Paolo Masetti - project member/admin (paolom) 
+    <LI>Ted Hess - project member (thess) </LI></UL>(If I missed anybody please 
+  let me know...)<A name=changelog>
+  <H3>ChangeLog</H3></A>As I alter content of this page I'll update this 
+  ChangeLog with what I've done. This way one can obtain a quick overview of 
+  changes since the document was last viewed.
+  <DL>
+    <DT><b>Aug18</b>
+    <dd>This page activated at brickOS site.</dd>
+    <DT><B>May11</B> 
+    <DD>Updated page to reflect that 0.2.6 is released and that we are now 
+    working on 0.2.7<BR>Updated patch list and acceptance status<BR>Added new 
+    team members 
+    <DT><B>Mar29</B> 
+    <DD>Added colored status entry for patch list. Some accepted, some not going 
+    into release.<BR>Added statement of intent to release 0.2.6 followed by a 
+    0.2.7 (with name change)<BR>Added new "RESOLVED Issues" section<BR>Added 
+    NEWS section at top of page<BR>Updated version numbering to reflect two 
+    releases 
+    <DT><B>Mar25</B> 
+    <DD>Added this section.<BR>Add member SourceForge name, <BR>Updated 
+    numbering description, <BR>Set intent to use sourceforge tracker as new item 
+    in "Issues" above<BR>Added text in Documentation section (final sentence.) 
+    </DD></DL></BLOCKQUOTE>
+<HR>
+
+<CENTER><B>See Also</B>: [<a href="effort.htm">effort</a>] [<a href="install-rfc.htm">install-RFC</a>] 
+</CENTER>
+<HR>
+
+<BLOCKQUOTE>For details on legOS at sourceforge, try <A 
+  href="http://www.sourceforge.net/project/?group_id=2587">the development 
+  page</A>. <BR>For discussion on legOS, try the newsgroup at lugnet: <A 
+  href="http://lugnet.com/robotics/rcx/legos/">lugnet.robotics.rcx.legos</A>. 
+  This is definitely the best place to get legOS questions answered 
+ASAP.</BLOCKQUOTE>Most of all, remember: Have fun.
+<P>Hosted by:<BR>
+<P><IMG height=31 alt="SourceForge Logo" src="index_files/sflogo.png" width=88> 
+</P></BODY></HTML>

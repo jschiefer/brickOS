@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0049)http://legos.sourceforge.net/rlswork/install.html -->
+<HTML><HEAD><TITLE>brickOS - Installation RFC</TITLE>
+<META http-equiv=Content-Language content=en-us>
+<META content="Microsoft FrontPage 4.0" name=GENERATOR>
+<META content=FrontPage.Editor.Document name=ProgId>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content=none name="Microsoft Theme">
+<META content=none name="Microsoft Border"></HEAD>
+<BODY>
+<CENTER>
+<H1><FONT color=#800000>brickOS Installation </FONT>- RFC</H1></CENTER>
+<CENTER><B>DRAFT</B>: not quite ready for comment</CENTER>
+<CENTER><FONT color=#800000>Last update: 11 May 2002 16:04 MST</FONT></CENTER>
+<BLOCKQUOTE>
+  <P align=left>brickOS, today, does not install itself.&nbsp; Most open source 
+  projects do have an install. A study of our typical use forms and the needs of 
+  those that package brickOS show we could benefit from having an install. This 
+  page is a proposal for adding the install capability to brickOS. </P></BLOCKQUOTE>
+<HR>
+
+<CENTER>[<a href="#inst-tree">Install-tree</a>] 
+[<a href="#changelog">ChangeLog</a>] 
+</CENTER>
+<HR>
+
+<H3>Background</H3>
+<BLOCKQUOTE>We know of at least the following styles of brickOS use:
+  <OL>
+    <LI>a person wants to experiment with the brickOS operating system directly, 
+    modifying and testing it 
+    <LI>a person who is only interested in writing code for robots which are 
+    simply running a pre-built brickOS. 
+    <LI>a person who wants to do both from time to time. </LI></OL>Today all of 
+  these forms of use require downloading the source package and building the 
+  operating system and tools after which one can finally start writing code for 
+  the robots and/or modifying the operating system and testing it.
+  <H4>Why did I first think of needing an install make target for brickOS?</H4>When I packaged
+  brickOS for Debian where the most common model is for 
+  packages to be installed and ready for immediate use I created the first 
+  install of brickOS.&nbsp; At the time I was not part of the brickOS team so I 
+  simply built from source and setup my packaging rules to find the appropriate 
+  pieces and copy them to the proper installed location.
+  <P>This is why I first thought of adding install targets to brickOS.&nbsp; Most 
+  packages which I maintain for Debian simply run the <CODE>'make depend; make 
+  all install'</CODE> pattern and the Debian package-build then moves the parts 
+  the project install installed to the desired locations in the Debian file 
+  system structure.&nbsp; In the case of brickOS I could not follow this patter 
+  because there was no install build rule. <A name=inst-tree></P></BLOCKQUOTE>
+<H3>Proposed Install Tree Shape</H3></A>
+<BLOCKQUOTE>Typical project install target is /usr/local (meaning local to 
+  current machine).
+  <P>So using /usr/local at the root, I propose the following install tree:
+  <BLOCKQUOTE><B>/usr/local/bin</B> 
+    <UL>
+      <LI>&nbsp;top level executables (dll, firmdl3) 
+    </LI></UL><B>/usr/local/lib/{projectName}</B> 
+    <UL>
+      <LI>brickOS.srec, brickOS.lds, *.a (static library) files 
+      <LI>utilities (invoked from Makefile's: merge-map, makelx, genlds, 
+      fixdeps, fontdesign 
+      <LI>common Makefile parts: Makefile.common, and Makefile.user. 
+    </LI></UL><B>/usr/local/include/{projectName}</B>
+    <UL>
+      <LI>our include sub-tree which (today) expands to:<BR>&nbsp; /usr/local/include/brickos/<BR>&nbsp;
+        /usr/local/include/brickos/c++<BR>&nbsp; /usr/local/include/brickos/kernel<BR>&nbsp;
+        /usr/local/include/brickos/lnp<BR>&nbsp; /usr/local/include/brickos/lnp/sys<BR>&nbsp;
+        /usr/local/include/brickos/rom<BR>&nbsp; /usr/local/include/brickos/sys 
+    </LI></UL><B>/usr/local/doc/{projectName}</B>
+    <UL>
+      <LI>/usr/local/doc/brickos/&nbsp; - general doc's ChangeLog, NEW, TODO, etc. 
+
+      <LI>/usr/local/doc/brickos/examples - our demo sub-tree 
+      <LI>/usr/local/doc/brickos/html - HTML based documentation: HOWTO, API doc's 
+      etc. </LI></UL><B>/usr/local/man/man1</B>
+    <UL>
+      <LI>dll.1 and firmdl3.1 man pages </LI></UL></BLOCKQUOTE></BLOCKQUOTE><A 
+name=changes>
+<H3>What changes in order to implement this?</H3></A>
+<BLOCKQUOTE>Obviously, in order to have a new make target, Makefile's are 
+  going to need to change. There is a little more, however. </BLOCKQUOTE><A 
+name=changelog>
+<H3>ChangeLog</H3></A>
+<BLOCKQUOTE>As I alter content of this page I'll update this ChangeLog with 
+  what I've done. This way one can obtain a quick overview of changes since the 
+  document was last viewed.
+  <P>
+  <DL>
+    <DT><B>May11</B> 
+    <DD>First draft </DD></DL></BLOCKQUOTE>
+<HR>
+
+<CENTER><B>See Also</B>: [<A 
+href="http://legos.sourceforge.net/rlswork/index.html">release</A>] [<A 
+href="http://legos.sourceforge.net/rlswork/effort.html">effort</A>]</CENTER>
+<HR>
+
+<BLOCKQUOTE>For details on brickOS at SourceForge, try <A 
+  href="http://www.sourceforge.net/project/?group_id=2587">the development 
+  page</A>. <BR>For discussion on brickOS, try the newsgroup at lugnet: <A 
+  href="http://lugnet.com/robotics/rcx/legos/">lugnet.robotics.rcx.legos</A>. 
+  This is definitely the best place to get brickOS questions answered ASAP.
+  <p>&nbsp;</p>
+</BLOCKQUOTE></BODY></HTML>
