@@ -1,4 +1,6 @@
 2005-01-16	stephen
+	* Awakened TODO in order to track pending changes
+	* Add new manpage lnpd.8 
 	* Applied BrickOS patch #904945 submitted by 
 	  Gerard <gerard.sanroma@estudiants.urv.es> fixing LNP communication
 	  with current BrickOS
@@ -6,5 +8,5 @@
 	  and generates makefiles which work on multiple platforms
 
 2005-01-02	stephen
-	* committed first version of Martins work to BrickOS CVS
+	* committed first version (v0.1) of Martin Cornelius work to BrickOS CVS
 
