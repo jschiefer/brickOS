@@ -88,12 +88,14 @@ RC = @RC@
 STRIP = @STRIP@
 VERSION = @VERSION@
 
-bin_PROGRAMS = lnpdll lnptest
+bin_PROGRAMS = lnpdll lnptest lnptest2
 
 lnpdll_SOURCES = loader.c               lx.c lx.h
 
 
 lnptest_SOURCES = lnptest.c
+
+lnptest2_SOURCES = lnptest2.c
 
 INCLUDES = -I$(top_srcdir)/lnpd+liblnp/liblnp
 
@@ -103,7 +105,7 @@ LIBS = -llnp
 mkinstalldirs = $(SHELL) $(top_srcdir)/inst-pieces/mkinstalldirs
 CONFIG_HEADER = ../../config.h
 CONFIG_CLEAN_FILES = 
-bin_PROGRAMS =  lnpdll$(EXEEXT) lnptest$(EXEEXT)
+bin_PROGRAMS =  lnpdll$(EXEEXT) lnptest$(EXEEXT) lnptest2$(EXEEXT)
 PROGRAMS =  $(bin_PROGRAMS)
 
 
@@ -117,6 +119,10 @@ lnptest_OBJECTS =  lnptest.$(OBJEXT)
 lnptest_LDADD = $(LDADD)
 lnptest_DEPENDENCIES = 
 lnptest_LDFLAGS = 
+lnptest2_OBJECTS =  lnptest2.$(OBJEXT)
+lnptest2_LDADD = $(LDADD)
+lnptest2_DEPENDENCIES = 
+lnptest2_LDFLAGS = 
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -129,9 +135,9 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-DEP_FILES =  .deps/lnptest.P .deps/loader.P .deps/lx.P
-SOURCES = $(lnpdll_SOURCES) $(lnptest_SOURCES)
-OBJECTS = $(lnpdll_OBJECTS) $(lnptest_OBJECTS)
+DEP_FILES =  .deps/lnptest.P .deps/lnptest2.P .deps/loader.P .deps/lx.P
+SOURCES = $(lnpdll_SOURCES) $(lnptest_SOURCES) $(lnptest2_SOURCES)
+OBJECTS = $(lnpdll_OBJECTS) $(lnptest_OBJECTS) $(lnptest2_OBJECTS)
 
 all: all-redirect
 .SUFFIXES:
@@ -214,6 +220,10 @@ lnpdll$(EXEEXT): $(lnpdll_OBJECTS) $(lnpdll_DEPENDENCIES)
 lnptest$(EXEEXT): $(lnptest_OBJECTS) $(lnptest_DEPENDENCIES)
 	@rm -f lnptest$(EXEEXT)
 	$(LINK) $(lnptest_LDFLAGS) $(lnptest_OBJECTS) $(lnptest_LDADD) $(LIBS)
+
+lnptest2$(EXEEXT): $(lnptest2_OBJECTS) $(lnptest2_DEPENDENCIES)
+	@rm -f lnptest2$(EXEEXT)
+	$(LINK) $(lnptest2_LDFLAGS) $(lnptest2_OBJECTS) $(lnptest2_LDADD) $(LIBS)
 
 tags: TAGS
 

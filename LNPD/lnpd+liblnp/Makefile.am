@@ -5,4 +5,4 @@
 
 SUBDIRS = liblnp lnpd applications
 
-EXTRA_DIST = rcx/lnptest.c
+EXTRA_DIST = rcx/lnptest.c rcx/lnptest2.c

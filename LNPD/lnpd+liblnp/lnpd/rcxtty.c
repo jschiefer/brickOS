@@ -143,7 +143,7 @@ int tty_init(int highspeed,int nolock,const char *device)
 	
 	// set to noncanonical mode, implies nonblocking behaviour
 	memset(&ios, 0, sizeof(ios));
-  	ios.c_cflag = CREAD | CLOCAL | CS8 | PARENB | PARODD;
+  	ios.c_cflag = CREAD | CLOCAL | CS8 | (highspeed ? 0 : PARENB | PARODD);
 	cfsetispeed(&ios, highspeed ? LNP_BAUD_FAST : LNP_BAUD_SLOW );
 	cfsetospeed(&ios, highspeed ? LNP_BAUD_FAST : LNP_BAUD_SLOW );
   	if (tcsetattr(fd, TCSANOW, &ios) == -1)

@@ -1,4 +1,6 @@
 2005-01-16	stephen
+	* Hmmm patch didn't work, applied changes as shown at LUGNET
+	  http://news.lugnet.com/news/raw.cgi?lugnet.robotics.rcx.legos,3066
 	* Awakened TODO in order to track pending changes
 	* Add new manpage lnpd.8 
 	* Applied BrickOS patch #904945 submitted by 

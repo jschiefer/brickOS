@@ -93,7 +93,7 @@ VERSION = @VERSION@
 
 SUBDIRS = liblnp lnpd applications
 
-EXTRA_DIST = rcx/lnptest.c
+EXTRA_DIST = rcx/lnptest.c rcx/lnptest2.c
 mkinstalldirs = $(SHELL) $(top_srcdir)/inst-pieces/mkinstalldirs
 CONFIG_HEADER = ../config.h
 CONFIG_CLEAN_FILES = 
