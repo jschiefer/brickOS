@@ -9,4 +9,7 @@ INCLUDES = -I$(top_srcdir)/lnpd+liblnp/liblnp
 LDFLAGS = -L$(top_builddir)/lnpd+liblnp/liblnp
 
 LIBS= -llnp
+ 
+man_MANS = lnpdllx.1
 
+EXTRA_DIST = lnpdllx.1

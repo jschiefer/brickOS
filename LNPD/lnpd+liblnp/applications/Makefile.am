@@ -15,3 +15,6 @@ LDFLAGS = -L$(top_builddir)/lnpd+liblnp/liblnp
 
 LIBS= -llnp
 
+man_MANS = lnpdll.1 lnptest.1 lnptest2.1
+
+EXTRA_DIST = lnpdll.1 lnptest.1 lnptest2.1
