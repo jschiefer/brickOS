@@ -2,3 +2,8 @@ lnpd
 Makefile
 .libs
 .deps
+*.log
+*.out
+*.diff
+*.patch
+*.sav
