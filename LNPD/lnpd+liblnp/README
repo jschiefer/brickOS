@@ -1,0 +1,169 @@
+Hi there, this is my first version of liblnp and lnpd.
+
+WHAT´S IN THE BOX:
+
+lnpd:
+  A LinuX daemon that allows multiple clients to connect to a LEGO RCX running
+  Markus L. Noga´s famous legOS operating system and exchange messages
+  according to the LNP protocol.  
+  
+liblnp:
+  a library (shared or static) that can be linked to your application(s),
+  making it capable of connecting to a lnpd somewhere around the world.
+  
+applications:
+  2 little examples to show how it works.
+  lnptest is a program that continously sends messages to the RCX and
+  simultanously receives from the RCX. To see the multi-client feature, just
+  start it several times at once.
+  dll is a port of Marcus´ program downloader that uses liblnp. It´s a little
+  bit simpler, because lnpd and liblnp now do some dirty tty work. What´s fine
+  with it: It works with LNP running at 4800 baud.
+  
+rcx:
+  lnptest is the counterpart to the PC lnptest mentioned above. It starts 3
+  independent tasks sending LNP messages to the PC and receives messages
+  simultanously. To make this program work without crashing, you should apply
+  patch.legOS to your legOS source and recompile legOS.
+  However that´s NOT necessary for lnpd and liblnp to work properly, it just
+  fixes a little bug related to multiple tasks sending LNP messages
+  simultanously. The rcx directory is not included in the make-tree, because
+  it´s just an example.
+  
+What Platforms does it run on ?
+  So far, i tested it only on my home linux box running kernel 2.2.13
+  and glibc-2.1.2. However, i guess kernel 2.0.x and glibc-2.0.x could also
+  work.
+
+INSTALLATION:
+  in this directory, type:
+  make realclean; make depend; make
+  If nothing goes wrong, this will create lnpd, static and dynamic versions of
+  liblnp, and the 2 little applications. The applications are linked
+  dynamically by default, if you want to link them statically for whatever
+  reason, go to the liblnp directory and rm the shared libs, then rebuild the
+  applications.
+  If you want to use the shared version of liblnp ( what will save you memory
+  if you run multiple clients ), you either have to move liblnp.so.x to a
+  standard place and run ldconfig (as root), or just set environment variable
+  LD_LIBRARY_PATH to the directory where liblnp.so.1 lives.
+  
+RUNNING LNPD:
+  Actually, you don´t have to be root to run lnpd, except for one reason: If
+  your serial chip (uart) is a 16550A with builtin FIFO, this FIFO should be
+  disabled to get optimal LNP performance. To do this, you have 2 options:
+  - Before starting lnpd for the first time, run
+  /sbin/setserial /dev/ttyS0 uart 16450
+  You need root priviledge to run this command sucessfully anyways, but you can
+  start lnpd as non-priviledged user, what might be safer. I strongly recommend
+  this way as long as lnpd is not thoroughly tested.
+  - run lnpd as root or with suid-root set. In this case, lnpd will try to
+  detect the uart type and reconfigure the uart as needed.
+  
+  Like most programs that use the serial port, lnpd will try to create a
+  lock-file in /var/lock, and terminate if it cannot create this file. In my
+  distribution, /var/lock is only writeable by group uucp, so i had to put
+  myself into group uucp. Another option is to start lnpd with option --nolock.
+  In this case, lnpd will not care at all about lockfiles.
+  
+  options:
+  
+  --debug: without this flag, lnpd will go into background immediately after
+  start. This means, you get a new shell-prompt, but the daemon IS running. To
+  stop it, you have to type killall lnpd.
+  
+  --extrawait: during testing lnpd, i found that it sometimes helps in extreme
+  congestion situations to add some extra milliseconds after LNP packets. If
+  you experience many collissions of packets, you could try playing with this
+  value.
+
+  --fast: run lnpd in fast mode, i.e. with 4800 baud. In my tests this worked
+  quite well, as mentioned above i was able to run dll in fast mode very
+  reliably. However, fast mode does not work if you set the tower to far-mode,
+  so it´s usefullness is a little restricted.
+  
+  --log[=filename]: this enables logging of some messages about lnpd´s
+  operation. If no filename is provided, lnpd will use the system log,
+  (LOG_DAEMON/LOG_INFO). This is most usefull if lnpd runs in background.
+  Alternatively, you can specify a filename where the messages will go to, the
+  file will be created if it doesn´t exist, otherwise the messages will be
+  appended to the file. The filename - means: log to stderr. This is most
+  usefull together with the --debug option.
+  By default, lnpd does not log anything !
+   
+  --maxclients: Like most daemons, lnpd has a fixed limit of client
+  connections, what is 16 by default. If you want more or less, use this
+  option.
+  
+  --nolock: explained above
+  
+  --port=<number>: the tcp port to use, by default 7776 ( why this value ? -
+  write it in hex and you know 8-) ).
+  
+  --realtime: run the daemon in realtime mode. You have to be root to do this,
+  but as far as i experienced it´s absolutely not neccessary !
+  
+  --tty=<device>: the serial port to use, by default /dev/ttyS0.
+  
+  --verbosity=level: mostly for debugging. If logging is enabled, you can
+  specify additional loglevels that might be interesting:
+  -l LNP LOGICAL events
+  -i LNP INTEGRITY events
+  -a LNP ADDRESSING events
+  -c TCP client related events
+  
+  --help: gives some short info.
+  
+  --version prints lnpd´s version
+  
+USING THE LIBRARY:
+  As mentioned above, you have to put the shared library to a standard place or
+  set LD_LIBARY_PATH. Alternatively, use the static version. The API is
+  currently very simple and completely documented in file liblnp.h.
+  The very first function you have to call is lnp_init(). It has 5 parameters,
+  but in simple situations you can set them all to 0.
+  If lnp_init() was sucessfull, your tower should become active (green LED)
+  immediately. Of course, you must have an lnpd running...
+  From now on, you can use the lnp_xxx_write() and lnp_xxx_set_handler
+  functions with the same semantics as under legOS on the RCX. This means:
+  
+  rcx_xxx_write() will block your program until the message has sucessfully
+  made it out to IR-space, or a collision was detected. 
+  
+  rcx_xxx_set_handler will set up a handler, that is called asynchronously if a
+  valid message arrives from IR-space. Incoming messages are distributed to ALL
+  active clients of lnpd, so you will receive a message in every application
+  that has set up a handler for it.
+  
+  There is one point where lnp semantics as seen under legOS are not exactly
+  mimiced. If multiple clients try to send simultanously, lnpd will put
+  them in a queue, and process them one after the other. (Of course, around
+  robin scheme is used to be fair) All clients in the queue will
+  be blocked. What should happen if a valid message arrives while your client is
+  blocked (in the queue) ? Under real legOS, this will never happen, but in the
+  multi-client environment it´s possible. The default behaviour of liblnp is to
+  deliver this messages, this means: If you have installed a handler, it will
+  be called, but your transmit job will stay blocked and might return later
+  successfully. If you are not interested in messages arriving while you´re
+  queued for sending, you can call lnp_init with a special flag. In this case,
+  all messages arriving while blocked in lnp_xxx_write() will be discarded.
+  
+  look into the applications directory for some examples.
+  
+CAVEATS:
+  If lnpd encounters an unrecoverable error, it will log an
+  error-message and terminate. For this reason, you should enable
+  logging, at least to the syslog, to get an idea of what went wrong.
+  
+  liblnp uses signal SIGIO, so you cannot use this signal otherwise in your
+  application.
+   
+  Currently, lnpd
+  is not aware of silently dying clients, which do not close the TCP connection
+  appropriately. However, as far as we have no windows port of liblnp, imho
+  that´s not a big issue ;-) -- but i´m working on it.
+
+BUGS:
+  probably many, i tested only for about 3 hours...  
+  
+Have fun and send me many bug-reports, Martin

@@ -1,0 +1,99 @@
+--- lnp.c.orig	Wed Dec 22 00:17:49 1999
++++ lnp.c	Wed Dec 22 02:47:23 1999
+@@ -43,6 +43,13 @@
+ //
+ ///////////////////////////////////////////////////////////////////////////////
+ 
++#ifndef CONF_HOST
++#ifdef CONF_TM
++#include <semaphore.h>
++extern sem_t tx_sem;       	      	//!< transmitter access semaphore
++#endif
++#endif
++
+ //! the timeout counter in ms
+ volatile unsigned short lnp_timeout_counter;
+ 
+@@ -118,6 +125,13 @@
+ /*! \return 0 on success.
+ */
+ int lnp_integrity_write(const unsigned char *data,unsigned char length) {
++
++#ifndef CONF_HOST
++#ifdef CONF_TM
++  sem_wait(&tx_sem);
++#endif
++#endif
++
+   lnp_buffer[0]=0xf0;
+   lnp_buffer[1]=length;
+   memcpy(lnp_buffer+2,data,length);
+@@ -131,6 +145,12 @@
+ */
+ int lnp_addressing_write(const unsigned char *data,unsigned char length,
+                          unsigned char dest,unsigned char srcport) {
++#ifndef CONF_HOST
++#ifdef CONF_TM
++  sem_wait(&tx_sem);
++#endif
++#endif
++
+   lnp_buffer[0]=0xf1;
+   lnp_buffer[1]=length+2;
+   lnp_buffer[2]=dest;
+--- lnp-logical.c.orig	Wed Dec 22 00:17:37 1999
++++ lnp-logical.c	Wed Dec 22 00:49:34 1999
+@@ -60,7 +60,7 @@
+ static time_t allow_tx;       	      	//!< time to allow new transmission
+ 
+ #ifdef CONF_TM
+-static sem_t tx_sem;       	      	//!< transmitter access semaphore
++sem_t tx_sem;       	      	//!< transmitter access semaphore
+ #endif
+     
+ ///////////////////////////////////////////////////////////////////////////////
+@@ -103,11 +103,13 @@
+ HANDLER_WRAPPER("rx_handler","rx_core");
+ void rx_core(void) {
+ #endif
++  time_t new_tx;
+   lnp_timeout_reset();
+   if(tx_state<TX_ACTIVE) {
+     // foreign bytes
+     //
+-    allow_tx=sys_time+LNP_BYTE_SAFE;
++    new_tx = sys_time+LNP_BYTE_SAFE;
++    if (new_tx > allow_tx) allow_tx = new_tx;
+     lnp_integrity_byte(S_RDR);
+   } else {
+     // echos of own bytes -> collision detection
+@@ -135,9 +137,11 @@
+ HANDLER_WRAPPER("rxerror_handler","rxerror_core");
+ void rxerror_core(void) {
+ #endif
++  time_t new_tx;
+   if(tx_state<TX_ACTIVE) {
+     lnp_integrity_reset();
+-    allow_tx=sys_time+LNP_BYTE_SAFE;
++    new_tx = sys_time+LNP_BYTE_SAFE;
++    if (new_tx > allow_tx) allow_tx = new_tx;
+   } else {
+     txend_handler();
+     tx_state=TX_COLL;
+@@ -247,11 +251,11 @@
+ */
+ int lnp_logical_write(const void* buf,size_t len) {
+   unsigned char tmp;
+-  
+-#ifdef CONF_TM
+-  sem_wait(&tx_sem);
+-#endif
+-  
++
++//#ifdef CONF_TM
++//  sem_wait(&tx_sem);
++//#endif
++
+   wait_event(write_allow,0);
+   
+   lnp_timeout_reset();

@@ -1,0 +1,9 @@
+This is dllx, a slightly modified version of dll for lnpd & lilnp.
+At least on my old 486, it looks a little more reliable than the original dll
+when running with 4800 baud. I haven´t tested it at 2400 baud, hopefully it
+works.
+
+To compile, adjust the 2 defines at the top of the Makefile, and make depend;
+make all.
+
+
