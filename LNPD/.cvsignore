@@ -1,0 +1,11 @@
+*.out
+autom4te.cache
+config.h.in
+config.log
+inst-files.lst
+stamp-h.in
+Makefile
+stamp-h
+libtool
+config.h
+config.status

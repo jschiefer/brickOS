@@ -1,2 +1,4 @@
 lnpd
-.depend
+Makefile
+.libs
+.deps

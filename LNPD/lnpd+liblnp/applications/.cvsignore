@@ -1,3 +1,5 @@
-.depend
-dll
 lnptest
+lnpdll
+Makefile
+.deps
+.libs

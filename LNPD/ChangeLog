@@ -1,0 +1,10 @@
+2005-01-16	stephen
+	* Applied BrickOS patch #904945 submitted by 
+	  Gerard <gerard.sanroma@estudiants.urv.es> fixing LNP communication
+	  with current BrickOS
+	* converted LNPD to autoconf use which adds install targets
+	  and generates makefiles which work on multiple platforms
+
+2005-01-02	stephen
+	* committed first version of Martins work to BrickOS CVS
+
