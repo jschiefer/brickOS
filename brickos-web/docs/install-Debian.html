@@ -1,0 +1,363 @@
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Language" CONTENT="en-us">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 5.0">
+<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+<TITLE>legOS install on Debian GNU/Linux</TITLE>
+</HEAD>
+
+<BODY>
+
+<DIV CLASS="ARTICLE">
+  <DIV CLASS="TITLEPAGE">
+    <H1 CLASS="TITLE">Installing legOS on Debian GNU/Linux Systems</H1>
+    <H3 CLASS="AUTHOR"><A NAME="AEN4">Stephen M Moraco</A></H3>
+    <SPAN CLASS="RELEASEINFO">Version 1.0,&nbsp; 8 October, 2002 <BR>
+&nbsp;</SPAN><P CLASS="COPYRIGHT">Copyright © 2002 Stephen Moraco.<DIV CLASS="REVHISTORY">
+    <TABLE WIDTH="100%" BORDER="0">
+      <TR>
+        <TH vAlign="top" ALIGN="left" colSpan="3"><B>Revision History</B></TH>
+      </TR>
+      <TR>
+        <TD ALIGN="left">Revision 1.0</TD>
+        <TD ALIGN="left">08 October 2002</TD>
+        <TD ALIGN="left">Revised by: smm</TD>
+      </TR>
+      <TR>
+        <TD ALIGN="left" colSpan="3">Initial Release to accompany legOS 0.2.6</TD>
+      </TR>
+    </TABLE>
+    </DIV>
+    <HR>
+
+  </DIV>
+  If you have problems related to these instructions, you can write to
+  <I CLASS="CITETITLE">
+  <A TARGET="_top" HREF="mailto:stephmo@users.sourceforge.net">Stephen M Moraco</A></I>.
+  <DIV CLASS="CAUTION">
+&nbsp;<TABLE CLASS="CAUTION" WIDTH="100%" BORDER="0">
+      <TR>
+        <TD vAlign="top" ALIGN="middle" WIDTH="25">
+        <IMG ALT="Caution" HSPACE="5" SRC="../images/caution.gif" width="24" height="24"></TD>
+        <TD vAlign="top" ALIGN="left">These instruction work for me (on both the 
+        Debian 2.x and 3.x releases).&nbsp; This page is written for the legOS 
+        package and is not yet tuned for the brickOS package (the current name 
+        of this project).&nbsp; This page will be adjusted to current brickOS 
+        installation as soon as the first brickOS release is packaged for 
+        Debian.<BR>
+&nbsp;</TD>
+      </TR>
+    </TABLE>
+  </DIV>
+  These instructions give you a fully functional legOS 0.2.6 (and newer 
+  versions) and the cross compilation tool chain. You will be able to compile, 
+  download and run your own programs. If you want to specially configure the 
+  legOS kernel you also will want to download the Debian source package. <I>
+  &nbsp;Instructions for this are found later in this page in
+  <A HREF="#4. Setup to customize legOS">Section 4</A>.</I><P>Debian GNU/Linux 
+   supports many architectures. legOS as part of the Debian distribution is also 
+   supported on these platforms.&nbsp; The legOS packaging was first done for 
+   Debian 2.2 so it is not yet supported on all of the Debian 3.0 architectures.&nbsp; 
+   Our intent is to have it support all architectures at the brickOS 1.1.0 
+   release.<P>The Debian 3.0 supported architectures are: Alpha, Arm, HP PA, 
+   I386, IA64, Motorola 68000, MIPS, MIPS-EL, PowerPC, S390, Sparc.&nbsp; legOS 
+   is not yet supported on Arm, HP PA, and IA64.&nbsp; This is due to specific 
+   compiler versions being needed by the newer platforms. I will be packaging 
+   the newer tool chain after our upcoming brickOS 1.0.0 release.&nbsp; After 
+   the new tools are packaged, we will update brickOS to run with the new tools 
+   and will then support all of the platforms.&nbsp; Currently this is intended 
+   to be the focus of the brickOS 1.1.0 release.<DIV CLASS="SECT1">
+    <H1 CLASS="SECT1">Step by step instructions:</H1>
+    <P CLASS="SECT1">These instructions are divided into four sections:<OL>
+    <LI>
+    <P CLASS="SECT1"><A HREF="#1. Install legOS">Install legOS and GNU cross 
+     compilation tool chain</A> for the Hitachi H8/300 microcontroller. (The 
+     computer in the RCX)</LI>
+    <LI>
+    <P CLASS="SECT1"><A HREF="#2. Getting Started">Getting Started</A> - build 
+     demos, download and run them.</LI>
+    <LI>
+    <P CLASS="SECT1"><A HREF="#3. Your own projects">Your own projects</A> - 
+     write your own programs, build, download and run them.</LI>
+    <LI>
+    <P CLASS="SECT1"><A HREF="#4. Setup to customize legOS">Setup to customize 
+     legOS</A> - get the legOS source so you can modify it, build it and run 
+     your programs using it.</LI>
+    </OL>
+    <DIV CLASS="SECT2">
+      <H2 CLASS="SECT2"><A NAME="1. Install legOS">1. Install legOS</A> and GNU 
+      cross compilation tool chain for the Hitachi H8/300 microcontroller.</H2>
+      <P CLASS="SECT2">There are three packages which need to be installed:<BR>
+&nbsp;<DIV ALIGN="center">
+        <CENTER>
+        <TABLE BORDER="1" CELLPADDING="3" CELLSPACING="0" STYLE="border-collapse: collapse" BORDERCOLOR="#111111" WIDTH="616" ID="AutoNumber1">
+          <TR>
+            <TH NOWRAP BGCOLOR="#AFE6EF">&nbsp;</TH>
+            <TH NOWRAP BGCOLOR="#AFE6EF">Name</TH>
+            <TH NOWRAP BGCOLOR="#AFE6EF">Description</TH>
+          </TR>
+          <TR>
+            <TD WIDTH="30" ALIGN="center">1</TD>
+            <TD NOWRAP VALIGN="top" ALIGN="right">
+            binutils-h8300-hms_2.9.5.0.37.5</TD>
+            <TD ALIGN="left" VALIGN="top">GNU Assembler, linker, loader, etc.</TD>
+          </TR>
+          <TR>
+            <TD WIDTH="30" ALIGN="center">2</TD>
+            <TD NOWRAP VALIGN="top" ALIGN="right">gcc-h8300-hms_2.95.2.2.1</TD>
+            <TD ALIGN="left" VALIGN="top">GNU C and C++ compilers</TD>
+          </TR>
+          <TR>
+            <TD WIDTH="30" ALIGN="center">3</TD>
+            <TD NOWRAP VALIGN="top" ALIGN="right">legos_0.2.6-1</TD>
+            <TD ALIGN="left" VALIGN="top">The legOS kernel, libraries, headers, 
+            utilities and demo programs</TD>
+          </TR>
+        </TABLE>
+        </CENTER>
+      </DIV>
+&nbsp;<P>Use one of the following install techniques: (1)
+       <A HREF="#Install using apt-get">install using apt-get</A>, or (2)
+       <A HREF="#Download the .deb files and install by hand">download the .deb 
+       files then install by hand</A>. Each should get you setup equally well.&nbsp; 
+       If you are already setup for it method (1) is easiest.<H3>1.1
+      <A NAME="Install using apt-get">Install using apt-get</A></H3>
+      <BLOCKQUOTE>
+        This method assumes you have apt-get configured to install packages from 
+        one of the Debian mirrors. Running a single command will install all 
+        three packages.<P>(As root) run:
+        <TABLE WIDTH="90%" bgColor="#e0e0e0" BORDER="0">
+          <TR>
+            <TD>
+            <PRE CLASS="PROGRAMLISTING">$ sudo apt-get install legos</PRE>
+            </TD>
+          </TR>
+        </TABLE>
+&nbsp;<P>After this succeeds, everything you need is now installed. <BR>
+         Move on to <A HREF="#2. Getting Started">Section 2</A> to build the 
+         demos and finish the setup and testing of your development environment.</BLOCKQUOTE>
+
+      <H3>1.2&nbsp; <A NAME="Download the .deb files and install by hand">
+      Download the .deb files and install by hand</A></H3>
+      <BLOCKQUOTE>
+        Download three packages from Debian Site. Click on the &quot;download&quot; link 
+        at each the following pages:<OL>
+          <LI><A HREF="http://packages.debian.org/binutils-h8300-hms">
+          binutils-h8300-hms</A></LI>
+          <LI><A HREF="http://packages.debian.org/gcc-h8300-hms">gcc-h8300-hms</A></LI>
+          <LI><A HREF="http://packages.debian.org/legos">legos</A></LI>
+        </OL>
+        <I>You'll probably have choices for installing versions from
+        <FONT COLOR="#800000">stable, testing, </FONT>or<FONT COLOR="#800000"> 
+        unstable</FONT>. <B>Unstable</B> is equivalent to the legOS testing 
+        releases. So you should be fine using the versions in unstable.</I><P>
+         Install the packages in the proper order: binutils-h8300-hms, 
+         gcc-h8300-hms, then legos.&nbsp; If you don't follow this order the 
+         install will not succeed.
+        <TABLE WIDTH="90%" bgColor="#e0e0e0" BORDER="0">
+          <TR>
+            <TD>
+            <PRE CLASS="PROGRAMLISTING">$ cd {download-dir}   # cd to where you placed the downloaded files
+$ sudo dpkg --install binutils-h8300-hms_2.9.5.0.37.5_i386.deb
+$ sudo dpkg --install gcc-h8300-hms_2.95.2.2.1_i386.deb
+$ sudo dpkg --install legos_0.2.6-1_i386.deb</PRE>
+            </TD>
+          </TR>
+        </TABLE>
+        <I>NOTE: the <FONT COLOR="#FF0000">_i386</FONT> in the above package 
+        names is changed to indicate the platform you are using. For example, 
+        here is the list of legos .deb filenames for each of the currently 
+        supported architectures:</I><UL>
+          <LI><I>legos_0.2.6-1_alpha.deb</I></LI>
+          <LI><I>legos_0.2.6-1_i386.deb</I></LI>
+          <LI><I>legos_0.2.6-1_m68k.deb</I></LI>
+          <LI><I>legos_0.2.6-1_mips.deb</I></LI>
+          <LI><I>legos_0.2.6-1_mipsel.deb</I></LI>
+          <LI><I>legos_0.2.6-1_powerpc.deb</I></LI>
+          <LI><I>legos_0.2.6-1_s390.deb</I></LI>
+          <LI><I>legos_0.2.6-1_sparc.deb</I></LI>
+        </UL>
+        After these three installs are completed, everything you need is now 
+        installed. <BR>
+        Move on to <A HREF="#2. TRY IT!!!">Section 2</A> to build the demos and 
+        finish the setup and testing of your development environment.</BLOCKQUOTE>
+
+&nbsp;</DIV>
+    <DIV CLASS="SECT2">
+      <H2 CLASS="SECT2"><A NAME="2. Getting Started">2. Getting Started</A></H2>
+      <BLOCKQUOTE>
+        You've just finished the install. At this point, the cross compilation 
+        tool chain, RCX download utilities, legOS libraries and headers, legOS 
+        kernel and demos have all been installed and are ready for use.&nbsp; 
+        This section takes you though simple steps to verify that everything is 
+        working as installed.<H3>2.1 Quick walkthrough</H3>
+        <I>(Example commands for this walkthrough are in section 2.2)</I><H4>a. 
+        Download legOS operating system to the RCX</H4>
+        <BLOCKQUOTE>
+          The utilities are already in your PATH. Set RCXTTY if you use a 
+          non-standard port for the IR tower. [example: 'export 
+          RCXTTY=/dev/ttyS1']<P>Use firmdl3 to download 
+           /usr/lib/legos/legOS.srec to your RCX.</BLOCKQUOTE>
+
+        <H4>b. Build a demo program, download it the the RCX and run it</H4>
+        <BLOCKQUOTE>
+          Copy the /usr/share/doc/legos/examples/demo/ directory contents to a 
+          directory of your choosing. (If you wish to use c++ copy the files 
+          from the demo/c++ subdirectory, instead.) NOTE: you may have to 
+          uncompress some of the example files. Simply do a one-time: gzip -d *.gz<P>
+           Type 'make' in this new directory to compile the demos.<P>Type &quot;dll 
+           demo/helloworld.lx&quot; (where demo is the directory in which you just 
+           made the demos). If all is well, it should be automatically relocated 
+           and transmitted to program slot 0. Press the RUN key to run. The 
+           program stops automatically.<P>Type &quot;dll -p1 demo/rover.lx&quot; to 
+           transmit another demo to program slot 1.<P>Use the PRGM key to select 
+           the desired program. Try RUN.<BR>
+           - NOTE: A 'make realclean' will remove all built files.<P>Stop your 
+           program with the RUN or ON/OFF key. Programs are preserved over<BR>
+           ON/OFF now. Press ON/OFF and PRGM simultaneously to erase legOS.</BLOCKQUOTE>
+
+        <H3>2.2 Example walkthrough</H3>
+        <H4>a. Download legOS operating system to the RCX</H4>
+        Example of loading the operating system.<I> (Our IR Tower is on COM1, 
+        the RCX is powered on not currently running a program and is within 
+        range of the IR tower ready to receive the download.)</I><TABLE WIDTH="90%" bgColor="#e0e0e0" BORDER="0">
+          <TR>
+            <TD>
+            <PRE CLASS="PROGRAMLISTING">$ export RCXTTY=/dev/ttyS0      # our Serial IR Tower is on com1
+$ firmdl3 /usr/lib/legos/legOS.srec
+$</PRE>
+            </TD>
+          </TR>
+        </TABLE>
+&nbsp;<H4>b. Build a demo program, download it the the RCX and run it</H4>
+        Example of the building and downloading demos.&nbsp; <I>We'll build the 
+        C language demos in the 'mybots/demos' directory within our home 
+        directory:</I><TABLE WIDTH="90%" bgColor="#e0e0e0" BORDER="0">
+          <TR>
+            <TD>
+            <PRE CLASS="PROGRAMLISTING">$ mkdir -p ~/mybots/demos	# make our directory
+$ cd ~/mybots/demos		# cd to or new directory
+$ cp /usr/share/doc/legos/examples/demo/* .	# copy files into directory
+$ gzip -d *gz			# uncompress any compressed files
+$ make all			# build the demos
+$ dll helloworld.lx		# download helloworld demo to slot 0
+$                               #  program slot 0 is default
+$ dll -p1 rover.lx              # download rover to program slot 1
+$</PRE>
+            </TD>
+          </TR>
+        </TABLE>
+&nbsp;<P>Press PRGM to select program 0 (helloworld).<BR>
+         -NOTE: this is due to legOS having selected the last downloaded program 
+         (program 1).<P>Press RUN to see the program helloworld run.&nbsp; It 
+         will display on the RCX LCD and then stop by itself.<P>If all of this 
+         has worked, you are setup and running.&nbsp; Congratulations!<P>Feel 
+         free to solicit help at&nbsp;
+         <A HREF="http://www.lugnet.com/robotics/rcx/legos/" TARGET="_top">
+         <I CLASS="CITETITLE">lugnet.robotics.rcx.legos</I> </A>on
+         <A HREF="http://www.lugnet.com" TARGET="_top"><I CLASS="CITETITLE">
+         lugnet.com</I> </A>.if you have any problems with this.&nbsp; There are 
+         many users of legOS there as well as the legOS development team.</BLOCKQUOTE>
+
+&nbsp;</DIV>
+    <DIV CLASS="SECT2">
+      <H2 CLASS="SECT2"><A NAME="3. Your own projects">3. Your own projects</A></H2>
+      <BLOCKQUOTE>
+        <P CLASS="SECT2">Now you've installed legOS and the tool chain.&nbsp; 
+         You've tested the installation by building and downloading a couple of 
+         the demos. You really want to get on with writing your own programs for 
+         the RCX.&nbsp; Here are simple steps to accomplish this.<UL>
+          <LI>Make a directory in a location of your choosing </LI>
+          <LI>Copy 'Makefile' from the /usr/share/doc/legos/examples directory 
+          to this new directory.</LI>
+          <LI>Put your main routine into myproject.c. (or myproject.C if using 
+          C++)</LI>
+          <LI>Type &quot;make myproject.lx &amp;&amp; dll myproject.lx&quot; to build and download 
+          your new code.</LI>
+        </UL>
+        Pretty simple, really.&nbsp; The Makefile has rules in it which already 
+        know how to build .lx files from .c or .C files.&nbsp; This is why this 
+        works without modifying the Makefile..<P><I>If you wish to experiment 
+         with multiple source files compiling into one .lx file then you will 
+         have to modify the Makefile itself before you can build your new .lx 
+         file.</I><P ALIGN="center"><I><FONT COLOR="#FF0000">(Example here - 
+         TBD)</FONT></I></BLOCKQUOTE>
+
+&nbsp;</DIV>
+    <DIV CLASS="SECT2">
+      <H2 CLASS="SECT2"><A NAME="4. Setup to customize legOS">4. Setup to 
+      customize legOS</A></H2>
+      <BLOCKQUOTE>
+        Ok, you've had fun writing programs, downloading them and such.&nbsp; 
+        Now you've decided to enable some of the alternate capabilities of legOS 
+        or you'd like to tweak the kernel in some way.&nbsp; Maybe you'd even 
+        like to add some new capability to the kernel. It's beyond the scope of 
+        this document to lead you through all of this, but here are instructions 
+        for getting the legOS source and building it.<I>&nbsp; (Oddly enough, 
+        building it requires some of the tools you've already installed! ;-) </I>
+      </BLOCKQUOTE>
+
+    </DIV>
+  </DIV>
+&nbsp;
+  <DIV ALIGN="center">
+    <CENTER>
+    <TABLE CLASS="CAUTION" WIDTH="90%" BORDER="0" STYLE="border-collapse: collapse" BORDERCOLOR="#111111" CELLPADDING="3" CELLSPACING="0">
+      <TR>
+        <TD vAlign="top" ALIGN="middle" WIDTH="25">
+        <IMG ALT="Caution" HSPACE="5" SRC="../images/caution.gif" width="24" height="24"></TD>
+        <TD vAlign="top" ALIGN="left">This is first draft material so may not 
+        yet be complete and is experimental in nature.&nbsp; If you have advice 
+        for adjusting this content, please send your suggestions to the author. 
+        [See email link at top of this page]</TD>
+      </TR>
+    </TABLE>
+    </CENTER>
+  </DIV>
+  <DIV CLASS="SECT1">
+    <DIV CLASS="SECT2">
+      <BLOCKQUOTE>
+&nbsp;<P>Download the source package using apt-get (assumes you have properly 
+         configured apt).<TABLE WIDTH="90%" bgColor="#e0e0e0" BORDER="0">
+          <TR>
+            <TD>
+            <PRE CLASS="PROGRAMLISTING">$ mkdir ~/legos-work	# make our new working directory
+$ cd ~/legos-work	# move to our new directory
+$ apt-get source legos	# download and unpack the source package
+</PRE>
+            </TD>
+          </TR>
+        </TABLE>
+&nbsp;<P>This has created a legos-0.2.6 directory within your new working 
+         directory.<P>Change into this legos-0.2.6 directory to get ready to 
+         build<P>Type 'make depend' and then 'make all' to build legOS<P><I>
+        NOTE: this builds the demos found in the legos-0.2.6/demos directory.&nbsp; 
+        You can use these newly compiled demos to test your modifications to the 
+        kernel.</I><P>Reset the RCX so you can download a new version of legOS<I> 
+         (simultaneously press ON-OFF and PRGM buttons, maybe, a couple of 
+         times).</I><P>Run 'firmdl3 ./boot/legOS.srec' to download the new legOS 
+         kernel<P>Use dll to download a newly built demo and run it.<P ALIGN="center">
+        <FONT COLOR="#FF0000"><I>(Better detail - TBD)</I></FONT></BLOCKQUOTE>
+
+&nbsp;</DIV>
+    <DIV CLASS="SECT2">
+      <H2 CLASS="SECT2">Final Notes</H2>
+      If any of this doesn't work, consult
+      <A HREF="http://www.lugnet.com/robotics/rcx/legos/" TARGET="_top">
+      <I CLASS="CITETITLE">lugnet.robotics.rcx.legos</I> </A>on
+      <A HREF="http://www.lugnet.com" TARGET="_top"><I CLASS="CITETITLE">
+      lugnet.com</I> </A>.<P>Every command indicated is executed from the bash 
+       shell. In the examples (the grey insets), the &quot;$&quot; is the prompt bash 
+       gives you.</DIV>
+    <DIV CLASS="SECT2">
+      <H2 CLASS="SECT2">&nbsp;</H2>
+      Initial Release: <A HREF="mailto:stephen@debian.org" TARGET="_top">
+      <I CLASS="CITETITLE">Stephen Moraco</I> </A>09/10/2002.
+    </DIV>
+  </DIV>
+</DIV>
+<P ALIGN="center"><FONT SIZE="2">This site generously hosted by&nbsp; </FONT>
+ <A HREF="http://sourceforge.net"><FONT SIZE="2">
+ <IMG SRC="http://sourceforge.net/sflogo.php?group_id=58151&type=4" WIDTH="125" HEIGHT="37" BORDER="0" ALT="SourceForge Logo" ALIGN="middle"></FONT></A></BODY></HTML>

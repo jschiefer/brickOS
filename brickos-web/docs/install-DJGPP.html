@@ -1,0 +1,300 @@
+<HTML>
+
+<HEAD>
+<META HTTP-EQUIV="Content-Language" CONTENT="en-us">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 5.0">
+<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+</HEAD>
+
+<BODY>
+
+<H1>Instructions for building DJGPP H8300 cross compiler</H1>
+<BLOCKQUOTE>
+  <P ALIGN="left"><FONT COLOR="#FF0000">This is place holder content.&nbsp; It 
+   needs to be reworked to our same layout as the other install documents. This 
+   has not yet been done. I'm placing the original email here, for now, so it 
+   may be useful in the meantime.<BR>
+   -Stephen</FONT></BLOCKQUOTE>
+
+<STRONG>From:</STRONG> Ed Manlove (<A HREF="mailto:emanlove@ieee.org?Subject=Re:%20Instructions%20for%20building%20DJGPP%20H8300%20cross%20compiler"><EM>emanlove@ieee.org</EM></A>)<BR>
+<STRONG>Date:</STRONG> Sun Sep 29 2002 - 08:06:53 MDT <HR>
+
+The following are instructions I am using for building the Hitachi H8300 cross 
+compiler for the DJGPP environment. Please read through the entire message 
+before proceeding.<P>Download the following DJGPP/GNU packages from
+ <A HREF="http://www.delorie.com">http://www.delorie.com</A> or one of its 
+ mirror sites. A complete listing of ftp sites can be found at
+ <A HREF="http://www.delorie.com/djgpp/zip-picker.html">
+ http://www.delorie.com/djgpp/zip-picker.html</A>. I use
+ <A HREF="ftp://ftp.bu.edu/pub/mirrors/simtelnet/gnu/djgpp/">
+ ftp://ftp.bu.edu/pub/mirrors/simtelnet/gnu/djgpp/</A>.
+<P>unzip32.exe <BR>
+ v2\djdev203.zip <BR>
+ v2\faq230b.zip <BR>
+ v2\djcrx203.zip <BR>
+ v2gnu\bnu2121b.zip <BR>
+ v2gnu\gcc31b.zip <BR>
+ v2gnu\mak3791b.zip <BR>
+ v2gnu\txi42b.zip <BR>
+ v2gnu\fil316b.zip <BR>
+ v2gnu\shl2011b.zip <BR>
+ v2gnu\tar112ab.zip <BR>
+ v2gnu\gzip13b.zip <BR>
+ v2gnu\sed203b.zip <BR>
+ v2gnu\pat253b.zip <BR>
+ v2gnu\grep24b.zip <BR>
+ v2gnu\txt20b.zip <BR>
+ v2gnu\dif28b.zip <BR>
+ v2gnu\gtxt040b.zip <BR>
+ v2gnu\gpp31b.zip <BR>
+ v2gnu\bnu2121s.zip <BR>
+ v2gnu\gcc2952s.zip <BR>
+ v2gnu\gcc2952s2.zip <BR>
+&nbsp;<P>At the DOS prompt type the following <BR>
+&nbsp;<P>C:\&gt; mkdir djgpp <BR>
+ C:\&gt; cd djgpp <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\djdev203.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\faq230b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\bnu2121b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\gcc31b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\mak3791b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\txi42b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\djcrx203.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\fil316b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\shl2011b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\tar112ab.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\gzip13b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\sed203b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\pat253b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\grep24b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\txt20b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\dif28b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\gtxt040b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\gpp31b.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\bnu2121s.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\gcc2952s.zip <BR>
+ C:\DJGPP&gt; unzip32 c:\temp\gcc2952s2.zip <BR>
+&nbsp;<P>DJGPP port of GCC 3.1 has a know bug in it. To correct for this problem 
+ create file c:\DJGPP\gnu\gcc-3.1\djtypes.patch which contains the following 
+ lines. NOTE: This patch is included at the end of the file 
+ C:\DJGPP\gnu\gcc-3.1\readme.DJGPP.
+<P>--- include/sys/djtypes.h~1 Tue Dec 14 06:56:16 1999 <BR>
+ +++ include/sys/djtypes.h Mon Feb 4 16:20:40 2002 <BR>
+ @@ -12,7 +12,12 @@ <BR>
+ &nbsp;#define __DJ_ssize_t typedef int ssize_t; <BR>
+ &nbsp;#define __DJ_time_t typedef unsigned int time_t; <BR>
+ &nbsp;#define __DJ_uid_t typedef int uid_t; <BR>
+ + <BR>
+ +#if __GNUC__&gt;=3 <BR>
+ +#define __DJ_va_list typedef __builtin_va_list va_list; <BR>
+ +#else <BR>
+ &nbsp;#define __DJ_va_list typedef void *va_list; <BR>
+ +#endif <BR>
+&nbsp;<P>&nbsp;#if defined(__cplusplus) &amp;&amp; ( (__GNUC_MINOR__ &gt;= 8 &amp;&amp; __GNUC__ == 2 ) 
+ || <BR>
+ __GNUC__ &gt;= 3 ) <BR>
+ &nbsp;/* wchar_t is now a keyword in C++ */ <BR>
+&nbsp;<P>To apply the patch type the following at the DOS prompt <BR>
+&nbsp;<P>C:\DJGPP&gt; djgpp <BR>
+ C:\DJGPP&gt; patch -p0 -i c:\DJGPP\gnu\gcc-3.1\djtypes.patch <BR>
+&nbsp;<P>To configure and build the binutils for the hitachi H8300 type the 
+ following at the dos prompt <BR>
+&nbsp;<P>C:\DJGPP&gt; cd gnu\binutl-2.121\build.djg <BR>
+ C:\DJGPP\gnu\binutl-2.121\build.djg&gt; sh <BR>
+ djconfig.sh --target=h8300-hitachi-hms <BR>
+ C:\DJGPP\gnu\binutl-2.121\build.djg&gt; make <BR>
+ C:\DJGPP\gnu\binutl-2.121\build.djg&gt; make <BR>
+&nbsp;<P>FOR REASONS UNKNOWN AT THIS POINT ONE MUST RESTART A NEW MS-DOS WINDOW 
+ OR <BR>
+ REINIATE make TO PROPERLY make THE MAKEFILE CREATED BY THE CONFIGURE STEP. <BR>
+ OTHERWISE THE FOLLOWING ERROR MIGHT APPEAR. <BR>
+&nbsp;<P>ERROR: (SHOWN AS FOLLOWS) <BR>
+ gcc -c -DCROSS_COMPILE -DIN_GCC -O2 -g -W -Wall -DSTANDARD_INCLUDE_DIR= <BR>
+ \&quot;\$ <BR>
+ DJDIR/include\&quot; -DSTANDARD_INCLUDE_COMPONENT=\&quot;\&quot; -I. -I.. -I../../../gcc/f <BR>
+ &nbsp;-I. <BR>
+ ./../../gcc/f/.. -I../../../gcc/f/../config -I../../../gcc/f/../../include <BR>
+ ../.. <BR>
+ /../gcc/f/com.c <BR>
+ In file included from ../../../gcc/f/com.c:198: <BR>
+ ../../../gcc/f/com.h:145:4: #error Cannot find a suitable type for <BR>
+ FFECOM_f2cLON <BR>
+ GINT <BR>
+ ../../../gcc/f/com.c: In function `ffecom_possible_partial_overlap_': <BR>
+ ../../../gcc/f/com.c:1599: warning: unused parameter `expr2' <BR>
+ ../../../gcc/f/com.c: In function `ffecom_init_0': <BR>
+ ../../../gcc/f/com.c:12293: `FFECOM_f2cLONGINT' undeclared (first use in <BR>
+ this fu <BR>
+ nction) <BR>
+ ../../../gcc/f/com.c:12293: (Each undeclared identifier is reported only <BR>
+ once <BR>
+ ../../../gcc/f/com.c:12293: for each function it appears in.) <BR>
+ make.exe[2]: *** [com.o] Error 1 <BR>
+ make.exe[2]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc/f' <BR>
+ make.exe[1]: *** [f771.exe] Error 2 <BR>
+ make.exe[1]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc' <BR>
+ make.exe: *** [all-gcc] Error 2 <BR>
+&nbsp;<P>&nbsp;<P>To configure gcc I use the following script. This script, 
+C:\DJGPP\gnu\gcc-2.952\build.djg\h8config.sh, is the djconfig.sh script from 
+bintutils-2.121 with a few minor modifications. I had difficulty using the 
+djconfig.sh script for gcc-2.952. <BR>
+&nbsp;<P>#!/bin/sh <BR>
+ # <BR>
+ # This shell script is a wrapper to the main configure script when <BR>
+ # configuring GDB for DJGPP. 99% of it can also be used when <BR>
+ # configuring other GNU programs for DJGPP. <BR>
+ # <BR>
+ #===================================================================== <BR>
+ # Copyright 1997, 1999, 2000, 2001, 2002 Free Software Foundation, Inc. <BR>
+ # <BR>
+ # Originally written by Robert Hoehne, revised by Eli Zaretskii. <BR>
+ # This file is part of GDB. <BR>
+ # Adapted for binutils by Andris Pavenis <BR>
+ # <BR>
+ # This program is free software; you can redistribute it and/or modify <BR>
+ # it under the terms of the GNU General Public License as published by <BR>
+ # the Free Software Foundation; either version 2 of the License, or <BR>
+ # (at your option) any later version. <BR>
+ # <BR>
+ # This program is distributed in the hope that it will be useful, <BR>
+ # but WITHOUT ANY WARRANTY; without even the implied warranty of <BR>
+ # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <BR>
+ # GNU General Public License for more details. <BR>
+ # <BR>
+ # You should have received a copy of the GNU General Public License <BR>
+ # along with this program; if not, write to the Free Software <BR>
+ # Foundation, Inc., 59 Temple Place - Suite 330, <BR>
+ # Boston, MA 02111-1307, USA. */ <BR>
+ #===================================================================== <BR>
+ # <BR>
+ # Call this script like the main configure script with one exception. If <BR>
+ you <BR>
+ # want to pass parameters to configure, you have to pass as the first <BR>
+ # argument the srcdir, even when it is `.' !!!!! <BR>
+ # <BR>
+ # First, undo any CDPATH settings; they will get in our way when we <BR>
+ # chdir to directories. <BR>
+ unset CDPATH <BR>
+&nbsp;<P># Where are the sources? If you are used to having the sources <BR>
+ # in a separate directory and the objects in another, then set <BR>
+ # here the full path to the source directory and run this script <BR>
+ # in the directory where you want to build gdb!! <BR>
+ # You might give the source directory on commandline, but use <BR>
+ # then only forward slashes (/) in the directories. It should be <BR>
+ # an absolute path. <BR>
+&nbsp;<P>srcdir=.. <BR>
+&nbsp;<P># Now set the config shell. It is really needed, that the shell <BR>
+ # points to a shell with full path and also it must conatain the <BR>
+ # .exe suffix. I assume here, that bash is installed. If not, <BR>
+ # install it. Additionally, the pathname must not contain a <BR>
+ # drive letter, so use the /dev/x/foo format supported by versions <BR>
+ # of Bash 2.03 and later, and by all DJGPP programs compiled with <BR>
+ # v2.03 (or later) library. <BR>
+ export CONFIG_SHELL=/dev/env/DJDIR/bin/sh.exe <BR>
+&nbsp;<P># force to have the ltmain.sh script to be in DOS text format, <BR>
+ # otherwise the resulting ltconfig script will have mixed <BR>
+ # (UNIX/DOS) format and is unusable with Bash ports before v2.03. <BR>
+ utod $srcdir/ltmain.sh <BR>
+&nbsp;<P># Give the configure script some hints: <BR>
+ #export AS=as <BR>
+ export LD=ld <BR>
+ export NM=nm <BR>
+ export CC=gcc <BR>
+ export CXX=gpp <BR>
+ export CFLAGS=&quot;-O2 -g&quot; <BR>
+ export RANLIB=ranlib <BR>
+ export DEFAULT_YACC=&quot;bison -y&quot; <BR>
+ export YACC=&quot;bison -y&quot; <BR>
+ export DEFAULT_LEX=flex <BR>
+ # Define explicitly the .exe extension because on W95 with LFN=y <BR>
+ # the check might fail <BR>
+ export am_cv_exeext=.exe <BR>
+ # ltconfig wants to compute the maximum command-line length, but <BR>
+ # Bash 2.04 doesn't like that (it doesn't have any limit ;-), and <BR>
+ # reboots the system. We know our limit in advance, so we don't <BR>
+ # need all that crap. Assuming that the environment size is less <BR>
+ # than 4KB, we can afford 12KB of command-line arguments. <BR>
+ export lt_cv_sys_max_cmd_len=12288 <BR>
+&nbsp;<P># The configure script needs to see the `install-sh' script, otherwise
+ <BR>
+ # it decides the source installation is broken. But &quot;make install&quot; will <BR>
+ # fail on 8+3 filesystems if it finds a file `install-', since there <BR>
+ # are numerous &quot;install-foo&quot; targets in Makefile's. So we rename the <BR>
+ # offending file after the configure step is done. <BR>
+ if test ! -f ${srcdir}/install-sh ; then <BR>
+ &nbsp;&nbsp;if test -f ${srcdir}/install-.sh ; then <BR>
+ &nbsp;&nbsp;&nbsp;&nbsp;mv ${srcdir}/install-.sh ${srcdir}/install-sh <BR>
+ &nbsp;&nbsp;fi <BR>
+ fi <BR>
+&nbsp;<P># Now run the configure script while disabling some things like the NLS
+ <BR>
+ # support, which is nearly impossible to be supported in the current way, <BR>
+ # since it relies on file names which will never work on DOS. <BR>
+ echo &quot;Running the configure script...&quot; <BR>
+ $srcdir/configure --srcdir=&quot;$srcdir&quot; --prefix='${DJDIR}' \ <BR>
+ &nbsp;&nbsp;--disable-bfd-assembler \ <BR>
+ &nbsp;&nbsp;--disable-shared --disable-nls --verbose --enable-build-warnings=\ <BR>
+ -Wimplicit,-Wcomment,-Wformat,-Wparentheses,-Wpointer-arith \ <BR>
+ --enable-target-optspace --with-newlib --enable-languages=c,c++ $* <BR>
+&nbsp;<P>if test -f ${srcdir}/install- ; then <BR>
+ &nbsp;&nbsp;mv ${srcdir}/install- ${srcdir}/install-.sh <BR>
+ fi <BR>
+ # -- EOF h8config.sh ------------------------------------------------ <BR>
+&nbsp;<P>&nbsp;<P>To configure gcc type at the dos prompt <BR>
+&nbsp;<P>C:\DJGPP\gnu\gcc-2.952\build.djg&gt; sh h8config.sh 
+ --target=h8300-hitachi-hms <BR>
+&nbsp;<P>then to build the script type <BR>
+&nbsp;<P>C:\DJGPP\gnu\gcc-2.952\build.djg&gt; make <BR>
+&nbsp;<P>&nbsp;<P>At this point I get the following error which I am trying to 
+resolve. <BR>
+&nbsp;<P>&nbsp;<P>for name in _cmpsi2 _ucmpsi2 _divhi3 _divsi3 _mulhi3 _mulsi3; 
+\ <BR>
+do \ <BR>
+&nbsp;&nbsp;echo ${name}; \ <BR>
+&nbsp;<P>&nbsp;<P>c:/djgpp/gnu/gcc-2.952/build.djg/gcc/xgcc -Bc:/djgpp/gnu/gcc-2.952/build.djg
+<BR>
+/gcc/ -Bc:/djgpp/h8300-hitachi-hms/bin/ -Ic:/djgpp/h8300-hitachi-hms/include <BR>
+&nbsp;-O2 -DCROSS_COMPILE -DIN_GCC -O2 -g -I./include -DDF=SF -DDI=SI -g1 <BR>
+-DIN_LIBGCC2 -D__GCC_FLOAT_NOT_NEEDED -Dinhibit_libc -I. -I../../gcc -I../. <BR>
+./gcc/config -I../../gcc/../include -c -DL${name} libgcc1.S; \ <BR>
+&nbsp;&nbsp;if [ $? -eq 0 ] ; then true; else exit 1; fi; \ <BR>
+&nbsp;&nbsp;mv libgcc1.o ${name}.o; \ <BR>
+&nbsp;&nbsp;h8300-hitachi-hms-ar rc tmplibgcc1.a ${name}.o; \ <BR>
+&nbsp;&nbsp;rm -f ${name}.o; \ <BR>
+done <BR>
+_cmpsi2 <BR>
+make.exe[1]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc' <BR>
+SYSCALLS.c:341: warning: conflicting types for built-in function `alloca' <BR>
+SYSCALLS.c:935: warning: conflicting types for built-in function `memcmp' <BR>
+SYSCALLS.c:936: warning: conflicting types for built-in function `memcpy' <BR>
+SYSCALLS.c:940: warning: conflicting types for built-in function `memset' <BR>
+SYSCALLS.c:1334: warning: conflicting types for built-in function `strlen' <BR>
+c:\djgpp\tmp\cc3wwOKe.s: Assembler messages: <BR>
+c:\djgpp\tmp\cc3wwOKe.s:2: Error: no such instruction: `libgcc1 routines for <BR>
+the Hitachi h8/300 cpu.' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:3: Error: no such instruction: `contributed by Steve <BR>
+Chamberlain.' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:4: Error: invalid character '@' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:93: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:94: Error: no such instruction: `bne .L2' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:95: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:96: Error: no such instruction: `bne .L2' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:97: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:98: Error: no such instruction: `rts' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:100: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:101: Error: no such instruction: `bgt .L4' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:102: Error: no such instruction: `bne .L3' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:103: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:104: Error: no such instruction: `bls .L3' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:106: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:107: Error: no such instruction: `rts' <BR>
+c:\djgpp\tmp\cc3wwOKe.s:109: Error: invalid character '.' in mnemonic <BR>
+c:\djgpp\tmp\cc3wwOKe.s:111: Error: no such instruction: `rts' <BR>
+make.exe[1]: *** [libgcc1-asm.a] Error 1 <BR>
+make.exe: *** [all-gcc] Error 2 <BR>
+&nbsp;<P>(End of Message)<HR>
+
+<P ALIGN="center"><FONT SIZE="2">This site generously hosted by&nbsp; </FONT>
+ <A HREF="http://sourceforge.net"><FONT SIZE="2">
+ <IMG SRC="http://sourceforge.net/sflogo.php?group_id=58151&type=4" WIDTH="125" HEIGHT="37" BORDER="0" ALT="SourceForge Logo" ALIGN="middle"></FONT></A></BODY></HTML>
