@@ -1,0 +1,90 @@
+==============================================================================
+ File: prep-release.txt
+ $Header: /home/jan/tmp/brickos/notes/prep-release.txt,v 1.1 2002/09/01 22:21:49 stephmo Exp $
+
+These NOTES files remind us how to do less frequent
+tasks withing the brickos project at sourceforge.
+------------------------------------------------------------------------------
+
+
+Note: Preparing a release of brickos
+------------------------------------
+
+[ ] ensure that all latest committed changes are recorded
+    in the ChangeLog file.  Have developers update it if
+	they didn't.  Restart at this point when the file has
+	been updated
+
+[ ] update the VERSION file to the new number
+
+    - formal versions we use are:
+	    0.2.6		      - a formal release 
+	    0.2.6.07.nmChg    - a testing release (note short txt descr at end)
+
+[ ] commit the change
+
+
+---------------------------------------------------
+**  Mark the code as being part of this release  **
+---------------------------------------------------
+
+[ ] tag all current file versions as being part of this release
+
+    - formal tags we use are:
+		rls-0-2-6       - a formal release
+	    tst-0-2-6-07 	- a testing release
+
+	$ cvs tag -R tst-0-2-6-07
+
+
+---------------------------------------------------
+**  Check the code at the label  **
+---------------------------------------------------
+
+[ ] create a new tree by exporting the labeled files from CVS
+
+    $ cvs export -r tst-0-2-6-07 -d brickOS-0.2.6.07 brickos
+
+	This means have cvs extract files recusively from the
+	label (-r label) and place them into named directory 
+	(-d dirname).  The brickos at the end tells CVS that it
+	should only export files from the modules named brickos.
+
+
+[ ] make the distribution file (on Linux system, preferred)
+
+	$ cd brickOS-0.2.6.07    # enter root of new tree
+	$ make dist				 # make the new tarball
+	$ mv *gz ..	             # move the tarball out of this tree
+
+[ ] unpack and build the new package
+
+[ ] test demos and utils by downloading demos to RCX
+
+---------------------------------------------------
+***  version not working in some way, fix it  ***
+---------------------------------------------------
+
+[ ] make fiexes if needed
+
+
+---------------------------------------------------
+***  post new download bits to soruceforge  ***
+---------------------------------------------------
+
+[ ] ftp the new file to upload.sourceforge.net
+    (to /incoming dir, as anonymous user)
+
+[ ] add new distribution via Admin page to Files 
+    section
+
+[ ] download the new file and unpack and test
+
+[ ] notify user community of the test or release
+    version availability
+
+
+
+------------------------------------------------------------------------------
+                        End of File: prep-release.txt
+==============================================================================
