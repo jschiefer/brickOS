@@ -1,5 +1,5 @@
 /*! \file   loader.c
-    \brief  legOS task downloading
+    \brief  brickOS task downloading
     \author Markus L. Noga <markus@noga.de>
 */
 
@@ -208,7 +208,7 @@ void lnp_download(const lx_t *lx) {
 }
 
 int main(int argc, char **argv) {
-  lx_t lx;    	    // the legOS executable
+  lx_t lx;    	    // the brickOS executable
   char *filename;
   int opt,option_index;
     
@@ -245,7 +245,7 @@ int main(int argc, char **argv) {
   }
   filename=argv[optind++];
   if(lx_read(&lx,filename)) {
-    fprintf(stderr,"unable to load legOS executable from %s.\n",filename);
+    fprintf(stderr,"unable to load brickOS executable from %s.\n",filename);
     return -1;
   }
       
