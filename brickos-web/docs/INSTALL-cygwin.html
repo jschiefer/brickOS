@@ -1,13 +1,11 @@
 <HTML
 ><HEAD
 ><TITLE
->brickOS 0.2.6.08 -
-    Instructions for installing on Win9x/NT/2000/XP</TITLE
+>brickOS 0.2.6.10	Instructions for installing on Win9x/NT/2000/XP</TITLE
 ><META
 NAME="GENERATOR"
-CONTENT="Modular DocBook HTML Stylesheet Version 1.77"></HEAD
-><BODY 
-BGCOLOR="white"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.77+"></HEAD
+><BODY
 CLASS="ARTICLE"
 ><DIV
 CLASS="ARTICLE"
@@ -18,8 +16,7 @@ CLASS="TITLE"
 ><A
 NAME="AEN2"
 ></A
->brickOS 0.2.6.08 -
-    Instructions for installing on Win9x/NT/2000/XP</H1
+>brickOS 0.2.6.10	Instructions for installing on Win9x/NT/2000/XP</H1
 ><H3
 CLASS="AUTHOR"
 ><A
@@ -28,11 +25,10 @@ NAME="AEN4"
 ></H3
 ><SPAN
 CLASS="RELEASEINFO"
->    Version 1.2, 19 September, 2002
-      <BR></SPAN
+>Version 1.3, 01 March, 2003<BR></SPAN
 ><P
 CLASS="COPYRIGHT"
->Copyright &copy; 2001 Paolo Masetti.</P
+>Copyright &copy; 2001-2003 Paolo Masetti.</P
 ><DIV
 CLASS="REVHISTORY"
 ><TABLE
@@ -50,6 +46,23 @@ COLSPAN="3"
 ><TR
 ><TD
 ALIGN="LEFT"
+>Revision 1.3</TD
+><TD
+ALIGN="LEFT"
+>01 Mar 2003</TD
+><TD
+ALIGN="LEFT"
+>Revised by: smm</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+COLSPAN="3"
+>Update for brickOS 0.2.7.10</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
 >Revision 1.2</TD
 ><TD
 ALIGN="LEFT"
@@ -62,7 +75,7 @@ ALIGN="LEFT"
 ><TD
 ALIGN="LEFT"
 COLSPAN="3"
->Update for brickOS 0.2.6.08, formerly legOS</TD
+>Update for brickOS 0.2.7.08, formerly legOS</TD
 ></TR
 ><TR
 ><TD
@@ -123,19 +136,49 @@ CLASS="CITETITLE"
     		 </A
 >
     		 for his HOW-TO for Linux and his effort in documenting brickOS.
-	     </P
-><P
->    		 If you have problems related to these instruction, you can write to
+    		 Many thanks to
     		 <A
-HREF="mailto:paolom@users.sourceforge.net"
+HREF="markus@noga.de"
 TARGET="_top"
 >    		   <I
 CLASS="CITETITLE"
->Paolo Masetti</I
+>Markus L. Noga</I
 >
     		 </A
->.
+>
+    		 for conceiving and creating legOS.
 	     </P
+><P
+>		If you have opinions and corrections related to these instruction, you can write to
+		<A
+HREF="mailto:paolom@users.sourceforge.net"
+TARGET="_top"
+>		<I
+CLASS="CITETITLE"
+>Paolo Masetti</I
+>
+		</A
+>
+		for every problems, use brickOS site reporting tools and forums or
+		<A
+HREF="http://www.lugnet.com/robotics/rcx/legos/"
+TARGET="_top"
+>		<I
+CLASS="CITETITLE"
+>lugnet.robotics.rcx.legos</I
+>
+		</A
+> on
+		<A
+HREF="http://www.lugnet.com"
+TARGET="_top"
+>		<I
+CLASS="CITETITLE"
+>lugnet.com</I
+>
+		</A
+>.
+	</P
 ><DIV
 CLASS="CAUTION"
 ><P
@@ -150,46 +193,46 @@ WIDTH="25"
 ALIGN="CENTER"
 VALIGN="TOP"
 ><IMG
-SRC="../images/caution.gif"
+SRC="/usr/share/sgml/docbook/stylesheet/dsssl/modular/images/caution.gif"
 HSPACE="5"
 ALT="Caution"></TD
 ><TD
 ALIGN="LEFT"
 VALIGN="TOP"
 ><P
->    		 These instruction work for me (I'm using NT Win2k Pro SP1). I can't be sure
-    		 they'll do for you but I'm quite sure. They should get brickOS working on your own
-    		 PC, but they should be used at your own risk as with any other program
-    		 installation, you may crash your computer, lose files, and generally make a mess
-    		 of things. So, neither he nor I am responsible for what happens. :-)
-	     </P
+>			These instruction work for me (I'm using NT Win2k Pro SP3). I can't be sure
+			they'll do for you but I'm quite sure. They should get brickOS working on your own
+			PC, but they should be used at your own risk as with any other program
+			installation, you may crash your computer, lose files, and generally make a mess
+			of things. So, neither he nor I am responsible for what happens. :-)
+			</P
 ></TD
 ></TR
 ></TABLE
 ></DIV
 ><P
->    		 These instructions give you a fully functional brickOS 0.2.6.08 (probably a newer
-    		 version too). You will be able to recompile the entire kernel image, the tools
-    		 (dll, firmdl3 &#38; so on). You will have to download a lot of MB. If you do not
-    		 like that, please use
-    		 <A
+>		These instructions give you a fully functional brickOS 0.2.6.10 (probably a newer
+		version too). You will be able to recompile the entire kernel image, the tools
+		(dll, firmdl3 &#38; so on). You will have to download a lot of MB. If you do not
+		like that, please use
+		<A
 HREF="http://legos.sourceforge.net/files/windows/djgpp/winlegos.exe"
 TARGET="_top"
->    		 <I
+>		<I
 CLASS="CITETITLE"
 >WinlegOS</I
 >
-    		 </A
+		</A
 >
-    		 that is a good porting of the minimal requirement
-    		 to compile and upload .lx files with Windows.
-	     </P
+		that is a good porting of the minimal requirement to compile and upload .lx
+		files with Windows.
+	</P
 ><DIV
 CLASS="SECT1"
 ><H1
 CLASS="SECT1"
 ><A
-NAME="AEN40"
+NAME="AEN51"
 ></A
 >Step by step instructions:</H1
 ><DIV
@@ -197,7 +240,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN42"
+NAME="AEN53"
 ></A
 >1. Install Cygwin</H2
 ><P
@@ -205,66 +248,65 @@ NAME="AEN42"
 ><UL
 ><LI
 ><P
->    		 Install Cygwin 1.3.x or newer version (1.3.10 as of this writing) from Cygwin Site:
-			 <A
+>						Install Cygwin 1.3.x or newer version (1.3.20 as of
+						this writing) from Cygwin Site:
+						<A
 HREF="http://www.cygwin.com/"
 TARGET="_top"
->			 <I
+>						<I
 CLASS="CITETITLE"
 >http://www.cygwin.com/</I
 >
-			 </A
+						</A
 >.
-    	     </P
+					</P
 ></LI
 ><LI
 ><P
->    		 You can install it on-line running the setup program directly from this url:
-			 <A
+>						You can install it on-line running the setup program directly from this url:
+						<A
 HREF="http://www.cygwin.com/setup.exe"
 TARGET="_top"
->			 <I
+>						<I
 CLASS="CITETITLE"
 >Install Cygwin now</I
 >
-			 </A
+						</A
 >. Save the file in a temporary  directory and run it.
-    	     </P
+					</P
 ></LI
 ><LI
 ><P
->    		 You can download all the files for a later install, or install directly from
-			 Internet. Choice the best for you:
-		 <DIV
+>						You can download all the files for a later install, or install directly from
+						Internet. Choice the best for you:
+						<DIV
 CLASS="MEDIAOBJECT"
 ><P
 ><IMG
-SRC="../images/Cygwin1.jpg"></P
+SRC="images/Cygwin1.jpg"></P
 ></DIV
 >
-
-    	     </P
+					</P
 ></LI
 ><LI
 ><P
->			 Install in the directory that you prefer. Do not worry about it, this version
-			   of cygwin will mount directories as *nix later. I use these choices:
-		 <DIV
+>						Install in the directory that you prefer. Do not worry about it, this version
+						of cygwin will mount directories as *nix later. I use these choices:
+						<DIV
 CLASS="MEDIAOBJECT"
 ><P
 ><IMG
-SRC="../images/Cygwin2.jpg"></P
+SRC="images/Cygwin2.jpg"></P
 ></DIV
 >
-
-    	     </P
+					</P
 ></LI
 ><LI
 ><P
->			 Last setup I've tried let you choose which modules you need to download and
-			   setup. Here is a minimal list (but probably some modules could be removed too)
-			     that was tested and works:
-				<TABLE
+>						Last setup I've tried let you choose which modules you need to download and
+						setup. Here is a minimal list (but probably some modules could be removed too)
+						that was tested and works:
+						<TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
 WIDTH="90%"
@@ -297,17 +339,17 @@ tar
 textutils
 time
 w32api
-				</PRE
+						</PRE
 ></TD
 ></TR
 ></TABLE
 >
-    	     </P
+					</P
 ><DIV
 CLASS="MEDIAOBJECT"
 ><P
 ><IMG
-SRC="../images/Cygwin3.jpg"></P
+SRC="images/Cygwin3.jpg"></P
 ></DIV
 ></LI
 ></UL
@@ -319,7 +361,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN76"
+NAME="AEN87"
 ></A
 >2. Build the Hitachi-H8 cross-compiler</H2
 ><P
@@ -327,8 +369,8 @@ NAME="AEN76"
 ><UL
 ><LI
 ><P
->		       Open a cygwin bash shell window (you can open it using
-			   <SPAN
+>						Open a cygwin bash shell window (you can open it using
+						<SPAN
 CLASS="GUIMENU"
 >Start</SPAN
 >-&gt;<SPAN
@@ -336,18 +378,17 @@ CLASS="GUISUBMENU"
 >Programs</SPAN
 >-&gt;<SPAN
 CLASS="GUISUBMENU"
->Cygnus
-			     Solution</SPAN
+>Cygnus Solution</SPAN
 >-&gt;<SPAN
 CLASS="GUIMENUITEM"
 >Cygwin Bash Shell</SPAN
 >)
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->		     Make a new directory:
-			 <TABLE
+>						Make a new directory:
+						<TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
 WIDTH="90%"
@@ -356,73 +397,73 @@ WIDTH="90%"
 ><PRE
 CLASS="PROGRAMLISTING"
 >$ mkdir /build
-			 </PRE
+						</PRE
 ></TD
 ></TR
 ></TABLE
 >
-		     where you will download the
-		     next files: <TT
+						where you will download the
+						next files: <TT
 CLASS="FILENAME"
 >c:\cygwin\build</TT
 >
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->		     Download gcc 2.95.2 sources using this link -&#62;
-			 <A
+>						Download gcc 2.95.2 sources using this link -&#62;
+						<A
 HREF="ftp://ftp.gnu.org/pub/gnu/gcc/gcc-2.95.2.tar.gz"
 TARGET="_top"
->			 <I
+>							<I
 CLASS="CITETITLE"
 >gcc-2.95.2.tar.gz</I
 >
-			 </A
+						</A
 > and save in
-			   <TT
+						<TT
 CLASS="FILENAME"
 >c:\cygwin\build</TT
 >
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->		     Download binutils 2.10.1 sources using this link -&#62;
-			 <A
+>						Download binutils 2.10.1 sources using this link -&#62;
+						<A
 HREF="ftp://ftp.gnu.org/pub/gnu/binutils/binutils-2.10.1.tar.gz"
 TARGET="_top"
->			 <I
+>							<I
 CLASS="CITETITLE"
 >binutils-2.10.1.tar.gz</I
 >
-			 </A
+						</A
 > and save in
-			   <TT
+						<TT
 CLASS="FILENAME"
 >c:\cygwin\build</TT
 >
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->		     Download the building scripts from
-			 <A
+>						Download the building scripts from
+						<A
 HREF="http://legos.sourceforge.net/cygwin/download/legos-buildgcc.zip"
 TARGET="_top"
->			 <I
+>							<I
 CLASS="CITETITLE"
 >here (legos-buildgcc.zip)</I
 >
-			 </A
+						</A
 > and put it in the same directory as above.  Unzip them to
-			   produce a shell script (buildgcc.sh) and two diff files.
-	         </P
+						produce a shell script (buildgcc.sh) and two diff files.
+					</P
 ></LI
 ><LI
 ><P
->		     Build the cross compiler:
-			 <TABLE
+>						Build the cross compiler:
+						<TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
 WIDTH="90%"
@@ -432,17 +473,17 @@ WIDTH="90%"
 CLASS="PROGRAMLISTING"
 >$ cd /build
 $ ./buildgcc.sh
-			 </PRE
+						</PRE
 ></TD
 ></TR
 ></TABLE
 >
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->			 Ignore the warnings in compile process. It should work.
-	         </P
+>						Ignore the warnings in compile process. It should work.
+					</P
 ></LI
 ></UL
 ><P
@@ -453,7 +494,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN110"
+NAME="AEN121"
 ></A
 >3. Install the brickOS files</H2
 ><P
@@ -461,25 +502,25 @@ NAME="AEN110"
 ><UL
 ><LI
 ><P
->		       Get brickos-0.2.6.08.tar.gz from the "Latest Test Releases" section of our project web:
-			   <A
+>						Get brickos-0.2.6.10.tar.gz from the "Latest Test Releases" section of our project web:
+						<A
 HREF="http://sourceforge.net/projects/brickos"
 TARGET="_top"
->			   <I
+>							<I
 CLASS="CITETITLE"
 >http://sourceforge.net/projects/brickos</I
 >
-			   </A
+						</A
 >. Drag a copy to <TT
 CLASS="FILENAME"
 >C:\cygwin</TT
 >.
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->		       Type:
-			 <TABLE
+>						Type:
+						<TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
 WIDTH="90%"
@@ -488,19 +529,19 @@ WIDTH="90%"
 ><PRE
 CLASS="PROGRAMLISTING"
 >$ cd /
-$ tar xvfz legos-0.2.6.08.tar.gz
-			 </PRE
+$ tar xvfz brickos-0.2.6.10.tar.gz
+						</PRE
 ></TD
 ></TR
 ></TABLE
 >
-	         </P
+					</P
 ></LI
 ><LI
 ><P
->		       Lots of files will stream by as they install into their 
-			   directories. This will create a legos-0.2.6.08 directory.
-	         </P
+>						Lots of files will stream by as they install into their 
+						directories. This will create a brickos-0.2.6.10 directory.
+					</P
 ></LI
 ></UL
 ><P
@@ -511,7 +552,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN124"
+NAME="AEN135"
 ></A
 >4. TRY IT!!!</H2
 ><P
@@ -519,8 +560,8 @@ NAME="AEN124"
 ><UL
 ><LI
 ><P
->		       Type:
-			 <TABLE
+>						Type:
+						<TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
 WIDTH="90%"
@@ -528,24 +569,23 @@ WIDTH="90%"
 ><TD
 ><PRE
 CLASS="PROGRAMLISTING"
->$ cd /legos-0.2.6.08
-$ make realclean
-$ make depend
-$ make
+>$ ln -s brickOS-0.2.6.10 brickOS
+$ cd /brickOS
+$ ./configure; make
 $ cd util
 $ make strip
-			 </PRE
+						</PRE
 ></TD
 ></TR
 ></TABLE
 >
-			 </P
+					</P
 ><P
 >Now, Power on RCX.</P
 ><P
 >Put IR tower on COM1</P
 ><P
->			 <TABLE
+>						<TABLE
 BORDER="0"
 BGCOLOR="#E0E0E0"
 WIDTH="90%"
@@ -553,22 +593,131 @@ WIDTH="90%"
 ><TD
 ><PRE
 CLASS="PROGRAMLISTING"
->$ ./firmdl3 ../boot/legos.srec
+>$ ./firmdl3 ../boot/brickOS.srec
 $ ./dll ../demo/helloworld.lx
-			 </PRE
+						</PRE
 ></TD
 ></TR
 ></TABLE
 >
-			 Press RUN on RCX and enjoy!
-	         </P
+						Press RUN on RCX and enjoy!
+					</P
 ></LI
 ></UL
 ><P
->			If you have the IR tower connected to a different com port you can change the default
-			with the instruction: "export RCXTTY=COMx".  NOTE: if you have a USB tower this
-			is "export RCXTTY=USB"
-	       </P
+>				If you have the IR tower connected to a different com port you can change the default
+				port with variable RCXTTY. This is the command: "export RCXTTY=COMx".
+				NOTE: if you have a USB tower, please use "export RCXTTY=USB".
+				More help with "./firmdl3 --help" and "./dll --help"
+			</P
+><P
+>				<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>usage: firmdl3 [options] filename
+      --debug      show debug output, mostly raw bytes
+  -f, --fast       use fast 4x downloading (default)
+  -s, --slow       use slow 1x downloading
+      --tty=TTY    assume tower connected to TTY
+      --tty=usb    assume tower connected to USB
+  -h, --help       display this help and exit
+				</PRE
+></TD
+></TR
+></TABLE
+>
+  
+				<TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><PRE
+CLASS="PROGRAMLISTING"
+>dll: unknown option -- help
+usage: dll [options] [command | file.lx]
+Options:
+  -p<FONT
+COLOR="RED"
+>  , --program=<FONT
+COLOR="RED"
+>   set destination program to <FONT
+COLOR="RED"
+>  -r<FONT
+COLOR="RED"
+>  , --rcxaddr=<FONT
+COLOR="RED"
+>   send to RCX host address <FONT
+COLOR="RED"
+>  -s<FONT
+COLOR="RED"
+>  , --srcport=<FONT
+COLOR="RED"
+>   send to RCX source port <FONT
+COLOR="RED"
+>  -t<FONT
+COLOR="RED"
+>  , --tty=<FONT
+COLOR="RED"
+>       set IR Tower com port <FONT
+COLOR="RED"
+>  -t<FONT
+COLOR="RED"
+>      , --tty=<FONT
+COLOR="RED"
+>           set IR Tower USB mode
+  -i&#60;0/1&#62;      , --irmode=&#60;0/1&#62;        set IR mode near(0)/far(1) on RCX
+  -e           , --execute             execute program after download
+  -v           , --verbose             verbose mode
+
+Commands:
+  -d<FONT
+COLOR="RED"
+>  , --delete=<FONT
+COLOR="RED"
+>    delete program <FONT
+COLOR="RED"
+> from memory
+  -n<FONT
+COLOR="RED"
+> , --node=<FONT
+COLOR="RED"
+>     set LNP host address in brick
+
+Default COM port or USB support can be set using environment variable RCXTTY.
+Eg:     set RCXTTY=COM2
+        set RCXTTY=USB
+				</FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></FONT
+></PRE
+></TD
+></TR
+></TABLE
+>
+			</P
 ><P
 >  </P
 ></DIV
@@ -577,48 +726,48 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN136"
+NAME="AEN169"
 ></A
 >Final Notes</H2
 ><P
->          If it doesn't work, consult
-    	  <A
+>				If it doesn't work, consult
+				<A
 HREF="http://www.lugnet.com/robotics/rcx/legos/"
 TARGET="_top"
->    	  <I
+>					<I
 CLASS="CITETITLE"
 >lugnet.robotics.rcx.legos</I
 >
-    	  </A
+				</A
 > on
-    	  <A
+				<A
 HREF="http://www.lugnet.com"
 TARGET="_top"
->    	  <I
+>					<I
 CLASS="CITETITLE"
 >lugnet.com</I
 >
-    	  </A
+				</A
 >.
-	  </P
+			</P
 ><P
->    	  Every command indicated is executed from the Cygwin environment. In the examples,
-    	  the "$" is the prompt cygwin gives to you.
-	  </P
+>				Every command indicated is executed from the Cygwin environment. In the examples,
+				the "$" is the prompt cygwin gives to you.
+			</P
 ><P
->    	  You can use Notetab Light to edit files instead of WordPad or VI.
-    	  It's available from:
-    	  <A
+>				You can use Notetab Light to edit files instead of WordPad or VI.
+				It's available from:
+				<A
 HREF="http://www.notetab.com/"
 TARGET="_top"
->    	  <I
+>					<I
 CLASS="CITETITLE"
 >http://www.notetab.com</I
 >
-    	  </A
+				</A
 >. It preserves the unix line-endings, and it can
-    	  change between unix and dos line-endings.
-	  </P
+				change between unix and dos line-endings.
+			</P
 ><P
 >  </P
 ></DIV
@@ -627,57 +776,57 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN148"
+NAME="AEN181"
 ></A
 ></H2
 ><P
->    	  Latest update:
-    	  <A
-HREF="mailto:stephen@debian.org"
-TARGET="_top"
->    	  <I
-CLASS="CITETITLE"
->Stephen Moraco</I
->
-    	  </A
-> 19/09/2002.
-	  </P
-><P
->    	  Update/generate/post as web content
-    	  <A
-HREF="mailto:stephen@debian.org"
-TARGET="_top"
->    	  <I
-CLASS="CITETITLE"
->Stephen Moraco</I
->
-    	  </A
-> 01/05/2002.
-	  </P
-><P
->    	  Initial Release:
-    	  <A
+>				Latest update:
+				<A
 HREF="mailto:paolom@users.sourceforge.net"
 TARGET="_top"
->    	  <I
+>					<I
 CLASS="CITETITLE"
 >Paolo Masetti</I
 >
-    	  </A
-> 13/05/2001.
-	  </P
+				</A
+> 01/03/2003.
+			</P
 ><P
->    	  SGML Source for document created for Paolo by
-    	  <A
+>				Update/generate/post as web content
+				<A
 HREF="mailto:stephen@debian.org"
 TARGET="_top"
->    	  <I
+>					<I
 CLASS="CITETITLE"
 >Stephen Moraco</I
 >
-    	  </A
+				</A
+> 01/05/2002.
+			</P
+><P
+>				Initial Release:
+				<A
+HREF="mailto:paolom@users.sourceforge.net"
+TARGET="_top"
+>					<I
+CLASS="CITETITLE"
+>Paolo Masetti</I
+>
+				</A
+> 13/05/2001.
+			</P
+><P
+>				SGML Source for document created for Paolo by
+				<A
+HREF="mailto:stephen@debian.org"
+TARGET="_top"
+>				<I
+CLASS="CITETITLE"
+>Stephen Moraco</I
+>
+				</A
 > 19/07/2001.
-	  </P
+			</P
 ><P
 >  </P
 ></DIV
