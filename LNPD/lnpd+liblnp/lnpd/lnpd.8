@@ -1,0 +1,112 @@
+.\"                                      Hey, EMACS: -*- nroff -*-
+.\" First parameter, NAME, should be all caps
+.\" Second parameter, SECTION, should be 1-8, maybe w/ subsection
+.\" other parameters are allowed: see man(7), man(1)
+.TH LNPD 8 "January 16, 2005"
+.\" Please adjust this date whenever revising the manpage.
+.\"
+.\" Some roff macros, for reference:
+.\" .nh        disable hyphenation
+.\" .hy        enable hyphenation
+.\" .ad l      left justify
+.\" .ad b      justify to both left and right margins
+.\" .nf        disable filling
+.\" .fi        enable filling
+.\" .br        insert line break
+.\" .sp <n>    insert n+1 empty lines
+.\" for manpage-specific macros, see man(7)
+.SH NAME
+lnpd \- a LinuX Interface to the BrickOS Networking Protocol
+.SH SYNOPSIS
+.B lnpd
+.RI [ -e mseconds ] 
+.RI [ -f ]
+.RI [ -l ]
+.RI [ -m number ]
+.RI [ -n ]
+.RI [ -p port ]
+.RI [ -r ]
+.RI [ -t tty_device ]
+.RI [ -v level ]
+
+.\"
+.SH DESCRIPTION
+.B lnpd
+is a LinuX daemon that allows multiple clients to connect to a LEGO RCX 
+running Markus L. Noga's famous BrickOS (formerly legOS) operating system 
+and exchange messages using the LNP protocol.
+
+.\"
+.SH OPTIONS
+A summary of options understood by 
+.B lnpd
+.
+.TP
+.B \-d
+Don't go into background
+
+.TP
+.B \-e|\--extrawait={mseconds}
+Extra wait time for lnp
+.TP
+.B \-f|\--fast
+Run LNP at 4800 baud
+.TP
+.B \-l|\--log[=filename]
+Enable logging to syslog or file
+.br
+NOTE: filename of '-' means to log to stdout.
+.TP
+.B \-m|\--maxclients={number}
+Set max number of lnpd clients (default 16).
+.TP
+.B \-n|--nolock
+Do not manage tty lockfiles.
+.TP
+.B \-p|\--port={TCP_Port}
+Daemon should listen on port {TCP_Port}. Default is port 7776.
+.TP
+.B \-r|\--realtime
+Run daemon in realtime mode.
+.TP
+.B \-t|\--tty={tty_device}
+Use {tty_device}. Defaults to /dev/ttyS0.
+.TP
+.B \-v|\--verbosity={level}
+Enable enhanced logging. Valid levels are: d, l, i, a, and c.
+.TP
+.B \-h
+Show similar help text at command-line.
+.TP
+.B \-u
+Show short usage message.
+.TP
+.B \-V|--version
+Display lnpd version
+.sp 2
+.br
+Mandatory or option arguments to long options are also mandatory or optional for any corresponding short options.
+
+
+.SH FILES
+.TP
+.B /dev/ttyS0
+The default device for lnpd. (Also See -t: in OPTIONS, above). 
+.TP
+.B /usr/share/doc/lnpd/examples/lnptest.c
+sample BrickOS code to be built and downloaded to your RCX. This code
+allows you to quickly ascertain that the lnpd daemon is working with your
+RCX and lnpd installation.
+.TP
+.B /bin/lnptest
+a simple test program which uses lnpd to communicate with the lnptest program
+downloaded into your RCX for testing with this program.
+
+
+.SH SEE ALSO
+You'll find additional documentation in /usr/share/doc/lnpd (on Debian GNU/Linux systems) 
+
+.SH AUTHOR
+lnpd was written by Martin Cornelius <Martin.Cornelius@t-online.de> 
+This man page was written by Stephen Moraco <stephen@users.sourceforge.net>
+

@@ -15,3 +15,5 @@ noinst_HEADERS = daemon.h \
                  logger.h \
                  rcxtty.h \
                  transceiver.h
+
+man_MANS = lnpd.8

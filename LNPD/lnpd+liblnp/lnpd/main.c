@@ -30,9 +30,9 @@
 static char* default_tty = DEFAULT_TTY;
 
 // these are read by argp_parse()
-const char *argp_program_version = "lnpd 0.1";
-const char *argp_program_bug_address = "<Martin.Cornelius@t-online.de>";
-static char doc[] = "lnpd -- a LinuX Interface to the legOS Networking Protocol";
+const char *argp_program_version = "lnpd 0.9";
+const char *argp_program_bug_address = "http://brickos.sourceforge.net/rptrvwbugs.htm";
+static char doc[] = "lnpd -- a LinuX Interface to the BrickOS Networking Protocol";
 
 // Used by `main' to communicate with `parse_opt'
 struct arguments
