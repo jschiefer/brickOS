@@ -6,6 +6,7 @@
 #define LOGGER_H
 
 #include <string.h>
+#include <stdlib.h>
 #include <errno.h>
 
 enum loglevel
