@@ -82,7 +82,7 @@ volatile unsigned short relocate_to=0;
 
 // options defaults
 unsigned rcxaddr = DEFAULT_DEST;
-unsigned prog = DEFAULT_PROGRAM;
+unsigned prog = DEFAULT_PROGRAM + 1;	// allow validation to work
 unsigned srcport = DEFAULT_SRCPORT;
 char* server;
 int verbose_flag=0;
@@ -234,6 +234,12 @@ int main(int argc, char **argv) {
 		break;
     }
   }           
+  if(prog < 1 || prog > 8) {
+    fprintf(stderr,"Error: -p%d invalid (BrickOS supports [1-8]).\n",prog);
+    return -1;
+  } else {
+	prog--;	// make zero relative
+  }
   
   // load executable
   //      

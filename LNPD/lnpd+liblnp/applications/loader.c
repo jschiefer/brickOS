@@ -73,7 +73,7 @@ volatile int receivedAck=0;
 volatile unsigned short relocate_to=0;
 
 unsigned int  rcxaddr=DEFAULT_DEST,
-              prog=DEFAULT_PROGRAM,
+              prog=DEFAULT_PROGRAM+1,
               srcport=DEFAULT_SRCPORT;
   
 int verbose_flag=0;
@@ -179,6 +179,13 @@ int main(int argc, char **argv) {
     }
   }           
   
+  // validate parms
+  if(prog < 1 || prog > 8) {
+    fprintf(stderr,"Error: -p%d Invalid. BrickOS Supports [1-8].\n",prog);
+    return -1;
+  } else {
+	prog--;
+  }
   // load executable
   //      
   if(argc-optind<1) {

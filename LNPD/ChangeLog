@@ -1,5 +1,10 @@
+2005-01-17	stephen
+	* Corrected lnpdll, lnpdllx to expect BrickOS .lx files
+	* Fixed Program slot number in lnpdll, lnpdllx (off by one)
+
 2005-01-16	stephen
-	* Hmmm patch didn't work, applied changes as shown at LUGNET
+	* Renamed dll to lnpdll, dllx to lnpdllx to reflect that they use LNPd
+	* Hmmm patch #904945 didn't work, applied changes as shown at LUGNET
 	  http://news.lugnet.com/news/raw.cgi?lugnet.robotics.rcx.legos,3066
 	* Awakened TODO in order to track pending changes
 	* Add new manpage lnpd.8 

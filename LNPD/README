@@ -1,34 +1,35 @@
-Hi there, this is my first version of liblnp and lnpd.
+-----------------------------------------------------------
+This is Martin's README with a few edits which needed to be 
+changed due to our packaging the LNPD for BrickOS -Stephen
+-----------------------------------------------------------
 
 WHAT'S IN THE BOX:
 
 lnpd:
   A LinuX daemon that allows multiple clients to connect to a LEGO RCX running
   Markus L. Noga's famous legOS operating system and exchange messages
-  according to the LNP protocol.  
+  according to the LNP protocol.  See lnpd(8) for command-line options
   
 liblnp:
   a library (shared or static) that can be linked to your application(s),
   making it capable of connecting to a lnpd somewhere around the world.
+  (#include <lnpd/liblnp.h> in your client app.)
   
 applications:
   2 little examples to show how it works.
   lnptest is a program that continously sends messages to the RCX and
   simultanously receives from the RCX. To see the multi-client feature, just
   start it several times at once.
-  dll is a port of Marcus' program downloader that uses liblnp. It's a little
-  bit simpler, because lnpd and liblnp now do some dirty tty work. What's fine
-  with it: It works with LNP running at 4800 baud.
+  lnpdll is a port of Marcus' program downloader that uses liblnp. It's a 
+  little bit simpler, because lnpd and liblnp now do some dirty tty work. 
+  What's fine with it: It works with LNP running at 4800 baud.
   
-rcx:
+examples/rcx:
   lnptest is the counterpart to the PC lnptest mentioned above. It starts 3
   independent tasks sending LNP messages to the PC and receives messages
-  simultanously. To make this program work without crashing, you should apply
-  patch.legOS to your legOS source and recompile legOS.
-  However that's NOT necessary for lnpd and liblnp to work properly, it just
-  fixes a little bug related to multiple tasks sending LNP messages
-  simultanously. The rcx directory is not included in the make-tree, because
-  it's just an example.
+  simultanously.
+  The rcx directory is not included in the make-tree, because it's just an 
+  example.
   
 What Platforms does it run on ?
   So far, i tested it only on my home linux box running kernel 2.2.13
@@ -37,12 +38,17 @@ What Platforms does it run on ?
 
 INSTALLATION:
   in this directory, type:
-  make realclean; make depend; make
+
+  ./configure
+  make all
+  sudo make install
+
   If nothing goes wrong, this will create lnpd, static and dynamic versions of
   liblnp, and the 2 little applications. The applications are linked
   dynamically by default, if you want to link them statically for whatever
   reason, go to the liblnp directory and rm the shared libs, then rebuild the
   applications.
+
   If you want to use the shared version of liblnp ( what will save you memory
   if you run multiple clients ), you either have to move liblnp.so.x to a
   standard place and run ldconfig (as root), or just set environment variable
@@ -148,7 +154,7 @@ USING THE LIBRARY:
   queued for sending, you can call lnp_init with a special flag. In this case,
   all messages arriving while blocked in lnp_xxx_write() will be discarded.
   
-  look into the applications directory for some examples.
+  look into the applications directory for the examples.
   
 CAVEATS:
   If lnpd encounters an unrecoverable error, it will log an

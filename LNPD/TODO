@@ -7,5 +7,13 @@ TODO list for lnpd
  - ensure lnpdll uses similar options for stuff that would be in dll(1)
  - add USB tower support to daemon 
  - distribute lnptest and lnptest2 sources with example make file as example
+ - move more of the README content to the lnpd(8) manpage
+
+ I'll prototype the following in the Debian package and as I get them 
+ finalized I will add them to the lnpd package -stephen
+
+ - add start script for lnpd (for /etc/init.d use)
+ - add defaults file for lnpd start script (for placing in /etc/default)
+ - iff needed add configuration script for lnpd (to be /etc/lnpd.conf)
 
 Stephen M Moraco (stephen@debian.org) - Mon, 17 Jan 2005 14:26:49 -0700
