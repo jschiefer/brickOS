@@ -1,300 +1,645 @@
-<HTML>
-
 <HEAD>
-<META HTTP-EQUIV="Content-Language" CONTENT="en-us">
-<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
-<META NAME="GENERATOR" CONTENT="Microsoft FrontPage 5.0">
-<META NAME="ProgId" CONTENT="FrontPage.Editor.Document">
+<TITLE>Instructions for building DJGPP H8300 cross compilerw</TITLE>
+<META NAME="GENERATOR" CONTENT="Modular DocBook HTML Stylesheet Version
+1.77">
 </HEAD>
 
-<BODY BGCOLOR="white">
+<BODY BGCOLOR="white" CLASS="ARTICLE">
+<DIV CLASS="ARTICLE">
+<DIV CLASS="TITLEPAGE">
+<H1 CLASS="TITLE"><A NAME="AEN2" ></A>Instructions for building DJGPP H8300 cross compiler</H1>
 
-<H1>Instructions for building DJGPP H8300 cross compiler</H1>
-<BLOCKQUOTE>
-  <P ALIGN="left"><FONT COLOR="#FF0000">This is place holder content.&nbsp; It 
-   needs to be reworked to our same layout as the other install documents. This 
-   has not yet been done. I'm placing the original email here, for now, so it 
-   may be useful in the meantime.<BR>
-   -Stephen</FONT></BLOCKQUOTE>
+<H3 CLASS="AUTHOR"><A NAME="AEN4">Ed Manlove</A></H3>
+<SPAN CLASS="RELEASEINFO">    Version 1.0, 10 October, 2002<BR></SPAN>
+<P CLASS="COPYRIGHT">Copyright &copy; 2002 Ed Manlove.</P
+><DIV CLASS="REVHISTORY"><TABLE WIDTH="100%" BORDER="0">
 
-<STRONG>From:</STRONG> Ed Manlove (<A HREF="mailto:emanlove@ieee.org?Subject=Re:%20Instructions%20for%20building%20DJGPP%20H8300%20cross%20compiler"><EM>emanlove@ieee.org</EM></A>)<BR>
-<STRONG>Date:</STRONG> Sun Sep 29 2002 - 08:06:53 MDT <HR>
+<TR><TH ALIGN="LEFT" VALIGN="TOP" COLSPAN="3"><B>Revision History</B></TH></TR>
+<TR><TD ALIGN="LEFT">Revision 1.0</TD><TD ALIGN="LEFT">10 October 2002</TD><TD
+ALIGN="LEFT">Revised by: ecm</TD></TR><TR><TD ALIGN="LEFT"
+COLSPAN="3">Initial Release for brickOS x.x.x.x</TD></TR></TABLE></DIV>
+<HR></DIV>
 
-The following are instructions I am using for building the Hitachi H8300 cross 
-compiler for the DJGPP environment. Please read through the entire message 
-before proceeding.<P>Download the following DJGPP/GNU packages from
- <A HREF="http://www.delorie.com">http://www.delorie.com</A> or one of its 
- mirror sites. A complete listing of ftp sites can be found at
- <A HREF="http://www.delorie.com/djgpp/zip-picker.html">
- http://www.delorie.com/djgpp/zip-picker.html</A>. I use
- <A HREF="ftp://ftp.bu.edu/pub/mirrors/simtelnet/gnu/djgpp/">
- ftp://ftp.bu.edu/pub/mirrors/simtelnet/gnu/djgpp/</A>.
-<P>unzip32.exe <BR>
- v2\djdev203.zip <BR>
- v2\faq230b.zip <BR>
- v2\djcrx203.zip <BR>
- v2gnu\bnu2121b.zip <BR>
- v2gnu\gcc31b.zip <BR>
- v2gnu\mak3791b.zip <BR>
- v2gnu\txi42b.zip <BR>
- v2gnu\fil316b.zip <BR>
- v2gnu\shl2011b.zip <BR>
- v2gnu\tar112ab.zip <BR>
- v2gnu\gzip13b.zip <BR>
- v2gnu\sed203b.zip <BR>
- v2gnu\pat253b.zip <BR>
- v2gnu\grep24b.zip <BR>
- v2gnu\txt20b.zip <BR>
- v2gnu\dif28b.zip <BR>
- v2gnu\gtxt040b.zip <BR>
- v2gnu\gpp31b.zip <BR>
- v2gnu\bnu2121s.zip <BR>
- v2gnu\gcc2952s.zip <BR>
- v2gnu\gcc2952s2.zip <BR>
-&nbsp;<P>At the DOS prompt type the following <BR>
-&nbsp;<P>C:\&gt; mkdir djgpp <BR>
- C:\&gt; cd djgpp <BR>
- C:\DJGPP&gt; unzip32 c:\temp\djdev203.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\faq230b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\bnu2121b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\gcc31b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\mak3791b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\txi42b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\djcrx203.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\fil316b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\shl2011b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\tar112ab.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\gzip13b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\sed203b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\pat253b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\grep24b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\txt20b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\dif28b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\gtxt040b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\gpp31b.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\bnu2121s.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\gcc2952s.zip <BR>
- C:\DJGPP&gt; unzip32 c:\temp\gcc2952s2.zip <BR>
-&nbsp;<P>DJGPP port of GCC 3.1 has a know bug in it. To correct for this problem 
- create file c:\DJGPP\gnu\gcc-3.1\djtypes.patch which contains the following 
- lines. NOTE: This patch is included at the end of the file 
- C:\DJGPP\gnu\gcc-3.1\readme.DJGPP.
-<P>--- include/sys/djtypes.h~1 Tue Dec 14 06:56:16 1999 <BR>
- +++ include/sys/djtypes.h Mon Feb 4 16:20:40 2002 <BR>
- @@ -12,7 +12,12 @@ <BR>
- &nbsp;#define __DJ_ssize_t typedef int ssize_t; <BR>
- &nbsp;#define __DJ_time_t typedef unsigned int time_t; <BR>
- &nbsp;#define __DJ_uid_t typedef int uid_t; <BR>
- + <BR>
- +#if __GNUC__&gt;=3 <BR>
- +#define __DJ_va_list typedef __builtin_va_list va_list; <BR>
- +#else <BR>
- &nbsp;#define __DJ_va_list typedef void *va_list; <BR>
- +#endif <BR>
-&nbsp;<P>&nbsp;#if defined(__cplusplus) &amp;&amp; ( (__GNUC_MINOR__ &gt;= 8 &amp;&amp; __GNUC__ == 2 ) 
- || <BR>
- __GNUC__ &gt;= 3 ) <BR>
- &nbsp;/* wchar_t is now a keyword in C++ */ <BR>
-&nbsp;<P>To apply the patch type the following at the DOS prompt <BR>
-&nbsp;<P>C:\DJGPP&gt; djgpp <BR>
- C:\DJGPP&gt; patch -p0 -i c:\DJGPP\gnu\gcc-3.1\djtypes.patch <BR>
-&nbsp;<P>To configure and build the binutils for the hitachi H8300 type the 
- following at the dos prompt <BR>
-&nbsp;<P>C:\DJGPP&gt; cd gnu\binutl-2.121\build.djg <BR>
- C:\DJGPP\gnu\binutl-2.121\build.djg&gt; sh <BR>
- djconfig.sh --target=h8300-hitachi-hms <BR>
- C:\DJGPP\gnu\binutl-2.121\build.djg&gt; make <BR>
- C:\DJGPP\gnu\binutl-2.121\build.djg&gt; make <BR>
-&nbsp;<P>FOR REASONS UNKNOWN AT THIS POINT ONE MUST RESTART A NEW MS-DOS WINDOW 
- OR <BR>
- REINIATE make TO PROPERLY make THE MAKEFILE CREATED BY THE CONFIGURE STEP. <BR>
- OTHERWISE THE FOLLOWING ERROR MIGHT APPEAR. <BR>
-&nbsp;<P>ERROR: (SHOWN AS FOLLOWS) <BR>
- gcc -c -DCROSS_COMPILE -DIN_GCC -O2 -g -W -Wall -DSTANDARD_INCLUDE_DIR= <BR>
- \&quot;\$ <BR>
- DJDIR/include\&quot; -DSTANDARD_INCLUDE_COMPONENT=\&quot;\&quot; -I. -I.. -I../../../gcc/f <BR>
- &nbsp;-I. <BR>
- ./../../gcc/f/.. -I../../../gcc/f/../config -I../../../gcc/f/../../include <BR>
- ../.. <BR>
- /../gcc/f/com.c <BR>
- In file included from ../../../gcc/f/com.c:198: <BR>
- ../../../gcc/f/com.h:145:4: #error Cannot find a suitable type for <BR>
- FFECOM_f2cLON <BR>
- GINT <BR>
- ../../../gcc/f/com.c: In function `ffecom_possible_partial_overlap_': <BR>
- ../../../gcc/f/com.c:1599: warning: unused parameter `expr2' <BR>
- ../../../gcc/f/com.c: In function `ffecom_init_0': <BR>
- ../../../gcc/f/com.c:12293: `FFECOM_f2cLONGINT' undeclared (first use in <BR>
- this fu <BR>
- nction) <BR>
- ../../../gcc/f/com.c:12293: (Each undeclared identifier is reported only <BR>
- once <BR>
- ../../../gcc/f/com.c:12293: for each function it appears in.) <BR>
- make.exe[2]: *** [com.o] Error 1 <BR>
- make.exe[2]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc/f' <BR>
- make.exe[1]: *** [f771.exe] Error 2 <BR>
- make.exe[1]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc' <BR>
- make.exe: *** [all-gcc] Error 2 <BR>
-&nbsp;<P>&nbsp;<P>To configure gcc I use the following script. This script, 
-C:\DJGPP\gnu\gcc-2.952\build.djg\h8config.sh, is the djconfig.sh script from 
-bintutils-2.121 with a few minor modifications. I had difficulty using the 
-djconfig.sh script for gcc-2.952. <BR>
-&nbsp;<P>#!/bin/sh <BR>
- # <BR>
- # This shell script is a wrapper to the main configure script when <BR>
- # configuring GDB for DJGPP. 99% of it can also be used when <BR>
- # configuring other GNU programs for DJGPP. <BR>
- # <BR>
- #===================================================================== <BR>
- # Copyright 1997, 1999, 2000, 2001, 2002 Free Software Foundation, Inc. <BR>
- # <BR>
- # Originally written by Robert Hoehne, revised by Eli Zaretskii. <BR>
- # This file is part of GDB. <BR>
- # Adapted for binutils by Andris Pavenis <BR>
- # <BR>
- # This program is free software; you can redistribute it and/or modify <BR>
- # it under the terms of the GNU General Public License as published by <BR>
- # the Free Software Foundation; either version 2 of the License, or <BR>
- # (at your option) any later version. <BR>
- # <BR>
- # This program is distributed in the hope that it will be useful, <BR>
- # but WITHOUT ANY WARRANTY; without even the implied warranty of <BR>
- # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <BR>
- # GNU General Public License for more details. <BR>
- # <BR>
- # You should have received a copy of the GNU General Public License <BR>
- # along with this program; if not, write to the Free Software <BR>
- # Foundation, Inc., 59 Temple Place - Suite 330, <BR>
- # Boston, MA 02111-1307, USA. */ <BR>
- #===================================================================== <BR>
- # <BR>
- # Call this script like the main configure script with one exception. If <BR>
- you <BR>
- # want to pass parameters to configure, you have to pass as the first <BR>
- # argument the srcdir, even when it is `.' !!!!! <BR>
- # <BR>
- # First, undo any CDPATH settings; they will get in our way when we <BR>
- # chdir to directories. <BR>
- unset CDPATH <BR>
-&nbsp;<P># Where are the sources? If you are used to having the sources <BR>
- # in a separate directory and the objects in another, then set <BR>
- # here the full path to the source directory and run this script <BR>
- # in the directory where you want to build gdb!! <BR>
- # You might give the source directory on commandline, but use <BR>
- # then only forward slashes (/) in the directories. It should be <BR>
- # an absolute path. <BR>
-&nbsp;<P>srcdir=.. <BR>
-&nbsp;<P># Now set the config shell. It is really needed, that the shell <BR>
- # points to a shell with full path and also it must conatain the <BR>
- # .exe suffix. I assume here, that bash is installed. If not, <BR>
- # install it. Additionally, the pathname must not contain a <BR>
- # drive letter, so use the /dev/x/foo format supported by versions <BR>
- # of Bash 2.03 and later, and by all DJGPP programs compiled with <BR>
- # v2.03 (or later) library. <BR>
- export CONFIG_SHELL=/dev/env/DJDIR/bin/sh.exe <BR>
-&nbsp;<P># force to have the ltmain.sh script to be in DOS text format, <BR>
- # otherwise the resulting ltconfig script will have mixed <BR>
- # (UNIX/DOS) format and is unusable with Bash ports before v2.03. <BR>
- utod $srcdir/ltmain.sh <BR>
-&nbsp;<P># Give the configure script some hints: <BR>
- #export AS=as <BR>
- export LD=ld <BR>
- export NM=nm <BR>
- export CC=gcc <BR>
- export CXX=gpp <BR>
- export CFLAGS=&quot;-O2 -g&quot; <BR>
- export RANLIB=ranlib <BR>
- export DEFAULT_YACC=&quot;bison -y&quot; <BR>
- export YACC=&quot;bison -y&quot; <BR>
- export DEFAULT_LEX=flex <BR>
- # Define explicitly the .exe extension because on W95 with LFN=y <BR>
- # the check might fail <BR>
- export am_cv_exeext=.exe <BR>
- # ltconfig wants to compute the maximum command-line length, but <BR>
- # Bash 2.04 doesn't like that (it doesn't have any limit ;-), and <BR>
- # reboots the system. We know our limit in advance, so we don't <BR>
- # need all that crap. Assuming that the environment size is less <BR>
- # than 4KB, we can afford 12KB of command-line arguments. <BR>
- export lt_cv_sys_max_cmd_len=12288 <BR>
-&nbsp;<P># The configure script needs to see the `install-sh' script, otherwise
- <BR>
- # it decides the source installation is broken. But &quot;make install&quot; will <BR>
- # fail on 8+3 filesystems if it finds a file `install-', since there <BR>
- # are numerous &quot;install-foo&quot; targets in Makefile's. So we rename the <BR>
- # offending file after the configure step is done. <BR>
- if test ! -f ${srcdir}/install-sh ; then <BR>
- &nbsp;&nbsp;if test -f ${srcdir}/install-.sh ; then <BR>
- &nbsp;&nbsp;&nbsp;&nbsp;mv ${srcdir}/install-.sh ${srcdir}/install-sh <BR>
- &nbsp;&nbsp;fi <BR>
- fi <BR>
-&nbsp;<P># Now run the configure script while disabling some things like the NLS
- <BR>
- # support, which is nearly impossible to be supported in the current way, <BR>
- # since it relies on file names which will never work on DOS. <BR>
- echo &quot;Running the configure script...&quot; <BR>
- $srcdir/configure --srcdir=&quot;$srcdir&quot; --prefix='${DJDIR}' \ <BR>
- &nbsp;&nbsp;--disable-bfd-assembler \ <BR>
- &nbsp;&nbsp;--disable-shared --disable-nls --verbose --enable-build-warnings=\ <BR>
- -Wimplicit,-Wcomment,-Wformat,-Wparentheses,-Wpointer-arith \ <BR>
- --enable-target-optspace --with-newlib --enable-languages=c,c++ $* <BR>
-&nbsp;<P>if test -f ${srcdir}/install- ; then <BR>
- &nbsp;&nbsp;mv ${srcdir}/install- ${srcdir}/install-.sh <BR>
- fi <BR>
- # -- EOF h8config.sh ------------------------------------------------ <BR>
-&nbsp;<P>&nbsp;<P>To configure gcc type at the dos prompt <BR>
-&nbsp;<P>C:\DJGPP\gnu\gcc-2.952\build.djg&gt; sh h8config.sh 
- --target=h8300-hitachi-hms <BR>
-&nbsp;<P>then to build the script type <BR>
-&nbsp;<P>C:\DJGPP\gnu\gcc-2.952\build.djg&gt; make <BR>
-&nbsp;<P>&nbsp;<P>At this point I get the following error which I am trying to 
-resolve. <BR>
-&nbsp;<P>&nbsp;<P>for name in _cmpsi2 _ucmpsi2 _divhi3 _divsi3 _mulhi3 _mulsi3; 
-\ <BR>
-do \ <BR>
-&nbsp;&nbsp;echo ${name}; \ <BR>
-&nbsp;<P>&nbsp;<P>c:/djgpp/gnu/gcc-2.952/build.djg/gcc/xgcc -Bc:/djgpp/gnu/gcc-2.952/build.djg
-<BR>
-/gcc/ -Bc:/djgpp/h8300-hitachi-hms/bin/ -Ic:/djgpp/h8300-hitachi-hms/include <BR>
-&nbsp;-O2 -DCROSS_COMPILE -DIN_GCC -O2 -g -I./include -DDF=SF -DDI=SI -g1 <BR>
--DIN_LIBGCC2 -D__GCC_FLOAT_NOT_NEEDED -Dinhibit_libc -I. -I../../gcc -I../. <BR>
-./gcc/config -I../../gcc/../include -c -DL${name} libgcc1.S; \ <BR>
-&nbsp;&nbsp;if [ $? -eq 0 ] ; then true; else exit 1; fi; \ <BR>
-&nbsp;&nbsp;mv libgcc1.o ${name}.o; \ <BR>
-&nbsp;&nbsp;h8300-hitachi-hms-ar rc tmplibgcc1.a ${name}.o; \ <BR>
-&nbsp;&nbsp;rm -f ${name}.o; \ <BR>
-done <BR>
-_cmpsi2 <BR>
-make.exe[1]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc' <BR>
-SYSCALLS.c:341: warning: conflicting types for built-in function `alloca' <BR>
-SYSCALLS.c:935: warning: conflicting types for built-in function `memcmp' <BR>
-SYSCALLS.c:936: warning: conflicting types for built-in function `memcpy' <BR>
-SYSCALLS.c:940: warning: conflicting types for built-in function `memset' <BR>
-SYSCALLS.c:1334: warning: conflicting types for built-in function `strlen' <BR>
-c:\djgpp\tmp\cc3wwOKe.s: Assembler messages: <BR>
-c:\djgpp\tmp\cc3wwOKe.s:2: Error: no such instruction: `libgcc1 routines for <BR>
-the Hitachi h8/300 cpu.' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:3: Error: no such instruction: `contributed by Steve <BR>
-Chamberlain.' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:4: Error: invalid character '@' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:93: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:94: Error: no such instruction: `bne .L2' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:95: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:96: Error: no such instruction: `bne .L2' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:97: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:98: Error: no such instruction: `rts' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:100: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:101: Error: no such instruction: `bgt .L4' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:102: Error: no such instruction: `bne .L3' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:103: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:104: Error: no such instruction: `bls .L3' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:106: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:107: Error: no such instruction: `rts' <BR>
-c:\djgpp\tmp\cc3wwOKe.s:109: Error: invalid character '.' in mnemonic <BR>
-c:\djgpp\tmp\cc3wwOKe.s:111: Error: no such instruction: `rts' <BR>
-make.exe[1]: *** [libgcc1-asm.a] Error 1 <BR>
-make.exe: *** [all-gcc] Error 2 <BR>
-&nbsp;<P>(End of Message)<HR>
+<P><FONT COLOR="#FF0000">The following are instructions I am using for building the Hitachi H8300
+cross compiler for the DJGPP environment.  Please read through the entire
+message before proceeding.</FONT></P>
 
+<P>Many thanks to ...
+<TABLE BORDER="0" BGCOLOR="#FFFFFF" WIDTH="90%">
+<TR><TD ALIGN="LEFT">Rossz Vamos-Wentworth</TD>
+	<TD ALIGN="LEFT">For providing the model to follow and
+	technical support.</TD></TR>
+<TR><TD ALIGN="LEFT">Steve Hassenplug</TD>
+	<TD ALIGN="LEFT">For providing a "virtual" deadline and
+	constant words of support.</TD></TR>
+<TR><TD ALIGN="LEFT">Nicolas Tarleton</TD>
+	<TD ALIGN="LEFT">For providing technical support which led me
+	down the correct path.</TD></TR>
+<TR><TD ALIGN="LEFT">Eli Zaretski</TD>
+	<TD ALIGN="LEFT">For providing excellent technical support with
+	DJGPP and helping those who came before me.</TD></TR>
+<TR><TD ALIGN="LEFT">Martin Str|mberg</TD>
+	<TD ALIGN="LEFT">For providing technical support with
+	DJGPP.</TD></TR>
+</TABLE></P>
+
+<P>If you have problems related to these instruction, you can write to <A
+HREF="mailto:emanlove@users.sourceforge.net" TARGET="_top"><I
+CLASS="CITETITLE">Ed Manlove</I></A></P>
+</DIV>
+
+<DIV CLASS="SECT1"><H1 CLASS="SECT1"><A NAME="AEN40"></A>Step by step
+instructions:</H1>
+
+<DIV CLASS="SECT2">
+<H2 CLASS="SECT2" ><A NAME="AEN42"></A>1. Install DJGPP and GNU Source Code</H2>
+<P></P>
+
+<UL>
+<LI><P>Download the following DJGPP/GNU packages from www.delorie.com or
+one of its mirror sites.  A complete listing of ftp sites can be found at
+<A HREF="http://www.delorie.com/djgpp/zip-picker.html" TARGET="_top"><I
+CLASS="CITETITLE">DJGPP Zip-Picker Tool</I></A>.  I use <A
+HREF="ftp://ftp.bu.edu/pub/mirrors/simtelnet/gnu/djgpp/"><I
+CLASS="CITETITLE">ftp://ftp.bu.edu/pub/mirrors/simtelnet/gnu/djgpp/</I></A>.
+Place the files into the C:\temp directory.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+unzip32.exe
+v2\djdev203.zip
+v2\faq230b.zip
+v2\djcrx203.zip
+v2gnu\bnu2121b.zip
+v2gnu\gcc31b.zip
+v2gnu\mak3791b.zip
+v2gnu\txi42b.zip
+v2gnu\fil316b.zip
+v2gnu\shl2011b.zip
+v2gnu\tar112ab.zip
+v2gnu\gzip13b.zip
+v2gnu\sed203b.zip
+v2gnu\pat253b.zip
+v2gnu\grep24b.zip
+v2gnu\txt20b.zip
+v2gnu\dif28b.zip
+v2gnu\gtxt040b.zip
+v2gnu\gpp31b.zip
+v2gnu\bnu2121s.zip
+v2gnu\gcc2952s.zip
+v2gnu\gcc2952s2.zip
+</PRE></TD></TR></TABLE>
+<P></LI>
+
+<LI><P>At the DOS prompt type the following
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\> mkdir djgpp
+C:\> cd djgpp
+C:\DJGPP> cp C:\temp\unzip32.exe C:\DJGPP\
+C:\DJGPP> unzip32 c:\temp\djdev203.zip
+C:\DJGPP> unzip32 c:\temp\faq230b.zip
+C:\DJGPP> unzip32 c:\temp\bnu2121b.zip
+C:\DJGPP> unzip32 c:\temp\gcc31b.zip
+C:\DJGPP> unzip32 c:\temp\mak3791b.zip
+C:\DJGPP> unzip32 c:\temp\txi42b.zip
+C:\DJGPP> unzip32 c:\temp\djcrx203.zip
+C:\DJGPP> unzip32 c:\temp\fil316b.zip
+C:\DJGPP> unzip32 c:\temp\shl2011b.zip
+C:\DJGPP> unzip32 c:\temp\tar112ab.zip
+C:\DJGPP> unzip32 c:\temp\gzip13b.zip
+C:\DJGPP> unzip32 c:\temp\sed203b.zip
+C:\DJGPP> unzip32 c:\temp\pat253b.zip
+C:\DJGPP> unzip32 c:\temp\grep24b.zip
+C:\DJGPP> unzip32 c:\temp\txt20b.zip
+C:\DJGPP> unzip32 c:\temp\dif28b.zip
+C:\DJGPP> unzip32 c:\temp\gtxt040b.zip
+C:\DJGPP> unzip32 c:\temp\gpp31b.zip
+C:\DJGPP> unzip32 c:\temp\bnu2121s.zip
+C:\DJGPP> unzip32 c:\temp\gcc2952s.zip
+C:\DJGPP> unzip32 c:\temp\gcc2952s2.zip
+</FONT></PRE></TD></TR></TABLE>
+<P></LI>
+
+<LI><P>DJGPP port of GCC 3.1 has a know bug in it.  To correct for this problem
+create file c:\DJGPP\gnu\gcc-3.1\djtypes.patch which contains the following
+lines. NOTE: This patch is included at the end of the file
+C:\DJGPP\gnu\gcc-3.1\readme.DJGPP.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+--- include/sys/djtypes.h~1 Tue Dec 14 06:56:16 1999
++++ include/sys/djtypes.h Mon Feb  4 16:20:40 2002
+@@ -12,7 +12,12 @@
+ #define __DJ_ssize_t typedef int ssize_t;
+ #define __DJ_time_t typedef unsigned int time_t;
+ #define __DJ_uid_t typedef int uid_t;
++
++#if __GNUC__>=3
++#define __DJ_va_list    typedef __builtin_va_list va_list;
++#else
+ #define __DJ_va_list typedef void *va_list;
++#endif
+
+ #if defined(__cplusplus) && ( (__GNUC_MINOR__ >= 8 && __GNUC__ == 2 ) ||
+__GNUC__ >= 3 )
+ /* wchar_t is now a keyword in C++ */
+</PRE></TD></TR></TABLE>
+</P></LI>
+
+<LI><P>To apply the patch type the following at the DOS prompt
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\>cd DJGPP
+C:\DJGPP> patch -p0 -i c:\DJGPP\gnu\gcc-3.1\djtypes.patch
+</FONT></PRE></TD></TR></TABLE>
+<P></LI>
+
+<P></P></DIV>
+
+<DIV CLASS="SECT2"><H2 CLASS="SECT2"><A NAME="AEN110"></A>2. Start a
+DOS/DJGPP session</H2>
+
+<P></P>
+
+<UL>
+<LI><P>To start a DOS session select Start | Programs | MS-Dos Prompt.</P></LI>
+
+<LI><P>Next, set up the DJGPP environment variables.  At the DOS prompt
+type
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\>cd DJGPP
+C:\DJGPP> DJGPP
+</FONT></PRE></TD></TR></TABLE>
+</P>
+
+<P>If you recieve an "Out of Environment Space", as shown in the error box
+below, you need to expand the size of the enviroment memory.
+<TABLE BORDER="0" BGCOLOR="#FF0000" WIDTH="50%">
+<TR><TD><PRE CLASS="ERRORREPORT">
+C:\>cd djgpp
+C:\DJGPP>djgpp
+Out of environment space
+
+C:\DJGPP>
+</PRE></TD></TR></TABLE>
+</P>
+
+<P>Microsoft gives the following instructions for expanding the environment
+memory for a DOS session
+<TABLE BORDER="1" BGCOLOR="#FFFFFF" WIDTH="90%">
+<TR><TD ALIGN="LEFT">Windows 95,98</TD><TD ALIGN="LEFT"><A
+HREF="http://support.microsoft.com/default.aspx?scid=kb;EN-US;q230205"><I
+CLASS="CITETITLE">Q230205 - Out of Environment Space Error Message in MS-DOS Programs</I></A></TD></TR>
+<TR><TD ALIGN="LEFT">Windows NT,2000</TD><TD ALIGN="LEFT"><A
+HREF="http://support.microsoft.com/default.aspx?scid=kb;en-us;Q161564"><I
+CLASS="CITETITLE">Q161564 - How to Adjust MS-DOS Application Environment Size</I></A></TD></TR>
+<TR><TD ALIGN="LEFT">Windows ME</TD><TD ALIGN="LEFT"><A
+HREF="http://support.microsoft.com/default.aspx?scid=kb;EN-US;q261825"><I
+CLASS="CITETITLE">Q261825 - "Out of Environment Space" Running Batch File or Command Prompt</I></A></TD></TR>
+</TABLE>
+</P></LI>
+</UL>
+
+<P></P></DIV>
+
+<DIV CLASS="SECT2ALT"><H2 CLASS="SECT2ALT"><A NAME="AEN110"></A>2. (ALTERNATIVE) Create DOS Prompt Shortcut</H2>
+
+<P>Instead of starting a DOS prompt using the instructions above you can
+alternatively create a shortcut to open a DOS window and setup the DJGPP
+environment variables.
+</P>
+
+<UL>
+<LI><P>To create a shortcut open the folder in which you wish to place the
+shortcut or go to the desktop.  In the folder or desktop, right-click on
+the backgrond and choose New -> Shortcut. The Create Shortcut dialog box should
+appear.  Enter the path to Command.com in the <I>Command Line</I> edit
+box as shown here.</P>
+<P><DIV CLASS="MEDIAOBJECT"><P><IMG
+SRC="Create_Shortcut_CmdLine.JPG"></DIV><P></LI>
+
+<LI><P>Click next and then enter the <I>Title</I> for the shortcut icon.
+Choose Finish when done.</P>
+<P><DIV CLASS="MEDIAOBJECT"><P><IMG
+SRC="Create_Shortcut_Title.JPG"></DIV><P></LI>
+
+<LI>When completed with the Create Shortcut dialog box, locate the shortcut
+icon, right-click on the icon and select Properties. In the Properties
+Dialog Box select the <B>Program</B> tab.<P>
+<P><DIV CLASS="MEDIAOBJECT"><P><IMG
+SRC="DJGPP_Prompt_Program.JPG"></DIV><P>
+<P>Fill in the following parameters
+<TABLE BORDER="0" BGCOLOR="#FFFFFF" WIDTH="90%">
+<TR><TD ALIGN="LEFT"><I><U>W</U>orking</I></TD>
+	<TD ALIGN="LEFT">This will be the current directory when the DOS
+	window is opened. In this example, it has been set it to the DJGPP home directory.</TD></TR>
+<TR><TD ALIGN="LEFT"><I><U>B</U>atch file</TD>
+	<TD ALIGN="LEFT">Contains the batch file which will be runned when
+	the DOS window is opened. In the example, it has been set to the
+	DJGPP environment batch file.</TD></TR>
+</TABLE></P>
+</LI>
+
+<LI><P>Select the <B>Memory</B> tab.  Increase the <I>Initial
+en<U>v</U>ironment</I> memory to 4096.  Click OK or <U>A</U>pply to apply
+changes to the shortcut.</P>
+<P><DIV CLASS="MEDIAOBJECT"><P><IMG
+SRC="DJGPP_Prompt_Memory.JPG"></DIV><P></LI>
+
+</P></LI>
+</UL>
+
+<P></P></DIV>
+
+<DIV CLASS="SECT3"><H2 CLASS="SECT3"><A NAME="AEN110"></A>3. Configure and
+Build Binutils</H2>
+
+<P></P>
+
+<UL>
+<LI><P>To configure the binutils for the hitachi H8300 type the
+following at the dos prompt
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\DJGPP> cd gnu\binutl-2.121\build.djg
+C:\DJGPP\gnu\binutl-2.121\build.djg> sh djconfig.sh --target=h8300-hitachi-hms
+</FONT></PRE></TD></TR></TABLE>
+</P></LI>
+
+<LI><P>Once configure is complete and before binutils is built we must
+correct for a bug in the installation Makfile,
+C:\DJGPP\gnu\binutl-2.121\Makefile.in. First, create a patch
+file,C:\DJGPP\gnu\binutl-2.121\bnumake.diff, containing the following lines.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+--- Makefile.in	Tue Oct  1 20:40:30 2002
++++ Makefile.in	Tue Oct  1 20:40:08 2002
+@@ -63,7 +63,8 @@
+ # cygwin host.
+ INSTALL_PROGRAM_ARGS =
+ 
+-INSTALL = $(SHELL) $$s/install-sh -c
++#INSTALL = $(SHELL) $$s/install-sh -c
++INSTALL = C:/DJGPP/bin/ginstall -c
+ INSTALL_PROGRAM = $(INSTALL) $(INSTALL_PROGRAM_ARGS)
+ INSTALL_SCRIPT = $(INSTALL)
+ INSTALL_DATA = $(INSTALL) -m 644
+</PRE></TD></TR></TABLE>
+</P>
+
+<P>To apply the patch, type
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\> cd C:\DJGPP\gnu\binutl-2.121
+C:\DJGPP\gnu\binutl-2.121\build.djg> patch -p0 -i C:\DJGPP\gnu\binutl-2.121\bnumake.diff
+</FONT></PRE></TD></TR></TABLE>
+</P></LI>
+
+<LI><P>Finally, to build and install the binutils for the hitachi H8300, type
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\DJGPP\gnu\binutl-2.121\build.djg> make
+C:\DJGPP\gnu\binutl-2.121\build.djg> make
+C:\DJGPP\gnu\binutl-2.121\build.djg> make install
+</FONT></PRE></TD></TR></TABLE>
+</P>
+
+<P>For reasons unkown at this point one must restart <I>make</I> to properly
+make the makefile created by the configure step.  Otherwise the following
+error might appear.
+
+
+<TABLE BORDER="0" BGCOLOR="#FF0000" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+...
+ranlib .libs/libbfd.a
+creating libbfd.la
+(cd .libs && rm -f libbfd.la && ln -s ../libbfd.la libbfd.la)
+c:/djgpp/bin/ln: cannot create symbolic link `libbfd.la' to `../libbfd.la': Impr
+oper link (EXDEV)
+make.exe[3]: *** [libbfd.la] Error 1
+make.exe[3]: Leaving directory `c:/djgpp/gnu/binutl-2.121/build.djg/bfd'
+make.exe[2]: *** [all-recursive] Error 1
+make.exe[2]: Leaving directory `c:/djgpp/gnu/binutl-2.121/build.djg/bfd'
+make.exe[1]: *** [all-recursive-am] Error 2
+make.exe[1]: Leaving directory `c:/djgpp/gnu/binutl-2.121/build.djg/bfd'
+make.exe: *** [all-bfd] Error 2
+
+C:\DJGPP\gnu\binutl-2.121\build.djg>
+</PRE></TD></TR></TABLE>
+</P></LI>
+
+<P></P></DIV>
+
+<DIV CLASS="SECT4"><H2 CLASS="SECT4"><A NAME="AEN110"></A>4. Configure and
+Build GCC</H2>
+
+<UL>
+<LI><P>Before gcc is configured and built a couple of patches specific for the RCX must
+be applied.  First create the folowing two patch files.</P>
+
+<P>C:\DJGPP\gnu\gcc-2.952\build.djg\gcc-2.95.2-rcx-1.diff:
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+--- gcc\config\h8300\h8300.c	Thu Apr  8 01:17:52 1999
++++ gcc\config\h8300\h8300.c	Wed Aug 16 16:57:10 2000
+@@ -43,6 +43,7 @@
+ char *index ();
+
+ static int h8300_interrupt_function_p PROTO ((tree));
++static int h8300_rcx_interrupt_function_p PROTO ((tree));
+ static int h8300_monitor_function_p PROTO ((tree));
+ static int h8300_os_task_function_p PROTO ((tree));
+
+@@ -53,6 +54,16 @@
+    (either via #pragma or an attribute specification).  */
+ int interrupt_handler;
+
++/* True if the current function is an RCX firmware interrupt handler
++   (via an attribute specification).
++
++   Handlers return with a normal subroutine return instruction.
++   r6 is never saved as ROM does this already.
++   Registers are only saved if used.
++   Function calls force saving of r0..r3.
++   */
++int rcx_interrupt;
++
+ /* True if the current function is an OS Task
+    (via an attribute specification).  */
+ int os_task;
+@@ -126,6 +137,8 @@
+ #define WORD_REG_USED(regno)					\
+   (regno < 7 &&							\
+    (interrupt_handler						\
++    || (rcx_interrupt && ((function_call_count>0 && regno<4) || \
++                          (regs_ever_live[regno] && regno!=6))) \
+     || pragma_saveall						\
+     || (regno == FRAME_POINTER_REGNUM && regs_ever_live[regno])	\
+     || (regs_ever_live[regno] && !call_used_regs[regno])))
+@@ -237,6 +250,9 @@
+   if (h8300_interrupt_function_p (current_function_decl))
+     interrupt_handler = 1;
+
++  if (h8300_rcx_interrupt_function_p(current_function_decl))
++    rcx_interrupt = 1;
++
+   /* If the current function has the OS_Task attribute set, then
+      we have a naked prologue.  */
+   if (h8300_os_task_function_p (current_function_decl))
+@@ -497,6 +513,7 @@
+
+ out:
+   interrupt_handler = 0;
++  rcx_interrupt = 0;
+   os_task = 0;
+   monitor = 0;
+   pragma_saveall = 0;
+@@ -2838,6 +2855,22 @@
+   return a != NULL_TREE;
+ }
+
++/* Return nonzero if FUNC is an RCX interrupt function as specified
++   by the "rcx_interrupt" attribute.  */
++
++static int
++h8300_rcx_interrupt_function_p (func)
++     tree func;
++{
++  tree a;
++
++  if (TREE_CODE (func) != FUNCTION_DECL)
++    return 0;
++
++  a = lookup_attribute ("rcx_interrupt", DECL_MACHINE_ATTRIBUTES (func));
++  return a != NULL_TREE;
++}
++
+ /* Return nonzero if FUNC is an OS_Task function as specified
+    by the "OS_Task" attribute.  */
+
+@@ -2947,6 +2980,7 @@
+     return 0;
+
+   if (is_attribute_p ("interrupt_handler", attr)
++      || is_attribute_p ("rcx_interrupt", attr)
+       || is_attribute_p ("OS_Task", attr)
+       || is_attribute_p ("monitor", attr)
+       || is_attribute_p ("function_vector", attr))
+</PRE></TD></TR></TABLE>
+</P>
+
+<P>C:\DJGPP\gnu\gcc-2.952\build.djg\gcc-2.95.2-rcx-2.diff:
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+--- gcc\config\h8300\h8300.h	Mon Mar 22 01:08:28 1999
++++ gcc\config\h8300\h8300.h	Wed Aug 16 16:58:04 2000
+@@ -36,7 +36,7 @@
+ /* Names to predefine in the preprocessor for this target machine.  */
+
+ #define CPP_PREDEFINES \
+-"-D__LONG_MAX__=2147483647L -D__LONG_LONG_MAX__=2147483647L"
++"-D__LONG_MAX__=2147483647L -D__LONG_LONG_MAX__=2147483647L -DCONF_RCX_COMPILER"
+
+ #define CPP_SPEC \
+   "%{!mh:%{!ms:-D__H8300__}} %{mh:-D__H8300H__} %{ms:-D__H8300S__} \
+</PRE></TD></TR></TABLE>
+</P>
+
+<LI><P>To apply the patches, type
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\DJGPP> cd gnu\gcc-2.952
+C:\DJGPP\gnu\gcc-2.952> patch -u -i build.djg/gcc-2.95.2-rcx-1.diff
+C:\DJGPP\gnu\gcc-2.952> patch -u -i build.djp/gcc-2.95.2-rcx-2.diff
+</FONT></PRE></TD></TR></TABLE>
+</P>
+
+
+<LI><P>To configure gcc I use the following script.  This script,
+C:\DJGPP\gnu\gcc-2.952\build.djg\h8cfggcc.sh, is the djconfig.sh script from
+bintutils-2.121 with a few minor modifications.  I had difficulty using the
+djconfig.sh script for gcc-2.952.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+#!/bin/sh
+#
+# This shell script is a wrapper to the main configure script when
+# configuring GDB for DJGPP.  99% of it can also be used when
+# configuring other GNU programs for DJGPP.
+#
+#=====================================================================
+# Copyright 1997, 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
+#
+# Originally written by Robert Hoehne, revised by Eli Zaretskii.
+#  This file is part of GDB.
+#  Adapted for binutils by Andris Pavenis
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.  */
+#=====================================================================
+#
+# Call this script like the main configure script with one exception.  If
+you
+# want to pass parameters to configure, you have to pass as the first
+# argument the srcdir, even when it is `.' !!!!!
+#
+# First, undo any CDPATH settings; they will get in our way when we
+# chdir to directories.
+unset CDPATH
+
+# Where are the sources? If you are used to having the sources
+# in a separate directory and the objects in another, then set
+# here the full path to the source directory and run this script
+# in the directory where you want to build gdb!!
+# You might give the source directory on commandline, but use
+# then only forward slashes (/) in the directories. It should be
+# an absolute path.
+
+srcdir=..
+
+# Now set the config shell. It is really needed, that the shell
+# points to a shell with full path and also it must conatain the
+# .exe suffix. I assume here, that bash is installed. If not,
+# install it. Additionally, the pathname must not contain a
+# drive letter, so use the /dev/x/foo format supported by versions
+# of Bash 2.03 and later, and by all DJGPP programs compiled with
+# v2.03 (or later) library.
+export CONFIG_SHELL=/dev/env/DJDIR/bin/sh.exe
+
+# force to have the ltmain.sh script to be in DOS text format,
+# otherwise the resulting ltconfig script will have mixed
+# (UNIX/DOS) format and is unusable with Bash ports before v2.03.
+utod $srcdir/ltmain.sh
+
+# Give the configure script some hints:
+#export AS=as
+export LD=ld
+export NM=nm
+export CC=gcc
+export CXX=gpp
+export CFLAGS="-O2 -g"
+export RANLIB=ranlib
+export DEFAULT_YACC="bison -y"
+export YACC="bison -y"
+export DEFAULT_LEX=flex
+# Define explicitly the .exe extension because on W95 with LFN=y
+# the check might fail
+export am_cv_exeext=.exe
+# ltconfig wants to compute the maximum command-line length, but
+# Bash 2.04 doesn't like that (it doesn't have any limit ;-), and
+# reboots the system.  We know our limit in advance, so we don't
+# need all that crap.  Assuming that the environment size is less
+# than 4KB, we can afford 12KB of command-line arguments.
+export lt_cv_sys_max_cmd_len=12288
+
+# The configure script needs to see the `install-sh' script, otherwise
+# it decides the source installation is broken.  But "make install" will
+# fail on 8+3 filesystems if it finds a file `install-', since there
+# are numerous "install-foo" targets in Makefile's.  So we rename the
+# offending file after the configure step is done.
+if test ! -f ${srcdir}/install-sh ; then
+  if test -f ${srcdir}/install-.sh ; then
+    mv ${srcdir}/install-.sh ${srcdir}/install-sh
+  fi
+fi
+
+# Now run the configure script while disabling some things like the NLS
+# support, which is nearly impossible to be supported in the current way,
+# since it relies on file names which will never work on DOS.
+echo "Running the configure script..."
+$srcdir/configure --srcdir="$srcdir" --prefix='${DJDIR}' \
+  --disable-bfd-assembler \
+  --disable-shared --disable-nls --verbose --enable-build-warnings=\
+-Wimplicit,-Wcomment,-Wformat,-Wparentheses,-Wpointer-arith \
+--enable-target-optspace --with-newlib --enable-languages=c,c++ $*
+
+if test -f ${srcdir}/install- ; then
+  mv ${srcdir}/install- ${srcdir}/install-.sh
+fi
+# -- EOF  h8cfggcc.sh ------------------------------------------------
+</PRE></TD></TR></TABLE>
+</P></LI>
+
+<LI><P>To configure gcc type at the dos prompt
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\DJGPP\gnu\gcc-2.952\build.djg> sh h8cfggcc.sh --target=h8300-hitachi-hms
+</FONT></PRE></TD></TR></TABLE>
+</P></LI>
+
+<LI><P>Then to build the script, type
+
+<TABLE BORDER="0" BGCOLOR="#1E1E1E" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING"><FONT COLOR="FFFFFF">
+C:\DJGPP\gnu\gcc-2.952\build.djg> make
+</FONT></PRE></TD></TR></TABLE>
+</P></LI>
+
+
+<P>At this point I get the following error which I am trying to resolve.</P>
+
+<TABLE BORDER="0" BGCOLOR="#FF0000" WIDTH="90%">
+<TR><TD><PRE CLASS="ERRORREPORT">
+...
+make.exe[4]: Entering directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
+c:/djgpp/gnu/gcc-2.952/build.djg/gcc/xgcc -Bc:/djgpp/gnu/gcc-2.952/build.djg/gcc
+/ -Bc:/djgpp/h8300-hitachi-hms/bin/ -Ic:/djgpp/h8300-hitachi-hms/include -O2  -D
+CROSS_COMPILE -DIN_GCC     -O2 -g -I./include  -DDF=SF -DDI=SI -g1  -DIN_LIBGCC2
+ -D__GCC_FLOAT_NOT_NEEDED -Dinhibit_libc   -g -O2 -I. -I../../gcc -I../../gcc/co
+nfig -I../../gcc/../include \
+  -c ../../gcc/cp/tinfo.cc
+In file included from ../../gcc/cp/tinfo.cc:32:
+include/new:28: `operator new' takes type `size_t' as first parameter
+include/new:29: `operator new' takes type `size_t' as first parameter
+include/new:32: `operator new' takes type `size_t' as first parameter
+include/new:33: `operator new' takes type `size_t' as first parameter
+include/new:38: `operator new' takes type `size_t' as first parameter
+include/new:39: `operator new' takes type `size_t' as first parameter
+make.exe[4]: *** [tinfo.o] Error 1
+make.exe[4]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
+make.exe[3]: *** [libgcc2.a] Error 1
+make.exe[3]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
+make.exe[2]: *** [stmp-multilib-sub] Error 2
+make.exe[2]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
+make.exe[1]: *** [stmp-multilib] Error 1
+make.exe[1]: Leaving directory `c:/djgpp/gnu/gcc-2.952/build.djg/gcc'
+make.exe: *** [all-gcc] Error 2
+
+C:\DJGPP\gnu\gcc-2.952\build.djg>
+</PRE></TD></TR></TABLE>
+
+
+<P></P></DIV>
+
+</DIV></DIV></DIV>
+<HR>
 <P ALIGN="center"><FONT SIZE="2">This site generously hosted by&nbsp; </FONT>
  <A HREF="http://sourceforge.net"><FONT SIZE="2">
- <IMG SRC="http://sourceforge.net/sflogo.php?group_id=58151&type=4" WIDTH="125" HEIGHT="37" BORDER="0" ALT="SourceForge Logo" ALIGN="middle"></FONT></A></BODY></HTML>
+ <IMG SRC="http://sourceforge.net/sflogo.php?group_id=58151&type=4" WIDTH="125" HEIGHT="37" BORDER="0" ALT="SourceForge Logo" ALIGN="middle"></FONT></A>
+</BODY></HTML>
+
+
