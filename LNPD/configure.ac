@@ -27,12 +27,6 @@ AC_PROG_LN_S
 AC_PROG_INSTALL
 AM_PROG_LIBTOOL
 
-# Checks for libraries.
-# FIXME: Replace `main' with a function in `-lc':
-AC_CHECK_LIB([c], [main])
-# FIXME: Replace `main' with a function in `-llnp':
-AC_CHECK_LIB([lnp], [main])
-
 # Checks for header files.
 AC_HEADER_STDC
 AC_CHECK_HEADERS([arpa/inet.h fcntl.h memory.h netdb.h netinet/in.h stdlib.h string.h sys/ioctl.h sys/socket.h sys/time.h syslog.h termios.h unistd.h])
