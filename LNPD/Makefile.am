@@ -6,7 +6,7 @@
 
 SUBDIRS = lnpd+liblnp dllx
 
-EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README VERSION
+EXTRA_DIST = AUTHORS COPYING ChangeLog INSTALL NEWS README VERSION inst-pieces
 
 distclean-generic:
 	rm -f stamp-h.in *~ stamp-h
