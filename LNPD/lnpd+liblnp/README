@@ -1,10 +1,10 @@
 Hi there, this is my first version of liblnp and lnpd.
 
-WHAT´S IN THE BOX:
+WHAT'S IN THE BOX:
 
 lnpd:
   A LinuX daemon that allows multiple clients to connect to a LEGO RCX running
-  Markus L. Noga´s famous legOS operating system and exchange messages
+  Markus L. Noga's famous legOS operating system and exchange messages
   according to the LNP protocol.  
   
 liblnp:
@@ -16,8 +16,8 @@ applications:
   lnptest is a program that continously sends messages to the RCX and
   simultanously receives from the RCX. To see the multi-client feature, just
   start it several times at once.
-  dll is a port of Marcus´ program downloader that uses liblnp. It´s a little
-  bit simpler, because lnpd and liblnp now do some dirty tty work. What´s fine
+  dll is a port of Marcus' program downloader that uses liblnp. It's a little
+  bit simpler, because lnpd and liblnp now do some dirty tty work. What's fine
   with it: It works with LNP running at 4800 baud.
   
 rcx:
@@ -25,10 +25,10 @@ rcx:
   independent tasks sending LNP messages to the PC and receives messages
   simultanously. To make this program work without crashing, you should apply
   patch.legOS to your legOS source and recompile legOS.
-  However that´s NOT necessary for lnpd and liblnp to work properly, it just
+  However that's NOT necessary for lnpd and liblnp to work properly, it just
   fixes a little bug related to multiple tasks sending LNP messages
   simultanously. The rcx directory is not included in the make-tree, because
-  it´s just an example.
+  it's just an example.
   
 What Platforms does it run on ?
   So far, i tested it only on my home linux box running kernel 2.2.13
@@ -80,13 +80,13 @@ RUNNING LNPD:
   --fast: run lnpd in fast mode, i.e. with 4800 baud. In my tests this worked
   quite well, as mentioned above i was able to run dll in fast mode very
   reliably. However, fast mode does not work if you set the tower to far-mode,
-  so it´s usefullness is a little restricted.
+  so it's usefullness is a little restricted.
   
-  --log[=filename]: this enables logging of some messages about lnpd´s
+  --log[=filename]: this enables logging of some messages about lnpd's
   operation. If no filename is provided, lnpd will use the system log,
   (LOG_DAEMON/LOG_INFO). This is most usefull if lnpd runs in background.
   Alternatively, you can specify a filename where the messages will go to, the
-  file will be created if it doesn´t exist, otherwise the messages will be
+  file will be created if it doesn't exist, otherwise the messages will be
   appended to the file. The filename - means: log to stderr. This is most
   usefull together with the --debug option.
   By default, lnpd does not log anything !
@@ -101,7 +101,7 @@ RUNNING LNPD:
   write it in hex and you know 8-) ).
   
   --realtime: run the daemon in realtime mode. You have to be root to do this,
-  but as far as i experienced it´s absolutely not neccessary !
+  but as far as i experienced it's absolutely not neccessary !
   
   --tty=<device>: the serial port to use, by default /dev/ttyS0.
   
@@ -114,7 +114,7 @@ RUNNING LNPD:
   
   --help: gives some short info.
   
-  --version prints lnpd´s version
+  --version prints lnpd's version
   
 USING THE LIBRARY:
   As mentioned above, you have to put the shared library to a standard place or
@@ -141,10 +141,10 @@ USING THE LIBRARY:
   robin scheme is used to be fair) All clients in the queue will
   be blocked. What should happen if a valid message arrives while your client is
   blocked (in the queue) ? Under real legOS, this will never happen, but in the
-  multi-client environment it´s possible. The default behaviour of liblnp is to
+  multi-client environment it's possible. The default behaviour of liblnp is to
   deliver this messages, this means: If you have installed a handler, it will
   be called, but your transmit job will stay blocked and might return later
-  successfully. If you are not interested in messages arriving while you´re
+  successfully. If you are not interested in messages arriving while you're
   queued for sending, you can call lnp_init with a special flag. In this case,
   all messages arriving while blocked in lnp_xxx_write() will be discarded.
   
@@ -161,7 +161,7 @@ CAVEATS:
   Currently, lnpd
   is not aware of silently dying clients, which do not close the TCP connection
   appropriately. However, as far as we have no windows port of liblnp, imho
-  that´s not a big issue ;-) -- but i´m working on it.
+  that's not a big issue ;-) -- but i'm working on it.
 
 BUGS:
   probably many, i tested only for about 3 hours...  
