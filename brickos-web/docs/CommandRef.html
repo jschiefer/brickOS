@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en"><html><head>
+   <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
+   <meta content="noindex" name="robots">
+   <meta content="Mozilla/4.75 [en] (Win98; U) [Netscape]" name="GENERATOR">
+   <meta content="David C. Chen" name="Author">
+   <meta content="LegOS Commands and System Constants for version 0.2.4" name="Description">
+   <meta content="LegOS, Commands, 0.2.4" name="KeyWords"><title>LegOS Command Reference 1.0-0.2.4</title>
+   
+<link type="text/css" rel="stylesheet" href="CommandRef_files/doxygen.css"></head>
+
+<body alink="#ff0000" vlink="#551a8b" link="#0000ee" bgcolor="#ffffff" text="#000000">
+
+<center>
+<h1>
+LegOS Commands Reference 1.0-0.2.4</h1></center>
+
+<center>
+<h2>
+(for LegOS Version 0.2.4)</h2></center>
+
+<dl><dd>
+The history and development of LegOS as been a feat of amazing ingenuity
+and engineering prowess.&nbsp; However, documentation for LegOS for the
+novice user has been difficult to come by since it's inception.&nbsp; This
+is probably rooted in the fact that from the beginning, this has been an
+"expert's only" development; developed by hardcore hackers/ programmers/hardware
+gurus for those with the same inclination.&nbsp; Consequently, much of
+the documentation available has been through the automatically generated
+API docs, which are often difficult to wade through.</dd><dd>
+This document hopes to list and outline the main C (User level) commands
+available to the LegOS programmer to directly control the RCX via LegOS.&nbsp;
+This is a distilled down list obtained from the <a href="http://legos.sourceforge.net/API/globals.html">LegOS
+File Members</a> document.&nbsp; Please consult the <a href="http://legos.sourceforge.net/">LegOS
+Source Forge Repository</a> as the definitive reference.</dd><dd>
+Hopefully, when the new <a href="http://www.amazon.com/exec/obidos/ASIN/1893115844/tieguyorg">Extreme
+Mindstorms</a> book is available, this document will be made obsolete as
+we will now have a really professionally written and definitive listing
+and explanation of the inner workings of LegOS.&nbsp; In the meantime,
+this is my humble contribution to the LegOS community for giving me such
+an intriguing new toy to play with.</dd><dd>
+Enjoy,</dd><dd>
+Dave Chen 10/29/2000</dd></dl>
+
+<hr width="98%" size="3">
+<h3>
+Display</h3>
+Display positions
+<br>&nbsp;&nbsp;&nbsp; Digit display positions are denumerated from right
+to left, starting with 0 for the digit right to the running man. Digit
+5 is
+<br>&nbsp;&nbsp;&nbsp; only partially present on the RCXs display.
+<p>Native segment masks
+<br>&nbsp;&nbsp;&nbsp; In these bitmasks, bit 0 toggles the middle segment.
+Bit 1 toggles the top right segment, and the remaining segments are
+<br>&nbsp;&nbsp;&nbsp; denumerated counterclockwise. The dot isn't encoded.
+</p><ul>
+<li>
+void <b><font size="+2">cls ();</font></b></li>
+
+<br>Clear user portion of screen.: <a class="el" href="http://legos.sourceforge.net/API/conio.h.html#a24">conio.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/conio.c.html#a10">conio.c</a>
+<li>
+void <b><font size="+2">cputs (char * <i>s</i>);</font></b></li>
+
+<br>Parameters: <b><i>s</i></b> the string
+<br>Display an ASCIIZ string, only the first 5 characters will be displayed.
+if there are less than 5 characters, the remaining display positions will
+be cleared. : <a class="el" href="http://legos.sourceforge.net/API/conio.h.html#a23">conio.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/conio.c.html#a9">conio.c</a>
+<li>
+void <b><font size="+2">cputw (unsigned <i>word</i>);</font></b></li>
+
+<br>Parameters: <b><i>word</i></b> the hexword
+<br>Display a hexword, position 0 not used.: <a class="el" href="http://legos.sourceforge.net/API/conio.h.html#a15">conio.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/conio.c.html#a8">conio.c</a>
+<li>
+void <b><font size="+2">cputc_hex_X (unsigned nibble <i>c</i>);</font></b></li>
+
+<br>void <b>cputc_hex (char <i>c</i>, int <i>X</i>);</b>
+<br>Parameters: <b><i>c</i></b> hex number to display at position <b><i>X</i></b>.:
+<a class="el" href="http://legos.sourceforge.net/API/conio.h.html#a21">conio.h</a>
+<li>
+void <b><font size="+2">lcd_int (int <i>i</i>)<i>;</i></font></b></li>
+
+<br>Parameter: <b><i>i</i></b> integer to display, position 0 not used.:
+<a class="el" href="http://legos.sourceforge.net/API/lcd.h.html#a5">lcd.h</a>
+<li>
+void <b><font size="+2">lcd_unsigned(unsigned int <i>u</i>);</font></b></li>
+
+<br>Parameter: <b><i>u</i></b> integer to display, position 0 not used.
+<br>Display an unsigned value in decimal.: <a class="el" href="http://legos.sourceforge.net/API/lcd.h.html#a5">lcd.h</a>
+<li>
+void <b><font size="+2">lcd_digit(int <i>i</i>);</font></b></li>
+
+<br>Parameter: <b><i>i</i></b> integer to display at position 0.: <a class="el" href="http://legos.sourceforge.net/API/lcd.h.html#a5">lcd.h</a>
+<li>
+void <b><font size="+2">lcd_clock(int <i>i</i>);</font></b></li>
+
+<br>Parameter: <b><i>i</i></b> will be displayed with the format XX.XX
+<li>
+void <b><font size="+2">lcd_number (int <i>i</i>, lcd_number_style <i>n</i>,
+lcd_comma_style
+<i>c</i>);</font></b></li>
+
+<br>Number Style:&nbsp; digit, sign, unsign
+<br>Comma Style:&nbsp; e0, e_1, e_2, e_3
+<br>Parameters: <b><i>i</i></b> the integer to be shown, <b><i>n</i></b>
+the number style, <b><i>c</i></b> the comma style.: <a class="el" href="http://legos.sourceforge.net/API/lcd.h.html#a5">lcd.h</a>
+<li>
+void <b><font size="+2">lcd_hide(char <i>mask</i>);</font></b></li>
+
+<br>void <b><font size="+2">lcd_show(char <i>mask</i>);</font></b>
+<br>Parameters:&nbsp; <b><i>mask</i></b> see Mask listing below
+<br>Display native mode segment mask at display position <b>X.</b>: <a class="el" href="http://legos.sourceforge.net/API/lcd.h.html#a5">lcd.h</a>
+<ul>
+<li>
+LCD <b><i>mask</i></b> definitions</li>
+
+<dl><dl><li>
+<font size="-1">LCD_0_BOT, LCD_0_BOTL, LCD_0_BOTR, LCD_0_MID, LCD_0_TOP,
+LCD_0_TOPL, LCD_0_TOPR</font></li><li>
+<font size="-1">LCD_1_BOT, LCD_1_BOTL, LCD_1_BOTR, LCD_1_MID, LCD_1_TOP,
+LCD_1_TOPL, LCD_1_TOPR</font></li><li>
+<font size="-1">LCD_2_BOT, LCD_2_BOTL, LCD_2_BOTR, LCD_2_MID, LCD_2_TOP,
+LCD_2_TOPL, LCD_2_TOPR</font></li><li>
+<font size="-1">LCD_3_BOT, LCD_3_BOTL, LCD_3_BOTR, LCD_3_MID, LCD_3_TOP,
+LCD_3_TOPL, LCD_3_TOPR</font></li><li>
+<font size="-1">LCD_4_BOT, LCD_4_BOTL, LCD_4_BOTR, LCD_4_MID, LCD_4_TOP,
+LCD_4_TOPL, LCD_4_TOPR</font></li><li>
+<font size="-1">LCD_5_MID</font></li><li>
+<font size="-1">LCD_2_DOT, LCD_3_DOT, LCD_4_DOT</font></li><li>
+<font size="-1">LCD_A_LEFT, LCD_A_RIGHT, LCD_A_SELECT</font></li><li>
+<font size="-1">LCD_B_LEFT, LCD_B_RIGHT, LCD_B_SELECT</font></li><li>
+<font size="-1">LCD_C_LEFT, LCD_C_RIGHT, LCD_C_SELECT</font></li><li>
+<font size="-1">LCD_CIRCLE_0, LCD_CIRCLE_1, LCD_CIRCLE_2, LCD_CIRCLE_3</font></li><li>
+<font size="-1">LCD_BATTERY_X</font></li><li>
+<font size="-1">LCD_ARMS, LCD_1LEG, LCD_2LEGS, LCD_BODY</font></li><li>
+<font size="-1">LCD_DOT_0, LCD_DOT_1, LCD_DOT_2, LCD_DOT_3, LCD_DOT_4,</font></li><li>
+<font size="-1">LCD_IR_LOWER, LCD_IR_UPPER</font></li><li>
+<font size="-1">LCD_EMPTY_1, LCD_EMPTY_2</font></li></dl></dl>
+</ul>
+</ul>
+
+<h3>
+LNP - LegOS Network Protocol</h3>
+
+<dl><dd>
+Don't have much information about this section yet, anyone who can shed
+some light on what LNP functions are present and how they work, please
+let me know.</dd></dl>
+
+<blockquote>
+<li>
+void <b><font size="+2">lnp_logical_fflush();</font></b></li>
+
+<br>Flush the Input Buffer: <a class="el" href="http://legos.sourceforge.net/API/lnp-logical.h.html#a3">lnp-logical.h</a>
+<li>
+void <b><font size="+2">lnp_logical_range(int <i>i</i>);</font></b></li>
+
+<br>Parameter: <b><i>i </i></b>sets Range for IR:&nbsp; 0 = Short Range,
+1 = Long Range
+<br>: <a class="el" href="http://legos.sourceforge.net/API/lnp-logical.h.html#a0">lnp-logical.h</a>
+<li>
+int <b><font size="+2">lnp_logical_range_is_far()</font></b></li>
+
+<br>Returns the IR Range setting.: <a class="el" href="http://legos.sourceforge.net/API/lnp-logical.h.html#a1">lnp-logical.h</a>
+<li>
+int <b><font size="+2">lnp_logical_write(const void* <i>buf</i>,size_t <i>len</i>);</font></b></li>
+
+<br>Parameter: <b><i>buf</i></b> string of length <b><i>len</i></b> is
+written to the IR Port: <a class="el" href="http://legos.sourceforge.net/API/lnp-logical.h.html#a2">lnp-logical.h</a></blockquote>
+
+<h3>
+Memory Management and String Operations</h3>
+
+<blockquote>
+<li>
+void <b><font size="+2">free(void *<i>the_ptr</i>);</font></b></li>
+
+<br>Free block of memory pointed to by <b><i>the_ptr</i></b>.: <a class="el" href="http://legos.sourceforge.net/API/stdlib.h.html#a2">stdlib.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/mm.c.html#a4">mm.c</a>
+<li>
+void <b><font size="+2">*calloc(size_t <i>nmemb</i>, size_t <i>size</i>);</font></b></li>
+
+<br>Allocate adjacent blocks of memory, <b><i>nmemb </i></b>number of blocks
+of <b><i>size </i></b>individual block size.: <a class="el" href="http://legos.sourceforge.net/API/stdlib.h.html#a0">stdlib.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/mm.c.html#a5">mm.c</a>
+<li>
+void <b><font size="+2">*malloc(size_t <i>size</i>);</font></b></li>
+
+<br>Allocate a block of memory.: <a class="el" href="http://legos.sourceforge.net/API/stdlib.h.html#a1">stdlib.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/mm.c.html#a3">mm.c</a>
+<li>
+void <b><font size="+2">*memcpy(void *<i>dest</i>, const void *<i>src</i>,
+size_t <i>size</i>);</font></b></li>
+
+<br><b><i>dest</i></b> = destionation address,<i> <b>src</b></i> = source
+address,
+<b><i>size</i></b> number of bytes to copy : <a class="el" href="http://legos.sourceforge.net/API/string.h.html#a0">string.h</a>
+<li>
+void <b><font size="+2">*memset(void *<i>s</i>, int <i>c</i>, size_t <i>n</i>)</font></b><font size="+2">;</font></li>
+
+<br>Fill memory block at address <b><i>s</i></b> with byte value <b><i>c</i></b>,
+<b><i>n</i></b>
+is the number of bytes of <b><i>c</i></b> to fill. <a class="el" href="http://legos.sourceforge.net/API/string.h.html#a1">string.h</a>
+<li>
+int <b><font size="+2">strcmp(const char *<i>s1</i>, const char *<i>s2</i>)</font></b></li>
+
+<br>Compare two NULL terminated strings, returns: &lt;0: s1&lt;s2, = 0:
+s1==s2, &gt;0: s1&gt;s2 : <a class="el" href="http://legos.sourceforge.net/API/string.h.html#a4">string.h</a>
+<li>
+char <b><font size="+2">*strcpy(char *<i>dest</i>, const char *<i>src</i>);</font></b></li>
+
+<br>Copy NULL-terminated string from <b><i>src</i></b> to <b><i>dest</i></b>,
+returns pointer to <b><i>dest</i></b>.: <a class="el" href="http://legos.sourceforge.net/API/string.h.html#a2">string.h</a>
+<li>
+int <b><font size="+2">strlen(const char *<i>s</i>)</font></b></li>
+
+<br>Returns length of NULL-terminated string <b><i>s</i></b> : <a class="el" href="http://legos.sourceforge.net/API/string.h.html#a3">string.h</a>
+<li>
+NULL</li>
+
+<br>Null memory pointer constant.: <a class="el" href="http://legos.sourceforge.net/API/mem.h.html#a0">mem.h</a></blockquote>
+
+<h3>
+Motor Control</h3>
+
+<blockquote>
+<li>
+void <b><font size="+2">motor_a_dir(enum <i>MotorDir</i>)<br>
+</font></b>void <b><font size="+2">motor_b_dir(enum <i>MotorDir</i>)<br>
+</font></b>void <b><font size="+2">motor_c_dir(enum
+<i>MotorDir</i>)</font></b></li>
+
+<br>Parameter: <b><i>MotorDir </i></b>Enumerated as:&nbsp; off = 0, fwd
+= 1, rev = 2, brake = 3
+<br>Set the motor direction.: <a class="el" href="http://legos.sourceforge.net/API/dmotor.h.html#a4">dmotor.h</a>
+<li>
+void <b><font size="+2">motor_a_speed(int <i>speed</i>)<br>
+</font></b>void <b><font size="+2">motor_b_speed(int <i>speed</i>)<br>
+</font></b>void 
+<b><font size="+2">motor_c_speed(int
+<i>speed</i>)</font></b></li>
+
+<br>Parameter: <b><i>speed</i></b> sets the PWM output to the specified
+motor.
+<br>MAX_SPEED = Constant for upper limit of motor speed
+<br>MIN_SPEED = Constant for lower limit of motor speed.: <a class="el" href="http://legos.sourceforge.net/API/dmotor.h.html#a0">dmotor.h</a></blockquote>
+
+<h3>
+RCX Button Input</h3>
+
+<blockquote>
+<li>
+char <b><font size="+2">getchar()</font></b></li>
+
+<br>Returns one of the Enumerated KEY types:&nbsp; KEY_ONOFF, KEY_PRGM,
+KEY_RUN, KEY_VIEW
+<br>Input is debounced in dkey routines (unlike dbutton).: <a class="el" href="http://legos.sourceforge.net/API/dkey.h.html#a7">dkey.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/dkey.c.html#a4">dkey.c</a>
+<li>
+event wakeup_t <b><font size="+2">dkey_pressed();</font></b> : <a class="el" href="http://legos.sourceforge.net/API/dkey.h.html#a5">dkey.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/dkey.c.html#a2">dkey.c</a></li>
+
+<li>
+event wakeup_t <b><font size="+2">dkey_released();</font></b> : <a class="el" href="http://legos.sourceforge.net/API/dkey.h.html#a6">dkey.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/dkey.c.html#a3">dkey.c</a></li>
+
+<li>
+Enumerated KEY types:&nbsp; KEY_ANY, KEY_ONOFF, KEY_PRGM, KEY_RUN, KEY_VIEW</li>
+</blockquote>
+
+<h3>
+Semaphores</h3>
+
+<dl><dd>
+I'm not really familiar with Posix Semaphores, if someone is willing to
+shed light on this it would be helpfull.</dd></dl>
+
+<blockquote>
+<li>
+sem_destroy() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a6">semaphore.h</a></li>
+
+<li>
+sem_event_wait() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.c.html#a0">semaphore.c</a></li>
+
+<li>
+sem_getvalue() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a5">semaphore.h</a></li>
+
+<li>
+sem_init() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a1">semaphore.h</a></li>
+
+<li>
+sem_post() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a4">semaphore.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/semaphore.c.html#a4">semaphore.c</a></li>
+
+<li>
+sem_t : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a7">semaphore.h</a></li>
+
+<li>
+sem_trywait() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a3">semaphore.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/semaphore.c.html#a2">semaphore.c</a></li>
+
+<li>
+sem_wait() : <a class="el" href="http://legos.sourceforge.net/API/semaphore.h.html#a2">semaphore.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/semaphore.c.html#a1">semaphore.c</a></li>
+</blockquote>
+
+<h3>
+Sensors</h3>
+Defined Constants:&nbsp; LIGHT_RAW_BLACK =&nbsp; 0xffc0 (active light sensor
+raw black value), LIGHT_RAW_WHITE = 0x5080 (active light sensor raw white
+value).&nbsp; LIGHT_MAX = maximum decoded value at LIGHT_RAW_WHITE using
+the formula SCALED_LIGHT_READING = (147 - (RAW_LIGHT_READING &gt;&gt; 6) / 7).
+<ul>
+<li>
+<b><font size="+1">DS_ALL_ACTIVE</font></b></li>
+
+<br>Macro to set all Sensors ACTIVE: <a class="el" href="http://legos.sourceforge.net/API/dsensor.c.html#a0">dsensor.c</a>
+<li>
+<b><font size="+1">DS_ALL_PASSIVE</font></b></li>
+
+<br>Macro to set all Sensors PASSIVE: <a class="el" href="http://legos.sourceforge.net/API/dsensor.c.html#a1">dsensor.c</a>
+<li>
+void<b> <font size="+2">ds_active(<i>SENSOR</i>);</font></b></li>
+
+<br>void<b> <font size="+2">ds_passive(<i>SENSOR</i>);</font></b>
+<br>Parameter: <b><i>SENSOR</i> </b>= (&amp;SENSOR_1, &amp;SENSOR_2, &amp;SENSOR_3)<b>
+</b>to
+active or passive type: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a21">dsensor.h</a>
+<li>
+void<b> <font size="+2">ds_rotation_off(SENSOR);</font></b></li>
+
+<li>
+void<b> <font size="+2">ds_rotation_on(SENSOR);</font></b></li>
+
+<br>Parameter: <b><i>SENSOR </i></b>= (&amp;SENSOR_1, &amp;SENSOR_2, &amp;SENSOR_3)<b>
+</b>turns
+Rotation track off/on: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a23">dsensor.h</a>
+<li>
+void<b> <font size="+2">ds_rotation_set(<i>SENSOR</i>, int <i>i</i>);</font></b></li>
+
+<br>Sets Rotation <b><i>SENSOR</i></b> to arbitrary reading <b><i>i</i></b>
+: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a22">dsensor.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/dsensor.c.html#a2">dsensor.c</a>
+<li>
+boolean <b><font size="+1">TOUCH_1, TOUCH_2, TOUCH_3</font></b></li>
+
+<br>Processed Touch Sensor reading: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a17">dsensor.h</a>
+<li>
+int <b><font size="+1">LIGHT_1, int LIGHT_2, int LIGHT_3</font></b></li>
+
+<br>Scaled SENSOR reading.: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a8">dsensor.h</a>
+<li>
+int <font size="+1"><b>ROTATION_1</b>, <b>ROTATION_2</b>, <b>ROTATION_3</b></font></li>
+
+<br>Processed Rotation Sensor reading: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a13">dsensor.h</a>
+<li>
+int <font size="+1"><b>SENSOR_1</b>, <b>SENSOR_2</b>, <b>SENSOR_3</b></font></li>
+
+<br>Raw Sensor Input reading: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a2">dsensor.h</a>
+<li>
+int<b> <font size="+2">get_battery_mv();</font></b></li>
+
+<br>Get Battery level in XXXX mV: <a class="el" href="http://legos.sourceforge.net/API/battery.h.html#a2">battery.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/battery.c.html#a0">battery.c</a>
+<li>
+int<b> <font size="+1">BATTERY</font></b></li>
+
+<br>Raw Battery Voltage level: <a class="el" href="http://legos.sourceforge.net/API/dsensor.h.html#a3">dsensor.h</a></ul>
+
+<h3>
+Sound</h3>
+
+<blockquote>
+<li>
+void <b><font size="+2">dsound_system(<i>SOUND</i>);</font></b></li>
+
+<li>
+Pre Defined System <b><i>SOUND</i></b>:&nbsp; <font size="-1">DSOUND_BEEP
+</font>:
+<a class="el" href="http://legos.sourceforge.net/API/dsound.h.html#a104">dsound.h</a></li>
+
+<li>
+Event <b><font size="+2">dsound_finished()</font></b></li>
+
+<br>Returns a Non-Zero if sound has finished playing.: <a class="el" href="http://legos.sourceforge.net/API/dsound.h.html#a113">dsound.h</a>
+<li>
+int <b><font size="+2">dsound_playing()</font></b></li>
+
+<br>Returns nonzero value if a sound is playing: <a class="el" href="http://legos.sourceforge.net/API/dsound.h.html#a112">dsound.h</a>
+<li>
+void<font size="+2"> <b>dsound_stop();</b></font></li>
+
+<br>Stop playing current sound/song.: <a class="el" href="http://legos.sourceforge.net/API/dsound.h.html#a114">dsound.h</a>
+<li>
+void <b><font size="+2">dsound_play(const note_t *<i>notes</i>);</font></b></li>
+
+<br>Parameter: <b><i>notes </i></b>array of note_t as defined below:
+<br>Note Data Type:
+<br>typedef struct {
+<br>&nbsp; unsigned char pitch;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //!&lt; note
+pitch, 0 ^= A_0 (~55 Hz)
+<br>&nbsp; unsigned char length;&nbsp;&nbsp;&nbsp;&nbsp; //!&lt; note length
+in 1/16ths<br>
+} note_t;: <a class="el" href="http://legos.sourceforge.net/API/dsound.h.html#a108">dsound.h</a>
+<blockquote>
+<li>
+Pre Defined Note Lengths:&nbsp; <font size="-1">WHOLE, HALF, QUARTER, EIGHTH</font></li>
+
+<li>
+Pre Defined Pitches (Octave <b>X</b> = 0-7):</li>
+
+<br><font size="-1">PITCH_A<b>X</b>, PITCH_Am<b>X</b>, PITCH_C<b>X, </b>PITCH_Cm<b>X,
+</b>PITCH_D<b>X,
+</b>PITCH_Dm<b>X,
+</b>PITCH_E<b>X,
+</b>PITCH_F<b>X,
+</b>PITCH_Fm<b>X,
+</b>PITCH_G<b>X,
+</b>PITCH_Gm<b>X,
+</b>PITCH_H<b>X,
+</b>PITCH_END,
+PITCH_MAX, PITCH_PAUSE</font> : <a class="el" href="http://legos.sourceforge.net/API/dsound.h.html#a101">dsound.h</a></blockquote>
+</blockquote>
+
+<h3>
+Task Management</h3>
+
+<blockquote>
+<li>
+void <b><font size="+2">tm_start();</font></b></li>
+
+<br>Start Task Manager: <a class="el" href="http://legos.sourceforge.net/API/tm.h.html#a3">tm.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a9">tm.c</a>
+<li>
+(int)pid <b><font size="+2">execi(<i>&amp;PROCESS_NAME, int argc, char **argv,</i>
+priority_t priority, size_t stack_size)</font></b></li>
+
+<br>Place function <b><i>PROCESS_NAME</i></b> into the Process queue, returns
+the Process's assigned <b><i>PID</i></b>.: <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a0">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a10">tm.c</a>
+<li>
+void <b><font size="+2">exit(int <i>code</i>);</font></b></li>
+
+<br>Exits Process, returning <b><i>code</i></b>.: <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a1">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a11">tm.c</a>
+<li>
+void<font size="+2"> <b>kill(int <i>PID</i></b></font><b>);</b></li>
+
+<br>Kill Process associated with <b><i>PID</i></b> as assigned when it
+was started by <b>execi()</b>: <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a6">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a16">tm.c</a>
+<li>
+void <b><font size="+2">killall(priority_t <i>p</i>);</font></b></li>
+
+<br>Kill all Processes with a Priority less than <b><i>p</i></b>: <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a7">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a17">tm.c</a>
+<li>
+wakeup_t <b><font size="+2">wait_event(wakeup_t(*wakeup) (wakeup_t), wakeup_t
+data);</font></b></li>
+
+<br>Suspend current Process until Event wakeup function is non-null: <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a3">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a12">tm.c</a>
+<li>
+void <b><font size="+2">yield();</font></b></li>
+
+<br>Yield the rest of the current Task's timeslice.: <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a2">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a4">tm.c</a>
+<li>
+Predefined Priority Levels:&nbsp; <font size="-1">P_DEAD, P_RUNNING, P_SLEEPING,
+P_WAITING, P_ZOMBIE, PRIO_HIGHEST, PRIO_LOWEST, PRIO_NORMAL</font> : <a class="el" href="http://legos.sourceforge.net/API/tm.h.html#a1">tm.h</a></li>
+</blockquote>
+
+<h3>
+Miscellaneous</h3>
+
+<ul>
+<li>
+void <font size="+2"><b>main();</b></font></li>
+
+<br>Main entry point into the User Program.: <a class="el" href="http://legos.sourceforge.net/API/kmain.c.html#a0">kmain.c</a>
+<li>
+int <b><font size="+2">sleep(int <i>sec</i>);</font></b></li>
+
+<br>Pause for <b><i>sec </i></b>seconds ...
+<br>int <b><font size="+2">msleep(int <i>msec</i>);</font></b>
+<br>Pause for <b><i>msec</i></b> milliseconds before executing next commands
+in current task, other tasks will continue to execute commands uneffected.
+<br>(NOT IMPLEMENTED: Returns 0 if interrupted, otherwise returns number
+of msec until interrupted): <a class="el" href="http://legos.sourceforge.net/API/unistd.h.html#a5">unistd.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/tm.c.html#a14">tm.c</a>
+<li>
+void <b><font size="+2">power_off();</font></b></li>
+
+<br>Initiates Software Standby/Low Power mode.&nbsp; On/Off button will
+reactivate.:
+<a class="el" href="http://legos.sourceforge.net/API/system.h.html#a0">system.h</a>
+<li>
+void <b><font size="+2">program_run(unsigned <i>P</i>);</font></b><font size="+2"></font></li>
+
+<br>Execute Program in slot number <b><i>P.</i></b>: <a class="el" href="http://legos.sourceforge.net/API/program.c.html#a3">program.c</a>
+<li>
+void<font size="+2"> <b>reset();</b></font></li>
+
+<br>Returns control to ROM, ie. Cold Boot.: <a class="el" href="http://legos.sourceforge.net/API/system.h.html#a2">system.h</a>
+<li>
+int <font size="+2"><b>random()</b></font></li>
+
+<br>Returns a random integer.: <a class="el" href="http://legos.sourceforge.net/API/stdlib.h.html#a3">stdlib.h</a>
+<li>
+void <b><font size="+2">srandom(int <i>seed</i>);</font></b></li>
+
+<li>
+Seeds the Random Number Generator.: <a class="el" href="http://legos.sourceforge.net/API/stdlib.h.html#a4">stdlib.h</a></li>
+
+<li>
+long int <b><font size="+2">sys_time</font></b>&nbsp;<br>
+Current System Time (Time up from last firmware d/l and boot up) in msec.<br>
+This is a 32 bit value which will overflow after 49.7 days of continuous
+operation: <a class="el" href="http://legos.sourceforge.net/API/time.h.html#a5">time.h</a>,
+<a class="el" href="http://legos.sourceforge.net/API/systime.c.html#a6">systime.c</a></li>
+</ul>
+legOS-0.2.4 is released under the <a href="http://www.mozilla.org/MPL/">Mozilla
+Public License</a>. Original code copyright 1998-1999 by the authors.
+<br>Command Reference copyright 2000 by <a href="mailto:dcchen@pacbell.net">David
+C. Chen</a>.
+</body></html>
