@@ -10,18 +10,27 @@
 <H1 CLASS="TITLE"><A NAME="AEN2" ></A>Instructions for building DJGPP H8300 cross compiler</H1>
 
 <H3 CLASS="AUTHOR"><A NAME="AEN4">Ed Manlove</A></H3>
-<SPAN CLASS="RELEASEINFO">    Version 1.0, 10 October, 2002<BR></SPAN>
+<SPAN CLASS="RELEASEINFO">    Version Pre-Release Ver. 2, 21 October, 2002<BR></SPAN>
 <P CLASS="COPYRIGHT">Copyright &copy; 2002 Ed Manlove.</P
 ><DIV CLASS="REVHISTORY"><TABLE WIDTH="100%" BORDER="0">
 
 <TR><TH ALIGN="LEFT" VALIGN="TOP" COLSPAN="3"><B>Revision History</B></TH></TR>
-<TR><TD ALIGN="LEFT">Revision 1.0</TD><TD ALIGN="LEFT">10 October 2002</TD><TD
-ALIGN="LEFT">Revised by: ecm</TD></TR><TR><TD ALIGN="LEFT"
-COLSPAN="3">Initial Release for brickOS x.x.x.x</TD></TR></TABLE></DIV>
+<TR><TD ALIGN="LEFT">Revision Pre-Release Ver. 2</TD><TD ALIGN="LEFT">21
+October 2002</TD><TD ALIGN="LEFT">Revised by: ecm</TD></TR>
+	<TR><TD ALIGN="LEFT" COLSPAN="3"><UL>
+	<LI>Added step to create DJGPP.bat file.</LI>
+	<LI>Added bsh204b.zip to nessecary files and install instructions.</LI>
+	<LI>Corrected sed utility zip filename to sed302b.zip.</LI></UL></TD></TR>
+<TR><TD ALIGN="LEFT">Revision Pre-Release</TD><TD ALIGN="LEFT">13 October
+2002</TD><TD ALIGN="LEFT">Revised by: ecm</TD></TR>
+	     <TR><TD ALIGN="LEFT" COLSPAN="3"><UL>
+	     <LI>Initial Pre-Release.</LI></UL></TD></TR>
+</TABLE></DIV>
 <HR></DIV>
 
 <P><FONT COLOR="#FF0000">The following are instructions I am using for building the Hitachi H8300
-cross compiler for the DJGPP environment.  Please read through the entire
+cross compiler for the DJGPP environment.  This instructions are not
+complete and need to be reformatted. Please read through the entire
 message before proceeding.</FONT></P>
 
 <P>Many thanks to ...
@@ -38,7 +47,7 @@ message before proceeding.</FONT></P>
 <TR><TD ALIGN="LEFT">Eli Zaretski</TD>
 	<TD ALIGN="LEFT">For providing excellent technical support with
 	DJGPP and helping those who came before me.</TD></TR>
-<TR><TD ALIGN="LEFT">Martin Str|mberg</TD>
+<TR><TD ALIGN="LEFT">Martin Stromberg</TD>
 	<TD ALIGN="LEFT">For providing technical support with
 	DJGPP.</TD></TR>
 </TABLE></P>
@@ -72,13 +81,14 @@ v2\faq230b.zip
 v2\djcrx203.zip
 v2gnu\bnu2121b.zip
 v2gnu\gcc31b.zip
+v2gnu\bsh204b.zip
 v2gnu\mak3791b.zip
 v2gnu\txi42b.zip
 v2gnu\fil316b.zip
 v2gnu\shl2011b.zip
 v2gnu\tar112ab.zip
 v2gnu\gzip13b.zip
-v2gnu\sed203b.zip
+v2gnu\sed302b.zip
 v2gnu\pat253b.zip
 v2gnu\grep24b.zip
 v2gnu\txt20b.zip
@@ -102,6 +112,7 @@ C:\DJGPP> unzip32 c:\temp\djdev203.zip
 C:\DJGPP> unzip32 c:\temp\faq230b.zip
 C:\DJGPP> unzip32 c:\temp\bnu2121b.zip
 C:\DJGPP> unzip32 c:\temp\gcc31b.zip
+C:\DJGPP> unzip32 c:\temp\bsh204b.zip
 C:\DJGPP> unzip32 c:\temp\mak3791b.zip
 C:\DJGPP> unzip32 c:\temp\txi42b.zip
 C:\DJGPP> unzip32 c:\temp\djcrx203.zip
@@ -109,7 +120,7 @@ C:\DJGPP> unzip32 c:\temp\fil316b.zip
 C:\DJGPP> unzip32 c:\temp\shl2011b.zip
 C:\DJGPP> unzip32 c:\temp\tar112ab.zip
 C:\DJGPP> unzip32 c:\temp\gzip13b.zip
-C:\DJGPP> unzip32 c:\temp\sed203b.zip
+C:\DJGPP> unzip32 c:\temp\sed302b.zip
 C:\DJGPP> unzip32 c:\temp\pat253b.zip
 C:\DJGPP> unzip32 c:\temp\grep24b.zip
 C:\DJGPP> unzip32 c:\temp\txt20b.zip
@@ -165,6 +176,17 @@ DOS/DJGPP session</H2>
 <P></P>
 
 <UL>
+<LI><P>First, create a batch file, C:\DJGPP\DJGPP.BAT, to set the path and
+environment variables.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+@echo off
+set PATH=c:\djgpp\bin;%PATH%
+set DJGPP=c:\djgpp\djgpp.env
+</PRE></TD></TR></TABLE>
+</P></LI>
+
 <LI><P>To start a DOS session select Start | Programs | MS-Dos Prompt.</P></LI>
 
 <LI><P>Next, set up the DJGPP environment variables.  At the DOS prompt
@@ -180,8 +202,8 @@ C:\DJGPP> DJGPP
 below, you need to expand the size of the enviroment memory.
 <TABLE BORDER="0" BGCOLOR="#FF0000" WIDTH="50%">
 <TR><TD><PRE CLASS="ERRORREPORT">
-C:\>cd djgpp
-C:\DJGPP>djgpp
+C:\>cd DJGPP
+C:\DJGPP>DJGPP
 Out of environment space
 
 C:\DJGPP>
@@ -214,6 +236,17 @@ environment variables.
 </P>
 
 <UL>
+<LI><P>First, create a batch file, C:\DJGPP\DJGPP.BAT, to set the path and
+environment variables.
+
+<TABLE BORDER="0" BGCOLOR="#E0E0E0" WIDTH="90%">
+<TR><TD><PRE CLASS="PROGRAMLISTING">
+@echo off
+set PATH=c:\djgpp\bin;%PATH%
+set DJGPP=c:\djgpp\djgpp.env
+</PRE></TD></TR></TABLE>
+</P></LI>
+
 <LI><P>To create a shortcut open the folder in which you wish to place the
 shortcut or go to the desktop.  In the folder or desktop, right-click on
 the backgrond and choose New -> Shortcut. The Create Shortcut dialog box should
